@@ -9,7 +9,6 @@ import {Link} from 'react-router-dom';
 
 function Header() {
 
-const email  = localStorage.getItem('email');
 const name  = localStorage.getItem('name');
 const photo  = localStorage.getItem('photo');
 

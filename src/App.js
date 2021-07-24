@@ -7,7 +7,6 @@ import Chats from './Pages/chats';
 import Explore from './Pages/explore';
 import Profile from './Pages/profile';
 import Login from './Pages/Login';
-import { PrivateRoute } from './Components/PrivateRouter';
 import Header from './Components/Header';
 function App() {
   const email = localStorage.getItem('email');
