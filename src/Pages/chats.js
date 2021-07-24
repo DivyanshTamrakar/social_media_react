@@ -1,14 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
 
 function Chats() {
     return (
-        <ChatContainer>
+        <div>
             Chats Activity
-        </ChatContainer>
+        </div>
     )
 }
 
 export default Chats
-
-const ChatContainer = styled.div``;

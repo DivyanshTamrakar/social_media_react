@@ -1,52 +1,30 @@
 import React from 'react'
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-import ExploreOutlinedIcon from '@material-ui/icons/ExploreOutlined';
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
-import ChatOutlinedIcon from '@material-ui/icons/ChatOutlined';
-import Avatar from '@material-ui/core/Avatar';
-import {HeaderContainer,HeaderLeft,HeaderRight,HeaderSearch} from './Header.style'
-import {Link} from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFacebookMessenger } from '@fortawesome/free-brands-svg-icons'
+import { faHome,faCompass,faHeart } from '@fortawesome/free-solid-svg-icons'
+import { Link } from  'react-router-dom';
 
 function Header() {
-
-const email  = localStorage.getItem('email');
-const name  = localStorage.getItem('name');
-const photo  = localStorage.getItem('photo');
-
-
-
     return (
-      <HeaderContainer>
-        <HeaderLeft>
-          <Link to='/'>
-          <img src={'https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png'} alt="logoicon"/>
-          </Link>
-        </HeaderLeft>
-        
-        <HeaderSearch>
-          <input placeholder="Search " type="text"/>
-        </HeaderSearch>
-      
-      <HeaderRight>
-      <Link to='/'> 
-       <HomeOutlinedIcon/></Link>
-       <Link to='/chats'> 
-       <ChatOutlinedIcon/></Link>
-       <Link to='/explore'> 
-       <ExploreOutlinedIcon/></Link>
-       <Link to='/activity'> 
-       <FavoriteBorderOutlinedIcon/></Link>
-       <Link to='/login'> 
-       <Avatar alt={name} src={photo} />
-        </Link>
-       
+        <div className="Header">
+          <div>
+            <Link to='/'><img className="cursor" src={"https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"} alt={"logo"}/></Link>
+          </div>
+          
+          <div className="input-search">
+              <input type="search" placeholder="Search"/>
+          </div>
+          
+          <div className="icon-box">
+             <Link  to='/' className='text-decoration-none color-black'> <FontAwesomeIcon className="cursor home-hover" icon={faHome} size='lg'   /></Link>
+             <Link to='/chats' className='text-decoration-none color-black'><FontAwesomeIcon className="cursor messenger-hover" icon={faFacebookMessenger} size='lg'  /></Link>
+             <Link to='/explore' className='text-decoration-none color-black'><FontAwesomeIcon className="cursor compass-hover" icon={faCompass} size='lg' aria-hidden='true'/></Link>
+             <Link to='/activity' className='text-decoration-none color-black'> <FontAwesomeIcon className="cursor heart-hover" icon={faHeart}  size='lg' /></Link>
+             <Link to='/profile' className='text-decoration-none color-black'><img src={"https://image.flaticon.com/icons/png/512/456/456212.png"} alt={'profile'} height="20px" width="20px"/></Link>
+          </div>
 
-
-      </HeaderRight>
-      
-      
-      </HeaderContainer>
-      );
+        </div>
+    )
 }
 
 export default Header

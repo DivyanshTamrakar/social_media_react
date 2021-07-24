@@ -1,14 +1,11 @@
 import React from 'react'
-import styled from 'styled-components'
 
 function Activity() {
     return (
-        <ActivityContainer>
+        <div>
             This is activity tab
-        </ActivityContainer>
+        </div>
     )
 }
 
 export default Activity
-
-const ActivityContainer = styled.div``;
