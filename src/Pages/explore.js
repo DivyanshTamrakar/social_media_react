@@ -1,11 +1,14 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components';
 
 function Explore() {
     return (
-        <div>
+        <ExploreContainer>
             explore page
-        </div>
+        </ExploreContainer>
     )
 }
 
 export default Explore
+ 
+const ExploreContainer = styled.div``;
