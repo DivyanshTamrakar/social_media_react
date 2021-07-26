@@ -35,7 +35,7 @@ const photo  = localStorage.getItem('photo');
        <ExploreOutlinedIcon/></Link>
        <Link to='/activity'> 
        <FavoriteBorderOutlinedIcon/></Link>
-       <Link to='/login'> 
+       <Link to='/profile'> 
        <Avatar alt={name} src={photo} />
         </Link>
        

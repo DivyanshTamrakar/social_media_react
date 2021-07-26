@@ -9,6 +9,6 @@ const firebaseConfig = {
     measurementId: "G-VET2S11RBD"
   };
 
-  const firebaseApp = firebase.initializeApp(firebaseConfig);
+  firebase.initializeApp(firebaseConfig);
   export const auth = firebase.auth();
   export const provider = new firebase.auth.GoogleAuthProvider();

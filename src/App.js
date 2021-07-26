@@ -8,20 +8,34 @@ import Explore from './Pages/explore';
 import Profile from './Pages/profile';
 import Login from './Pages/Login';
 import Header from './Components/Header';
+import {useAuth} from './Context/AuthContext';
+import {PrivateRoute} from './Components/PrivateRouter';
+
 function App() {
-  const email = localStorage.getItem('email');
+  
+  const { login, setLogin} = useAuth();
+
+    const email = localStorage.getItem('email');
+
+    if(email !== null){
+
+       setLogin(true);
+     }
+
   return (
     <div className="App">
   
-  {email && <Header/>}
- <Routes>
-   <Route path="/" element={<Home/>}/>
-   <Route path="/activity" element={<Activity/>}/>
-   <Route path="/chats" element={<Chats/>}/>
-   <Route path="/explore" element={<Explore/>}/>
-   <Route path="/profile" element={<Profile/>}/>
-   <Route path="/login" element={<Login/>}/>
+  {login && <Header/>}
+  <Routes>
+   <PrivateRoute path="/" element={<Home/>}/>
+   {login && <Route path="/activity" element={<Activity/>}/>}
+   {login && <Route path="/chats" element={<Chats/>}/>}
+   {login && <Route path="/explore" element={<Explore/>}/>}
+   {login && <Route path="/profile" element={<Profile/>}/>}
+   {!login && <Route path="/login" element={<Login/>}/>}
+   
  </Routes>
+ 
     </div>
   );
 }

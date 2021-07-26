@@ -7,6 +7,8 @@ export function PrivateRoute({path, ...props}){
 
   
     const { login } = useAuth();
+    
+    
 
     console.log("via private router login");
     console.log({path});
