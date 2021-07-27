@@ -1,6 +1,5 @@
-
 import styled from 'styled-components';
-export const LoginContainer = styled.div`
+export const LoginContainer = styled.div `
 position: absolute;
 left: 50%;
 top: 50%;
@@ -8,7 +7,7 @@ top: 50%;
 transform: translate(-50%, -50%);
 
 `;
-export const LoginForm = styled.div`
+export const LoginForm = styled.div `
 text-align: left;
 padding: 15px;
 width: 20rem;
@@ -59,11 +58,8 @@ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
 
->small{
-    font-weight: 800;
-    font-size: 15px;
-    color: royalblue;
-    align-self: flex-end;
+> small{
+  
     cursor: pointer;
 }
 `;

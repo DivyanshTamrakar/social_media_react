@@ -1,117 +1,102 @@
-import React from 'react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import "./profile.css";
-export const HideLinkUnderline = { textDecoration: 'none' ,color:'black'};
-export const GoToRegisterPageLink ={display:'inline',fontWeight:'500',textAlign:'left',cursor:'pointer'}
+import React from "react";
+import Button from "@material-ui/core/Button";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
+import { Link } from "react-router-dom";
+import { LoginContainer, LoginForm } from "./Login.style";
+import { useFormik } from "formik";
 
+let initialValues = { email: "", name: "", password: "" };
+let onSubmit = (values) => {
+  console.log("Form Data", values);
+};
+let validate = (values) => {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line
+  let errors = {};
 
+  if (!values.email) {
+    errors.email = "email is required";
+  } else if (!re.test(values.email)) {
+    errors.email = "Invalid Email Format";
+  }
+  if (!values.name) {
+    errors.name = "name is required";
+  }
+  if (!values.password) {
+    errors.password = "password is required";
+  }
 
-function SignUp() {
+  return errors;
+};
 
+function Signup() {
+  const formik = useFormik({ initialValues, onSubmit, validate });
 
-    const [UserDetails,setUserDetails] = useState({
-        fullName:'',
-        email:'',
-        password:'',
-        mobile:''
-      })
-      
-      function InputChangehandler(e){
-        let name = e.target.name;
-        let value = e.target.value;
-        setUserDetails({...UserDetails,[name]:value})
-      }
-      
-      function SubmitHandler(e){
-        e.preventDefault()
-        let newRecord = {...UserDetails};
-        if((newRecord.email === '') && (newRecord.password === ''))
-        {
-          console.log("fill all fileds");
-        } 
-        else{
-        //   LoginWithCredential(newRecord.email,newRecord.password);
-        console.log(newRecord);
-            }
-    
-    
-      }
-    
+  return (
+    <LoginContainer>
+      <LoginForm>
+        <center>
+          <h2 style={{ fontWeight: "900" }}>SignUp</h2>
+        </center>
 
+        <form onSubmit={formik.handleSubmit}>
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            name="email"
+            placeholder="Enter Email"
+            onChange={formik.handleChange}
+            value={formik.values.email}
+          />
+          <small>{formik.errors.email && `${formik.errors.email}`}</small>
 
-    return (
-        <div>
-            <form action="" onSubmit={SubmitHandler}>
-              <div className="form-frame signup">
-                <span>Sign Up</span>
-                <div>
-               <label>Full Name </label>
-               <input 
-                  type="text" 
-                  value={UserDetails.fullName}
-                  onChange={InputChangehandler}
-                  name="fullName"
-                  autoComplete="off"
-                 placeholder="Enter Full Name "/>
-              </div>    
-               
-              <div>
-               <label>Email address</label>
-               <input 
-                  type="text" 
-                  value={UserDetails.email}
-                  onChange={InputChangehandler}
-                  name="email"
-                  autoComplete="off"
-                 placeholder="Enter email"/>
-              </div>    
-  
-              <div>
-                  <label>Password</label>
-                  <input 
-                    type="password" 
-                    value={UserDetails.password}
-                    onChange={InputChangehandler}
-                    name="password" 
-                    autoComplete="off"
-                    placeholder="Enter password"/>
-              </div>    
+          <label htmlFor="email">Name</label>
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter Name"
+            onChange={formik.handleChange}
+            value={formik.values.name}
+          />
+          <small>{formik.errors.name && `${formik.errors.name}`}</small>
 
-              <div>
-                  <label>Mobile No </label>
-                  <input 
-                    type="number" 
-                    value={UserDetails.mobile}
-                    onChange={InputChangehandler}
-                    name="mobile" 
-                    autoComplete="off"
-                    placeholder="Enter mobile no"/>
-              </div>    
+          <label htmlFor="text">Password</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            onChange={formik.handleChange}
+            value={formik.values.password}
+          />
+          <small>{formik.errors.password && `${formik.errors.password}`}</small>
 
-              <div>
-                 <section>
-                     <input type="checkbox" name="remember"/>
-                     <label style={{fontWeight:'700'}}> Remember me</label>
-                 </section>
-              </div>
-       
-              <div> <button type="submit">SignUp</button> </div>
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            startIcon={<LockOpenIcon />}
+          >
+            SignUp
+          </Button>
+        </form>
+        <center>
+          <h2 style={{ fontWeight: "900" }}>OR</h2>
+        </center>
 
-              <div  style={GoToRegisterPageLink}> 
-              <Link to='/profile' style={HideLinkUnderline}>
-              Already Having Account ?<span style={{color:'#3498db',display:'inline'}}> SignIn</span>
-              </Link>
-              </div>
-       
-       
-        </div>
-    
-       </form>
-       
-       
-        </div>
-    )
+        <Link
+          to="/login"
+          style={{
+            textDecoration: "none",
+            color: "royalblue",
+            fontSize: "20px",
+            fontWeight: "800",
+          }}
+        >
+          <small>Already have account ? SignIn</small>
+        </Link>
+      </LoginForm>
+    </LoginContainer>
+  );
 }
 
-export default SignUp
+export default Signup;
