@@ -4,10 +4,14 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { Link } from "react-router-dom";
 import { LoginContainer, LoginForm } from "./Login.style";
 import { useFormik } from "formik";
+import { auth } from "../firebase";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 let initialValues = { email: "", name: "", password: "" };
 let onSubmit = (values) => {
   console.log("Form Data", values);
+  SignUpWithEmailandPassword({ email: values.email, pass: values.password });
 };
 let validate = (values) => {
   const re =
@@ -29,8 +33,24 @@ let validate = (values) => {
   return errors;
 };
 
+const SignUpWithEmailandPassword = async ({ email, pass }) => {
+  try {
+    let response = await auth.createUserWithEmailAndPassword(email, pass);
+
+    if (response.user) {
+      console.log(response.user.email);
+    }
+  } catch (error) {
+    toast.error(error.message, { position: "bottom-center" });
+  }
+};
+
 function Signup() {
-  const formik = useFormik({ initialValues, onSubmit, validate });
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validate,
+  });
 
   return (
     <LoginContainer>
@@ -94,6 +114,8 @@ function Signup() {
         >
           <small>Already have account ? SignIn</small>
         </Link>
+
+        <ToastContainer />
       </LoginForm>
     </LoginContainer>
   );

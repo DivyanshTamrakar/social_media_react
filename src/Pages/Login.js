@@ -6,11 +6,18 @@ import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import { LoginContainer, LoginForm } from "./Login.style";
 import { useFormik } from "formik";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 let initialValues = { email: "", password: "" };
 let onSubmit = (values) => {
   console.log("Form Data", values);
+  SignInWithEmailandPassword({
+    email: values.email,
+    password: values.password,
+  });
 };
+
 let validate = (values) => {
   const re =
     /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line
@@ -26,6 +33,19 @@ let validate = (values) => {
   }
 
   return errors;
+};
+
+const SignInWithEmailandPassword = async ({ email, password }) => {
+  try {
+    let response = await auth.signInWithEmailAndPassword(email, password);
+
+    if (response.user) {
+      console.log(response.user.email);
+      console.log(response.user.uid);
+    }
+  } catch (error) {
+    toast.error(error.message, { position: "bottom-center" });
+  }
 };
 
 function Login() {
@@ -49,7 +69,11 @@ function Login() {
     }
   };
 
-  const formik = useFormik({ initialValues, onSubmit, validate });
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validate,
+  });
 
   return (
     <LoginContainer>
@@ -105,9 +129,8 @@ function Login() {
           style={{
             textDecoration: "none",
             color: "royalblue",
-            fontSize:'20px',
-            fontWeight:'800',
-
+            fontSize: "20px",
+            fontWeight: "800",
           }}
         >
           <small style={{ textDecoration: "none" }}>
@@ -115,6 +138,7 @@ function Login() {
           </small>
         </Link>
       </LoginForm>
+      <ToastContainer />
     </LoginContainer>
   );
 }
