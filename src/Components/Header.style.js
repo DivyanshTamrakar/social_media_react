@@ -52,3 +52,22 @@ export const HeaderRight = styled.div`
     text-decoration: none;
   }
 `;
+
+export const PopupContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
+export const ProfileDetails = styled.div`
+  display: flex;
+  border: none;
+  align-items: center;
+  margin: 10px 45px;
+  justify-content: space-around;
+  cursor: pointer;
+`;
+
+export const UnderlineHide = {
+  textDecoration: "none",
+  color: "black",
+};

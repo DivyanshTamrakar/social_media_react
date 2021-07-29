@@ -6,32 +6,26 @@ import Activity from "./Pages/Activity";
 import Chats from "./Pages/chats";
 import Explore from "./Pages/explore";
 import Profile from "./Pages/profile";
-import Signup from './Pages/SignUp';
+import Signup from "./Pages/SignUp";
 import Login from "./Pages/Login";
 import Header from "./Components/Header";
 import { useAuth } from "./Context/AuthContext";
 import { PrivateRoute } from "./Components/PrivateRouter";
 
 function App() {
-  const { login, setLogin } = useAuth();
-
-  const email = localStorage.getItem("email");
-
-  if (email !== null) {
-    setLogin(true);
-  }
+  const { login } = useAuth();
 
   return (
     <div className="App">
       {login && <Header />}
       <Routes>
         <PrivateRoute path="/" element={<Home />} />
-        {login && <Route path="/activity" element={<Activity />} />}
-        {login && <Route path="/chats" element={<Chats />} />}
-        {login && <Route path="/explore" element={<Explore />} />}
-        {login && <Route path="/profile" element={<Profile />} />}
-        {!login && <Route path="/login" element={<Login />} />}
-        {!login && <Route path="/signup" element={<Signup/>} />}
+        <Route path="/activity" element={<Activity />} />
+        <Route path="/chats" element={<Chats />} />
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
       </Routes>
     </div>
   );

@@ -4,17 +4,27 @@ import ExploreOutlinedIcon from "@material-ui/icons/ExploreOutlined";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import ChatOutlinedIcon from "@material-ui/icons/ChatOutlined";
 import Avatar from "@material-ui/core/Avatar";
+import Popup from "reactjs-popup";
+import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
+import "reactjs-popup/dist/index.css";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import {
   HeaderContainer,
   HeaderLeft,
   HeaderRight,
   HeaderSearch,
+  PopupContent,
+  ProfileDetails,
+  UnderlineHide
 } from "./Header.style";
 import { Link } from "react-router-dom";
+import {useAuth} from '../Context/AuthContext'
+
+
 
 function Header() {
-  const name = localStorage.getItem("name");
-  const photo = localStorage.getItem("photo");
+
+  const { signOut } = useAuth();
 
   return (
     <HeaderContainer>
@@ -34,24 +44,43 @@ function Header() {
       </HeaderSearch>
 
       <HeaderRight>
-        <Link to="/">
+        <Link to="/" style={UnderlineHide}>
           <HomeOutlinedIcon />
         </Link>
-        <Link to="/chats">
+        <Link to="/chats" style={UnderlineHide}>
           <ChatOutlinedIcon />
         </Link>
-        <Link to="/explore">
+        <Link to="/explore" style={UnderlineHide}>
           <ExploreOutlinedIcon />
         </Link>
-        <Link to="/activity">
+        <Link to="/activity" style={UnderlineHide}>
           <FavoriteBorderOutlinedIcon />
         </Link>
-        <Link to="/profile">
-          <Avatar alt={name} src={photo} />
-        </Link>
+        <Popup
+          trigger={
+            <Avatar style={{ cursor: "pointer" }} alt={"divysn"} src={null} />
+          }
+          position="bottom right"
+        >
+          <PopupContent>
+            <Link to="/profile" style={UnderlineHide}>
+              <ProfileDetails>
+                <AccountCircleRoundedIcon />
+                <h3>Profile</h3>
+              </ProfileDetails>
+            </Link>
+            {<hr />}
+              <ProfileDetails onClick={signOut}>
+                <ExitToAppIcon />
+                <h3>Logout</h3>
+              </ProfileDetails>
+
+          </PopupContent>
+        </Popup>
       </HeaderRight>
     </HeaderContainer>
   );
 }
 
 export default Header;
+

@@ -2,21 +2,23 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { auth, provider } from "../firebase";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import { LoginContainer, LoginForm } from "./Login.style";
 import { useFormik } from "formik";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { TextField } from "@material-ui/core";
+import Profile from "./profile";
 
 let initialValues = { email: "", password: "" };
-let onSubmit = (values) => {
-  console.log("Form Data", values);
-  SignInWithEmailandPassword({
-    email: values.email,
-    password: values.password,
-  });
-};
+// let onSubmit = (values) => {
+//   console.log("Form Data", values);
+//   SignInWithEmailandPassword({
+//     email: values.email,
+//     password: values.password,
+//   });
+// };
 
 let validate = (values) => {
   const re =
@@ -35,109 +37,92 @@ let validate = (values) => {
   return errors;
 };
 
-const SignInWithEmailandPassword = async ({ email, password }) => {
-  try {
-    let response = await auth.signInWithEmailAndPassword(email, password);
-
-    if (response.user) {
-      console.log(response.user.email);
-      console.log(response.user.uid);
-    }
-  } catch (error) {
-    toast.error(error.message, { position: "bottom-center" });
-  }
-};
-
 function Login() {
-  let navigate = useNavigate();
-  const { setLogin } = useAuth();
-
-  const signIn = async () => {
-    try {
-      let { user } = await auth.signInWithPopup(provider);
-      if (user) {
-        localStorage.setItem("email", user.email);
-        localStorage.setItem("name", user.displayName);
-        localStorage.setItem("photo", user.photoURL);
-        setLogin(true);
-        navigate("/", { replace: true });
-      } else {
-        alert("Something went wrong !");
-      }
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
+  const { login, SignInWithEmailandPassword } = useAuth();
   const formik = useFormik({
     initialValues,
-    onSubmit,
+    onSubmit: (values) => {
+      console.log("Form Data", values);
+      SignInWithEmailandPassword({
+        email: values.email,
+        password: values.password,
+      });
+    },
     validate,
   });
 
   return (
     <LoginContainer>
-      <LoginForm>
-        <center>
-          <h2 style={{ fontWeight: "900" }}>SignIn</h2>
-        </center>
+      {login ? (
+        <Profile />
+      ) : (
+        <LoginForm>
+          <center>
+            <h2 style={{ fontWeight: "900" }}>SignIn</h2>
+          </center>
 
-        <form onSubmit={formik.handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
-            type="text"
-            name="email"
-            placeholder="Enter Email"
-            onChange={formik.handleChange}
-            value={formik.values.email}
-          />
-          <small>{formik.errors.email && `${formik.errors.email}`}</small>
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
+              style={{ margin: "0.5rem" }}
+              required
+              type="text"
+              name="email"
+              placeholder="Enter Email"
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              id="outlined-basic"
+              label="Email"
+              variant="outlined"
+            />
 
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter Password"
-            onChange={formik.handleChange}
-            value={formik.values.password}
-          />
-          <small>{formik.errors.password && `${formik.errors.password}`}</small>
+            <small>{formik.errors.email && `${formik.errors.email}`}</small>
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            startIcon={<LockOpenIcon />}
+            <TextField
+              required
+              style={{ margin: "0.5rem" }}
+              type="password"
+              name="password"
+              placeholder="Enter Password"
+              onChange={formik.handleChange}
+              value={formik.values.password}
+              id="outlined-basic"
+              label="Password"
+              variant="outlined"
+            />
+
+            <small>
+              {formik.errors.password && `${formik.errors.password}`}
+            </small>
+
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              startIcon={<LockOpenIcon />}
+            >
+              Login
+            </Button>
+          </form>
+          <center>
+            <h2 style={{ fontWeight: "900" }}>OR</h2>
+          </center>
+
+          <Link
+            to="/signup"
+            style={{
+              textDecoration: "none",
+              color: "royalblue",
+              fontSize: "20px",
+              fontWeight: "800",
+            }}
           >
-            Login
-          </Button>
-        </form>
-        <center>
-          <h2 style={{ fontWeight: "900" }}>OR</h2>
-        </center>
+            <small style={{ textDecoration: "none" }}>
+              Not having an Account ? SignUp
+            </small>
+          </Link>
+        </LoginForm>
+      )}
 
-        <Button
-          onClick={signIn}
-          variant="contained"
-          color="primary"
-          startIcon={<LockOpenIcon />}
-        >
-          Sign In with Google
-        </Button>
-        <Link
-          to="/signup"
-          style={{
-            textDecoration: "none",
-            color: "royalblue",
-            fontSize: "20px",
-            fontWeight: "800",
-          }}
-        >
-          <small style={{ textDecoration: "none" }}>
-            Not having an Account ? SignUp
-          </small>
-        </Link>
-      </LoginForm>
       <ToastContainer />
     </LoginContainer>
   );

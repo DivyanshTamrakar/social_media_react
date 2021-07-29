@@ -7,6 +7,7 @@ import { useFormik } from "formik";
 import { auth } from "../firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { TextField } from "@material-ui/core";
 
 let initialValues = { email: "", name: "", password: "" };
 let onSubmit = (values) => {
@@ -60,8 +61,12 @@ function Signup() {
         </center>
 
         <form onSubmit={formik.handleSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
+          <TextField
+            style={{ margin: "0.5rem" }}
+            required
+            id="outlined-basic"
+            label="Email"
+            variant="outlined"
             type="text"
             name="email"
             placeholder="Enter Email"
@@ -70,8 +75,12 @@ function Signup() {
           />
           <small>{formik.errors.email && `${formik.errors.email}`}</small>
 
-          <label htmlFor="email">Name</label>
-          <input
+          <TextField
+            style={{ margin: "0.5rem" }}
+            required
+            id="outlined-basic"
+            label="Name"
+            variant="outlined"
             type="text"
             name="name"
             placeholder="Enter Name"
@@ -80,8 +89,12 @@ function Signup() {
           />
           <small>{formik.errors.name && `${formik.errors.name}`}</small>
 
-          <label htmlFor="text">Password</label>
-          <input
+          <TextField
+            style={{ margin: "0.5rem" }}
+            required
+            id="outlined-basic"
+            label="Password"
+            variant="outlined"
             type="password"
             name="password"
             placeholder="Enter Password"

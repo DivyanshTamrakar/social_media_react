@@ -1,39 +1,27 @@
-import React from 'react';
-import styled from 'styled-components';
-import Button from '@material-ui/core/Button';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import {auth} from '../firebase';
-import { useAuth } from '../Context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-
+import React from "react";
+import styled from "styled-components";
+import Button from "@material-ui/core/Button";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useAuth } from "../Context/AuthContext";
 
 function Profile() {
 
-  const navigate = useNavigate();
+  const { signOut } = useAuth();
 
-const {setLogin} = useAuth();
-
-  const signOut =() =>{
-    localStorage.clear();
-    setLogin(false);
-    auth.signOut();
-    navigate("/login", { replace: true });
-}
-
-
-    return (
-        <ProfileContainer>
-       <Button onClick={signOut}
+  return (
+    <ProfileContainer>
+      <Button
+        onClick={signOut}
         variant="contained"
         color="secondary"
         startIcon={<ExitToAppIcon />}
-        >
+      >
         Sign Out
       </Button>
-        </ProfileContainer>
-    )
+    </ProfileContainer>
+  );
 }
 
-export default Profile
+export default Profile;
 
 const ProfileContainer = styled.div``;
