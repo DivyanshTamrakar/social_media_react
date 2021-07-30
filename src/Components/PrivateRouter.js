@@ -3,10 +3,12 @@ import { useAuth } from "../Context/AuthContext";
 import { Route, Navigate } from "react-router-dom";
 
 export function PrivateRoute({ path, ...props }) {
-  const { login ,setLogin} = useAuth();
+  const { login, setLogin } = useAuth();
 
   const loginStatus = localStorage.getItem("login");
-  if(loginStatus){setLogin(true)}
+  if (loginStatus) {
+    setLogin(true);
+  }
 
   console.log("via private router login");
   console.log({ path });

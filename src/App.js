@@ -9,15 +9,12 @@ import Profile from "./Pages/profile";
 import Signup from "./Pages/SignUp";
 import Login from "./Pages/Login";
 import Header from "./Components/Header";
-import { useAuth } from "./Context/AuthContext";
 import { PrivateRoute } from "./Components/PrivateRouter";
 
 function App() {
-  const { login } = useAuth();
-
   return (
     <div className="App">
-      {login && <Header />}
+      <Header />
       <Routes>
         <PrivateRoute path="/" element={<Home />} />
         <Route path="/activity" element={<Activity />} />

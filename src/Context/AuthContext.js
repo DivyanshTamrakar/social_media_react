@@ -1,26 +1,23 @@
 import { createContext, useContext, useState } from "react";
-import {auth} from '../firebase'
+import { auth } from "../firebase";
 export const AuthContext = createContext();
 
-export function AuthProvider({children}){
-  const [login,setLogin] = useState(false);
-
+export function AuthProvider({ children }) {
+  const [login, setLogin] = useState(false);
 
   const SignInWithEmailandPassword = async ({ email, password }) => {
     try {
       let response = await auth.signInWithEmailAndPassword(email, password);
-  
-      if (response.user) {
-        localStorage.setItem('login',true);
-        setLogin(true);
 
+      if (response.user) {
+        localStorage.setItem("login", true);
+        setLogin(true);
       }
     } catch (error) {
       alert(error.message);
     }
   };
 
-  
   const signOut = () => {
     auth
       .signOut()
@@ -31,20 +28,16 @@ export function AuthProvider({children}){
       .catch((error) => {
         console.log(error);
       });
-      };
+  };
 
-
-
-
-
-
-    return (
-        <AuthContext.Provider value={{login,SignInWithEmailandPassword,setLogin,signOut}}>
-          {children}
-        </AuthContext.Provider>
-      );
+  return (
+    <AuthContext.Provider
+      value={{ login, SignInWithEmailandPassword, setLogin, signOut }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
 }
-export function useAuth(){
+export function useAuth() {
   return useContext(AuthContext);
-   
 }

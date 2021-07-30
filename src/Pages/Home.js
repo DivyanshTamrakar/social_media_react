@@ -2,11 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import {useAuth} from '../Context/AuthContext';
 
 function Home() {
-
-
   return (
     <HomeContainer>
       This is Home Conatainer
@@ -22,9 +19,9 @@ function Home() {
 export default Home;
 
 const HomeContainer = styled.div``;
- 
+
 const AddPost = styled.div`
-position: fixed;
-bottom:2rem;
-right: 2rem;
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
 `;

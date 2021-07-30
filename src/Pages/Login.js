@@ -1,53 +1,44 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
-import { auth, provider } from "../firebase";
 import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import { LoginContainer, LoginForm } from "./Login.style";
 import { useFormik } from "formik";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TextField } from "@material-ui/core";
 import Profile from "./profile";
 
-let initialValues = { email: "", password: "" };
-// let onSubmit = (values) => {
-//   console.log("Form Data", values);
-//   SignInWithEmailandPassword({
-//     email: values.email,
-//     password: values.password,
-//   });
-// };
-
-let validate = (values) => {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line
-  let errors = {};
-
-  if (!values.email) {
-    errors.email = "email is required";
-  } else if (!re.test(values.email)) {
-    errors.email = "Invalid Email Format";
-  }
-  if (!values.password) {
-    errors.password = "password is required";
-  }
-
-  return errors;
-};
-
 function Login() {
   const { login, SignInWithEmailandPassword } = useAuth();
+  let initialValues = { email: "", password: "" };
+  let onSubmit = (values) => {
+    console.log("Form Data", values);
+    SignInWithEmailandPassword({
+      email: values.email,
+      password: values.password,
+    });
+  };
+  let validate = (values) => {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line
+    let errors = {};
+
+    if (!values.email) {
+      errors.email = "email is required";
+    } else if (!re.test(values.email)) {
+      errors.email = "Invalid Email Format";
+    }
+    if (!values.password) {
+      errors.password = "password is required";
+    }
+
+    return errors;
+  };
   const formik = useFormik({
     initialValues,
-    onSubmit: (values) => {
-      console.log("Form Data", values);
-      SignInWithEmailandPassword({
-        email: values.email,
-        password: values.password,
-      });
-    },
+    onSubmit,
     validate,
   });
 

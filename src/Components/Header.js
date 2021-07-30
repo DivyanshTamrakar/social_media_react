@@ -4,8 +4,8 @@ import ExploreOutlinedIcon from "@material-ui/icons/ExploreOutlined";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import ChatOutlinedIcon from "@material-ui/icons/ChatOutlined";
 import Avatar from "@material-ui/core/Avatar";
+import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import Popup from "reactjs-popup";
-import AccountCircleRoundedIcon from '@material-ui/icons/AccountCircleRounded';
 import "reactjs-popup/dist/index.css";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import {
@@ -15,15 +15,12 @@ import {
   HeaderSearch,
   PopupContent,
   ProfileDetails,
-  UnderlineHide
+  UnderlineHide,
 } from "./Header.style";
 import { Link } from "react-router-dom";
-import {useAuth} from '../Context/AuthContext'
-
-
+import { useAuth } from "../Context/AuthContext";
 
 function Header() {
-
   const { signOut } = useAuth();
 
   return (
@@ -70,11 +67,10 @@ function Header() {
               </ProfileDetails>
             </Link>
             {<hr />}
-              <ProfileDetails onClick={signOut}>
-                <ExitToAppIcon />
-                <h3>Logout</h3>
-              </ProfileDetails>
-
+            <ProfileDetails onClick={signOut}>
+              <ExitToAppIcon />
+              <h3>Logout</h3>
+            </ProfileDetails>
           </PopupContent>
         </Popup>
       </HeaderRight>
@@ -83,4 +79,3 @@ function Header() {
 }
 
 export default Header;
-
