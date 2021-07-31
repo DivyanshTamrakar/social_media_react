@@ -8,10 +8,10 @@ import { useFormik } from "formik";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TextField } from "@material-ui/core";
-import Profile from "./profile";
 
 function Login() {
-  const { login, SignInWithEmailandPassword } = useAuth();
+  const { login, SignInWithEmailandPassword, CheckLoginStatus } = useAuth();
+
   let initialValues = { email: "", password: "" };
   let onSubmit = (values) => {
     console.log("Form Data", values);
@@ -41,11 +41,13 @@ function Login() {
     onSubmit,
     validate,
   });
-
+  CheckLoginStatus();
   return (
     <LoginContainer>
       {login ? (
-        <Profile />
+        <Button variant="contained" color="primary">
+          Logout
+        </Button>
       ) : (
         <LoginForm>
           <center>

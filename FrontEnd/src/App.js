@@ -20,7 +20,7 @@ function App() {
         <Route path="/activity" element={<Activity />} />
         <Route path="/chats" element={<Chats />} />
         <Route path="/explore" element={<Explore />} />
-        <Route path="/profile" element={<Profile />} />
+        <PrivateRoute path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
       </Routes>

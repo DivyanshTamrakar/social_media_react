@@ -5,12 +5,21 @@ export const AuthContext = createContext();
 export function AuthProvider({ children }) {
   const [login, setLogin] = useState(false);
 
+  const loginStatus = localStorage.getItem("login");
+
+  const CheckLoginStatus = () => {
+    if (loginStatus) {
+      setLogin(true);
+    }
+  };
+
   const SignInWithEmailandPassword = async ({ email, password }) => {
     try {
       let response = await auth.signInWithEmailAndPassword(email, password);
 
       if (response.user) {
         localStorage.setItem("login", true);
+        localStorage.setItem("email", response.user.email);
         setLogin(true);
       }
     } catch (error) {
@@ -32,7 +41,13 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ login, SignInWithEmailandPassword, setLogin, signOut }}
+      value={{
+        login,
+        SignInWithEmailandPassword,
+        setLogin,
+        signOut,
+        CheckLoginStatus,
+      }}
     >
       {children}
     </AuthContext.Provider>

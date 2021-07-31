@@ -33,8 +33,8 @@ function Profile() {
         <Bio>A Philomath (Just Google it ). 😉 A Millennial.</Bio>
 
         <Popup
-          modal={"true"}
-          closeOnDocumentClick
+          modal
+          repositionOnResize={true}
           trigger={
             <Button variant="outlined" color="secondary">
               Edit Profile
@@ -78,7 +78,7 @@ function Profile() {
               />
 
               <Button type="submit" variant="contained" color="primary">
-                Upload
+                Update
               </Button>
             </form>
           </PopupContent>

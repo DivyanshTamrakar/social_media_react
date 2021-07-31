@@ -8,11 +8,12 @@ import { auth } from "../firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TextField } from "@material-ui/core";
+import { postData } from "../FetchingApi/fetchApi";
 
 let initialValues = { email: "", name: "", password: "" };
 let onSubmit = (values) => {
   console.log("Form Data", values);
-  SignUpWithEmailandPassword({ email: values.email, pass: values.password });
+  SignUpWithEmailandPassword({ name : values.name , email: values.email, pass: values.password });
 };
 let validate = (values) => {
   const re =
@@ -34,12 +35,13 @@ let validate = (values) => {
   return errors;
 };
 
-const SignUpWithEmailandPassword = async ({ email, pass }) => {
+const SignUpWithEmailandPassword = async ({ name ,email, pass }) => {
   try {
     let response = await auth.createUserWithEmailAndPassword(email, pass);
 
     if (response.user) {
-      console.log(response.user.email);
+      const body = { name:name, email: response.user.email, password: pass };
+      postData(body, "/users/signup");
     }
   } catch (error) {
     toast.error(error.message, { position: "bottom-center" });

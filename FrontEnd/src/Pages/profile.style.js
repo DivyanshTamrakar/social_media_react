@@ -62,8 +62,10 @@ export const FollowDetails = styled.div`
 
 export const Bio = styled.div`
   text-align: left;
-  max-width: 50%;
-  margin: 15px 0 0 0;
+  font-size: 18px;
+  font-weight:300;
+  max-width: 55%;
+  margin: 10px 0 0 0;
 `;
 
 export const PopupContent = styled.div`
