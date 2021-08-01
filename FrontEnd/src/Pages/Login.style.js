@@ -9,9 +9,9 @@ export const LoginContainer = styled.div`
 `;
 export const LoginForm = styled.div`
   text-align: left;
-  padding: 15px;
+  padding: 12px;
   width: 20rem;
-  height: 23rem;
+  height: max-content;
   border-radius: 10px;
   display: flex;
   flex-direction: column;

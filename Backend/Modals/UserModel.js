@@ -6,10 +6,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    url: {
+    photo_url: {
         type: String,
         trim: true,
         unique: false,
+        default:"https://workhound.com/wp-content/uploads/2017/05/placeholder-profile-pic.png" 
       },
     email: {
       type: String,
@@ -26,12 +27,13 @@ const userSchema = new mongoose.Schema(
     mobile: {
       type: Number,
       trim: true,
+      default: 11111111
     },
     username: {
         type: String,
     },
     bio: {
-        type: String,
+        type: String,default: 'Add Your Bio'
 
     },
   },

@@ -10,10 +10,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { TextField } from "@material-ui/core";
 import { postData } from "../FetchingApi/fetchApi";
 
-let initialValues = { email: "", name: "", password: "" };
+let initialValues = { username: "", email: "", name: "", password: "" };
 let onSubmit = (values) => {
   console.log("Form Data", values);
-  SignUpWithEmailandPassword({ name : values.name , email: values.email, pass: values.password });
+  SignUpWithEmailandPassword({
+    username: values.username,
+    name: values.name,
+    email: values.email,
+    pass: values.password,
+  });
 };
 let validate = (values) => {
   const re =
@@ -28,6 +33,9 @@ let validate = (values) => {
   if (!values.name) {
     errors.name = "name is required";
   }
+  if (!values.username) {
+    errors.username = "username is required";
+  }
   if (!values.password) {
     errors.password = "password is required";
   }
@@ -35,12 +43,17 @@ let validate = (values) => {
   return errors;
 };
 
-const SignUpWithEmailandPassword = async ({ name ,email, pass }) => {
+const SignUpWithEmailandPassword = async ({ username, name, email, pass }) => {
   try {
     let response = await auth.createUserWithEmailAndPassword(email, pass);
 
     if (response.user) {
-      const body = { name:name, email: response.user.email, password: pass };
+      const body = {
+        username: username,
+        name: name,
+        email: response.user.email,
+        password: pass,
+      };
       postData(body, "/users/signup");
     }
   } catch (error) {
@@ -104,6 +117,20 @@ function Signup() {
             value={formik.values.password}
           />
           <small>{formik.errors.password && `${formik.errors.password}`}</small>
+
+          <TextField
+            style={{ margin: "0.5rem" }}
+            required
+            id="outlined-basic"
+            label="Username"
+            variant="outlined"
+            type="text"
+            name="username"
+            placeholder="Enter Username"
+            onChange={formik.handleChange}
+            value={formik.values.username}
+          />
+          <small>{formik.errors.username && `${formik.errors.username}`}</small>
 
           <Button
             type="submit"
