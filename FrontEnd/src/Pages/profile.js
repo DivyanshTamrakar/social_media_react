@@ -1,25 +1,24 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
-import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import { TextField } from "@material-ui/core";
 import { getData, postData } from "../FetchingApi/fetchApi";
 import { useEffect, useState } from "react";
-import { useFormik } from "formik";
+import { useProfile } from "../Context/ProfileContext";
+
 import {
   Details,
   ProfileContainer,
   ImageAvatar,
   FollowDetails,
   Username,
-  PopupContent,
   Bio,
 } from "./profile.style";
+import UpdateProfile from "../Components/update.profile.model";
 
 function Profile() {
   const email = localStorage.getItem("email");
   const [user, setuser] = useState({});
+  const {userid} = useProfile();
 
   useEffect(() => {
     GetUserData();
@@ -32,44 +31,6 @@ function Profile() {
       setuser(response.user);
     }
   };
-
-  let initialValues = { name: "", username: "", bio: "" };
-  let onSubmit = (values) => {
-    console.log("Form Data", values);
-    UpdateData({
-      name: values.name,
-      username: values.username,
-      bio: values.bio,
-    });
-  };
-  let validate = (values) => {
-    let errors = {};
-
-    if (!values.name) {
-      errors.name = "name is required";
-    }
-    if (!values.username) {
-      errors.username = "usernmae is required";
-    }
-    if (!values.bio) {
-      errors.bio = "bio is required";
-    }
-
-    return errors;
-  };
-
-  const formik = useFormik({
-    initialValues,
-    onSubmit,
-    validate,
-  });
-
-  const UpdateData = ({ name, username, bio }) => {
-    const body = { name: name, username: username, bio: bio };
-    postData(body, `/users/update/${user._id}`);
-    GetUserData();
-  };
-
   return (
     <ProfileContainer>
       <ImageAvatar>
@@ -86,69 +47,7 @@ function Profile() {
           <h4>14 Following</h4>
         </FollowDetails>
         <Bio>{user.bio}</Bio>
-
-        <Popup
-          modal
-          repositionOnResize={true}
-          trigger={
-            <Button variant="outlined" color="secondary">
-              Edit Profile
-            </Button>
-          }
-          position="bottom right"
-        >
-          <PopupContent>
-            <form onSubmit={formik.handleSubmit}>
-              <Avatar alt="Divyansh" src={null} />
-              <TextField
-                style={{ margin: "0.5rem" }}
-                required
-                type="text"
-                name="name"
-                placeholder="Enter Name"
-                onChange={formik.handleChange}
-                value={formik.values.name}
-                id="outlined-basic"
-                label="Name"
-                variant="outlined"
-              />
-              <small>{formik.errors.name && `${formik.errors.name}`}</small>
-              <TextField
-                style={{ margin: "0.5rem" }}
-                required
-                type="text"
-                name="username"
-                placeholder="Enter UserName"
-                onChange={formik.handleChange}
-                value={formik.values.username}
-                id="outlined-basic"
-                label="UserName"
-                variant="outlined"
-              />
-              <small>
-                {formik.errors.username && `${formik.errors.username}`}
-              </small>
-
-              <TextField
-                style={{ margin: "0.5rem" }}
-                required
-                type="text"
-                name="bio"
-                placeholder="Enter bio"
-                onChange={formik.handleChange}
-                value={formik.values.bio}
-                id="outlined-basic"
-                label="Bio"
-                variant="outlined"
-              />
-              <small>{formik.errors.bio && `${formik.errors.bio}`}</small>
-
-              <Button type="submit" variant="contained" color="primary">
-                Update
-              </Button>
-            </form>
-          </PopupContent>
-        </Popup>
+        <UpdateProfile datafunction={GetUserData} />
       </Details>
     </ProfileContainer>
   );
