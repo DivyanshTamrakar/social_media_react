@@ -7,12 +7,9 @@ import { postData } from "../FetchingApi/fetchApi";
 import { TextField } from "@material-ui/core";
 import { PopupContent } from "../Pages/profile.style";
 import { useFormik } from "formik";
-import { useProfile } from "../Context/ProfileContext";
 
-function UpdateProfile({ datafunction }) {
-
-  const {userid} = useProfile();
-  let initialValues = { name: userid, username: "", bio: "" };
+function UpdateProfile({ userid, datafunction}) {
+  let initialValues = { name: "", username: "", bio: "" };
   let onSubmit = (values) => {
     console.log("Form Data", values);
     UpdateData({
@@ -39,7 +36,7 @@ function UpdateProfile({ datafunction }) {
 
   const formik = useFormik({
     initialValues,
-    onSubmit,
+    onSubmit ,
     validate,
   });
 
@@ -47,6 +44,7 @@ function UpdateProfile({ datafunction }) {
     const body = { name: name, username: username, bio: bio };
     postData(body, `/users/update/${userid}`);
     datafunction();
+
   };
 
   return (

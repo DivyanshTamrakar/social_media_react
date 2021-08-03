@@ -1,9 +1,8 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import "reactjs-popup/dist/index.css";
-import { getData, postData } from "../FetchingApi/fetchApi";
+import { getData } from "../FetchingApi/fetchApi";
 import { useEffect, useState } from "react";
-import { useProfile } from "../Context/ProfileContext";
 
 import {
   Details,
@@ -18,12 +17,11 @@ import UpdateProfile from "../Components/update.profile.model";
 function Profile() {
   const email = localStorage.getItem("email");
   const [user, setuser] = useState({});
-  const {userid} = useProfile();
 
   useEffect(() => {
     GetUserData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user.name]);
+  }, [user]);
 
   const GetUserData = async () => {
     let response = await getData(`/users/${email}`);
@@ -47,7 +45,7 @@ function Profile() {
           <h4>14 Following</h4>
         </FollowDetails>
         <Bio>{user.bio}</Bio>
-        <UpdateProfile datafunction={GetUserData} />
+        <UpdateProfile userid={user._id} datafunction={GetUserData} />
       </Details>
     </ProfileContainer>
   );
