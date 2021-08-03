@@ -63,7 +63,7 @@ export const FollowDetails = styled.div`
 export const Bio = styled.div`
   text-align: left;
   font-size: 18px;
-  font-weight:300;
+  font-weight: 300;
   max-width: 55%;
   margin: 10px 0 0 0;
 `;
@@ -71,9 +71,32 @@ export const Bio = styled.div`
 export const PopupContent = styled.div`
   height: max-content;
   padding: 10px;
+
   > form {
     display: flex;
     flex-direction: column;
+
+    > .MuiAvatar-root {
+      align-self: center;
+      height: 100px;
+      width: 100px;
+      cursor: pointer;
+    }
+  }
+`;
+
+export const ProfileImage = styled.div`
+  position: relative;
+
+  > .MuiSvgIcons-root {
+    position: absolute;
+    top: 0;
+  }
+
+  > center {
+    > input {
+      display: none;
+    }
 
     > .MuiAvatar-root {
       align-self: center;

@@ -2,7 +2,9 @@ var express = require("express");
 var router = express.Router();
 var { User } = require("../Modals/UserModel");
 var bodyparser = require("body-parser");
-router.use(bodyparser.json());
+
+router.use(bodyparser.json({ limit: "50mb" }))
+
 
 router.route("/signup").post(async (req, res) => {
   try {
@@ -48,15 +50,20 @@ router.route("/:email").get(async (req, res) => {
   }
 });
 
+
 router.route("/update/:_id").post(async (req, res) => {
   try {
     const userdata = req.body;
     const id = req.params;
     User.findByIdAndUpdate(id, userdata, function (err, docs) {
       if (err) {
-        console.log(err);
+        return res.status(404).json({
+          success: false,
+          message: err,
+        });
+        
       } else {
-        console.log("Updated User : ", docs);
+        console.log("User has been updated");
       }
     });
     res.json({

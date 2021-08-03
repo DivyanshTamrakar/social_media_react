@@ -28,11 +28,14 @@ function Profile() {
     if (response.success) {
       setuser(response.user);
     }
+
+    
   };
+
   return (
     <ProfileContainer>
       <ImageAvatar>
-        <Avatar alt={user.name} src={user.phot_url} />
+        <Avatar alt={user.name} src={user.photo_url} />
       </ImageAvatar>
       <Details>
         <Username>

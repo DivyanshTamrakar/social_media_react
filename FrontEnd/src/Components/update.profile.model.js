@@ -5,15 +5,18 @@ import Avatar from "@material-ui/core/Avatar";
 import "reactjs-popup/dist/index.css";
 import { postData } from "../FetchingApi/fetchApi";
 import { TextField } from "@material-ui/core";
-import { PopupContent } from "../Pages/profile.style";
+import { PopupContent, ProfileImage } from "../Pages/profile.style";
 import { useFormik } from "formik";
+import { useState } from "react";
 
-function UpdateProfile({ userid, datafunction}) {
+function UpdateProfile({ userid, datafunction }) {
+  const [profile, setprofile] = useState(null);
   let initialValues = { name: "", username: "", bio: "" };
   let onSubmit = (values) => {
     console.log("Form Data", values);
     UpdateData({
       name: values.name,
+      photo_url:profile,
       username: values.username,
       bio: values.bio,
     });
@@ -36,14 +39,27 @@ function UpdateProfile({ userid, datafunction}) {
 
   const formik = useFormik({
     initialValues,
-    onSubmit ,
+    onSubmit,
     validate,
   });
 
-  const UpdateData = ({ name, username, bio }) => {
-    const body = { name: name, username: username, bio: bio };
+  const UpdateData = ({ name, photo_url,username, bio }) => {
+    const body = { photo_url:photo_url ,name: name, username: username, bio: bio };
     postData(body, `/users/update/${userid}`);
     datafunction();
+  };
+
+
+  const imageHandler = (e) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (reader.readyState === 2) {
+        setprofile(reader.result);
+        console.log(reader.result);
+        
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
 
   };
 
@@ -59,8 +75,27 @@ function UpdateProfile({ userid, datafunction}) {
       position="bottom right"
     >
       <PopupContent>
+        <ProfileImage>
+          <center>
+            <Avatar alt="Divyansh" src={profile} />
+
+            <input
+              accept="image/*"
+              id="contained-button-file"
+              type="file"
+              onChange={imageHandler}
+            />
+            <label htmlFor="contained-button-file">
+              {profile === null && (
+                <Button variant="contained" color="primary" component="span">
+                  Upload
+                </Button>
+              )}
+            </label>
+          </center>
+        </ProfileImage>
+
         <form onSubmit={formik.handleSubmit}>
-          <Avatar alt="Divyansh" src={null} />
           <TextField
             style={{ margin: "0.5rem" }}
             required
