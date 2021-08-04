@@ -6,13 +6,16 @@ import { store } from "./app/store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./Context/AuthContext";
+import { ProfileProvider } from "./Context/ProfileContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
         <AuthProvider>
-          <App />
+          <ProfileProvider>
+            <App />
+          </ProfileProvider>
         </AuthProvider>
       </Router>
     </Provider>

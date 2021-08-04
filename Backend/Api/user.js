@@ -35,7 +35,7 @@ router.route("/:email").get(async (req, res) => {
         user: user,
       });
     } else {
-      res.status(404).json({
+      res.json({
         success: false,
         message: "User Not Found",
       });

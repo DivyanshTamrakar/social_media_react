@@ -10,11 +10,16 @@ import Signup from "./Pages/SignUp";
 import Login from "./Pages/Login";
 import Header from "./Components/Header";
 import { PrivateRoute } from "./Components/PrivateRouter";
+import { useAuth } from "./Context/AuthContext";
 
 function App() {
+  const { CheckLoginStatus, login } = useAuth();
+
+  CheckLoginStatus();
+
   return (
     <div className="App">
-      <Header />
+      {login && <Header />}
       <Routes>
         <PrivateRoute path="/" element={<Home />} />
         <Route path="/activity" element={<Activity />} />

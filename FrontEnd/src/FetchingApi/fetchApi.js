@@ -11,7 +11,7 @@ export async function getData(...endpoints) {
     const resultData = response.data;
     return resultData;
   } catch (e) {
-    console.error("Error in catch ", e);
+    console.error("Error in catch in ", e);
   }
 }
 

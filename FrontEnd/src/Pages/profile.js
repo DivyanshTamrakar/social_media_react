@@ -1,9 +1,7 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import "reactjs-popup/dist/index.css";
-import { getData } from "../FetchingApi/fetchApi";
-import { useEffect, useState } from "react";
-
+import { useProfile } from "../Context/ProfileContext";
 import {
   Details,
   ProfileContainer,
@@ -15,23 +13,7 @@ import {
 import UpdateProfile from "../Components/update.profile.model";
 
 function Profile() {
-  const email = localStorage.getItem("email");
-  const [user, setuser] = useState({});
-
-  useEffect(() => {
-    GetUserData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-
-  const GetUserData = async () => {
-    let response = await getData(`/users/${email}`);
-    if (response.success) {
-      setuser(response.user);
-    }
-
-    
-  };
-
+  const { user, GetuserData } = useProfile();
   return (
     <ProfileContainer>
       <ImageAvatar>
@@ -48,7 +30,7 @@ function Profile() {
           <h4>14 Following</h4>
         </FollowDetails>
         <Bio>{user.bio}</Bio>
-        <UpdateProfile userid={user._id} datafunction={GetUserData} />
+        <UpdateProfile />
       </Details>
     </ProfileContainer>
   );

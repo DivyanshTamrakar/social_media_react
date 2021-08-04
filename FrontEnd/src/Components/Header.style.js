@@ -70,5 +70,4 @@ export const ProfileDetails = styled.div`
 export const UnderlineHide = {
   textDecoration: "none",
   color: "black",
-  
 };

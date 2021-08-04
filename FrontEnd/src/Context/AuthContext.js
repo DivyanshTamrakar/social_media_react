@@ -13,14 +13,20 @@ export function AuthProvider({ children }) {
     }
   };
 
+
+
   const SignInWithEmailandPassword = async ({ email, password }) => {
     try {
       let response = await auth.signInWithEmailAndPassword(email, password);
 
       if (response.user) {
+        
         localStorage.setItem("login", true);
         localStorage.setItem("email", response.user.email);
+        window.location.reload(false);
         setLogin(true);
+        
+
       }
     } catch (error) {
       alert(error.message);
@@ -33,6 +39,8 @@ export function AuthProvider({ children }) {
       .then(() => {
         localStorage.clear();
         setLogin(false);
+        window.location.reload(false);
+        
       })
       .catch((error) => {
         console.log(error);

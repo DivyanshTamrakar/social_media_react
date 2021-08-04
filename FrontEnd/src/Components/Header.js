@@ -8,6 +8,7 @@ import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+
 import {
   HeaderContainer,
   HeaderLeft,
@@ -19,9 +20,11 @@ import {
 } from "./Header.style";
 import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
+import { useProfile } from "../Context/ProfileContext";
 
 function Header() {
   const { signOut } = useAuth();
+  const { user } = useProfile();
 
   return (
     <HeaderContainer>
@@ -55,7 +58,11 @@ function Header() {
         </Link>
         <Popup
           trigger={
-            <Avatar style={{ cursor: "pointer" }} alt={"divysn"} src={null} />
+            <Avatar
+              style={{ cursor: "pointer" }}
+              alt={"divysn"}
+              src={user.photo_url}
+            />
           }
           position="bottom right"
         >

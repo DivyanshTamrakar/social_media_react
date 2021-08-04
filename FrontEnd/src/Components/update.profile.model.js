@@ -8,15 +8,17 @@ import { TextField } from "@material-ui/core";
 import { PopupContent, ProfileImage } from "../Pages/profile.style";
 import { useFormik } from "formik";
 import { useState } from "react";
+import { useProfile } from "../Context/ProfileContext";
 
-function UpdateProfile({ userid, datafunction }) {
+function UpdateProfile() {
   const [profile, setprofile] = useState(null);
+  const { user, GetuserData } = useProfile();
   let initialValues = { name: "", username: "", bio: "" };
   let onSubmit = (values) => {
     console.log("Form Data", values);
     UpdateData({
       name: values.name,
-      photo_url:profile,
+      photo_url: profile,
       username: values.username,
       bio: values.bio,
     });
@@ -43,24 +45,25 @@ function UpdateProfile({ userid, datafunction }) {
     validate,
   });
 
-  const UpdateData = ({ name, photo_url,username, bio }) => {
-    const body = { photo_url:photo_url ,name: name, username: username, bio: bio };
-    postData(body, `/users/update/${userid}`);
-    datafunction();
+  const UpdateData = ({ name, photo_url, username, bio }) => {
+    const body = {
+      photo_url: photo_url,
+      name: name,
+      username: username,
+      bio: bio,
+    };
+    postData(body, `/users/update/${user._id}`);
+    window.location.reload(false);
   };
-
 
   const imageHandler = (e) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       if (reader.readyState === 2) {
         setprofile(reader.result);
-        console.log(reader.result);
-        
       }
     };
     reader.readAsDataURL(e.target.files[0]);
-
   };
 
   return (
