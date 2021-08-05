@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
-import { LoginContainer, LoginForm } from "./Login.style";
+import { LoginContainer, LoginForm } from "../styles/Login.style";
 import { useFormik } from "formik";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

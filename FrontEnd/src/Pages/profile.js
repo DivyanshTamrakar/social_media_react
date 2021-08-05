@@ -9,11 +9,11 @@ import {
   FollowDetails,
   Username,
   Bio,
-} from "./profile.style";
+} from "../styles/profile.style";
 import UpdateProfile from "../Components/update.profile.model";
 
 function Profile() {
-  const { user, GetuserData } = useProfile();
+  const { user  } = useProfile();
   return (
     <ProfileContainer>
       <ImageAvatar>

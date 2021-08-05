@@ -5,7 +5,7 @@ import Avatar from "@material-ui/core/Avatar";
 import "reactjs-popup/dist/index.css";
 import { postData } from "../FetchingApi/fetchApi";
 import { TextField } from "@material-ui/core";
-import { PopupContent, ProfileImage } from "../Pages/profile.style";
+import { PopupContent, ProfileImage } from "../styles/profile.style";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useProfile } from "../Context/ProfileContext";
@@ -45,7 +45,7 @@ function UpdateProfile() {
     validate,
   });
 
-  const UpdateData = ({ name, photo_url, username, bio }) => {
+  const UpdateData = async ({ name, photo_url, username, bio }) => {
     const body = {
       photo_url: photo_url,
       name: name,
@@ -53,7 +53,7 @@ function UpdateProfile() {
       bio: bio,
     };
     postData(body, `/users/update/${user._id}`);
-    window.location.reload(false);
+    GetuserData();
   };
 
   const imageHandler = (e) => {

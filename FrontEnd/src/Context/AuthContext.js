@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
-import { auth } from "../firebase";
+import { auth } from "../FirebaseConfig/firebase";
+import { useProfile } from "./ProfileContext";
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
@@ -7,26 +8,23 @@ export function AuthProvider({ children }) {
 
   const loginStatus = localStorage.getItem("login");
 
+  const { setuser } = useProfile();
+
   const CheckLoginStatus = () => {
     if (loginStatus) {
       setLogin(true);
     }
   };
 
-
-
   const SignInWithEmailandPassword = async ({ email, password }) => {
     try {
       let response = await auth.signInWithEmailAndPassword(email, password);
 
       if (response.user) {
-        
         localStorage.setItem("login", true);
         localStorage.setItem("email", response.user.email);
         window.location.reload(false);
         setLogin(true);
-        
-
       }
     } catch (error) {
       alert(error.message);
@@ -38,9 +36,10 @@ export function AuthProvider({ children }) {
       .signOut()
       .then(() => {
         localStorage.clear();
+        setuser({});
         setLogin(false);
-        window.location.reload(false);
-        
+
+        // window.location.reload(false);
       })
       .catch((error) => {
         console.log(error);
