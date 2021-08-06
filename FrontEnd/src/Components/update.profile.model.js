@@ -70,6 +70,7 @@ function UpdateProfile() {
     <Popup
       modal
       repositionOnResize={true}
+      contentStyle={{borderRadius:'20px'}}
       trigger={
         <Button variant="outlined" color="secondary">
           Edit Profile

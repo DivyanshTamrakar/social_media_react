@@ -57,6 +57,7 @@ function Header() {
           <FavoriteBorderOutlinedIcon />
         </Link>
         <Popup
+          contentStyle={{ borderRadius: "8px" }}
           trigger={
             <Avatar
               style={{ cursor: "pointer" }}
