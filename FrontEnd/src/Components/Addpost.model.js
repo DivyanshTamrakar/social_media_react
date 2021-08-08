@@ -6,16 +6,25 @@ import { useState } from "react";
 import Popup from "reactjs-popup";
 import CancelSharpIcon from "@material-ui/icons/CancelSharp";
 import Button from "@material-ui/core/Button";
-
-import {AddImage,ComposePost,Post,Caption,HeaderArea,contentstyle,placeholder} from "../styles/addpost.style"
+import { useProfile } from "../Context/ProfileContext";
+import {
+  AddImage,
+  ComposePost,
+  Post,
+  Caption,
+  HeaderArea,
+  contentstyle,
+  placeholder,
+} from "../styles/addpost.style";
 function AddPost() {
-  
   const [open, setOpen] = useState(false);
-  
   const [post, setpost] = useState(placeholder);
+  const { user } = useProfile();
 
   const ImageHandler = (e) => {
     const reader = new FileReader();
+    
+    console.log(reader);
     reader.onloadend = () => {
       if (reader.readyState === 2) {
         setpost(reader.result);
@@ -39,6 +48,7 @@ function AddPost() {
       )}
       <Popup
         open={open}
+        modal={true}
         closeOnDocumentClick
         onClose={closeModal}
         contentStyle={contentstyle}
@@ -50,16 +60,20 @@ function AddPost() {
           </HeaderArea>
           <hr></hr>
           <Caption>
-            <textarea type="textarea" placeholder="Whats on your mind...." />
+            <textarea
+              type="textarea"
+              placeholder={"Whats on your mind " + user.name + "?"}
+            />
           </Caption>
           <AddImage>
             <img alt="postimage" src={post} />
-            {post !== placeholder && <CancelSharpIcon onClick={closeModal} />}
+            {post !== placeholder && (
+              <CancelSharpIcon onClick={() => setpost(placeholder)} />
+            )}
 
             <input
               accept="image/*"
               id="contained-button-file"
-              multiple
               type="file"
               onChange={ImageHandler}
             />

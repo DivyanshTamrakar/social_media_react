@@ -44,19 +44,12 @@ export const HeaderRight = styled.div`
   align-items: center;
   margin: 0 50px;
   justify-content: space-evenly;
-  > Link {
-    text-decoration: none;
-  }
-
-  > .MuiSvgIcon-root {
-    text-decoration: none;
-  }
 `;
 
 export const PopupContent = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 `;
 export const ProfileDetails = styled.div`
   display: flex;
@@ -71,3 +64,10 @@ export const UnderlineHide = {
   textDecoration: "none",
   color: "black",
 };
+
+export const SearchResult = styled.div`
+  position: absolute;
+  top: 8%;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+`;

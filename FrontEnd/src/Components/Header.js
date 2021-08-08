@@ -8,7 +8,6 @@ import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
-
 import {
   HeaderContainer,
   HeaderLeft,
@@ -21,6 +20,7 @@ import {
 import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import { useProfile } from "../Context/ProfileContext";
+import SearchComponent from "./SearchFeature/SearchComponent";
 
 function Header() {
   const { signOut } = useAuth();
@@ -40,7 +40,7 @@ function Header() {
       </HeaderLeft>
 
       <HeaderSearch>
-        <input placeholder="Search " type="text" />
+        <SearchComponent />
       </HeaderSearch>
 
       <HeaderRight>
@@ -57,11 +57,11 @@ function Header() {
           <FavoriteBorderOutlinedIcon />
         </Link>
         <Popup
-          contentStyle={{ borderRadius: "8px" }}
+          contentStyle={{ padding: "0", borderRadius: "8px", border: "none" }}
           trigger={
             <Avatar
-              style={{ cursor: "pointer" }}
-              alt={"divysn"}
+              style={{ cursor: "pointer", border: "2px solid black" }}
+              alt={user.name}
               src={user.photo_url}
             />
           }
@@ -74,7 +74,7 @@ function Header() {
                 <h3>Profile</h3>
               </ProfileDetails>
             </Link>
-            {<hr />}
+            <hr></hr>
             <ProfileDetails onClick={signOut}>
               <ExitToAppIcon />
               <h3>Logout</h3>

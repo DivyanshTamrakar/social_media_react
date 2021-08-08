@@ -2,10 +2,9 @@ import axios from "axios";
 
 export const url = "http://localhost:5000";
 
-
 export async function getData(...endpoints) {
   let final_url = `${url}${endpoints}`;
-  
+
   try {
     let response = await axios.get(final_url);
     const resultData = response.data;
@@ -26,3 +25,18 @@ export async function postData(body, ...endpoints) {
     console.log("Error in catch ", e);
   }
 }
+
+export const BASE_URL = "http://localhost:5000";
+/* This function takes query as a param and returns the array of beer objects.*/
+export const fetchSearchResults = async (query) => {
+  if (query && query.length > 0) {
+    const parsedQuery = query.replaceAll(" ", "+");
+    const url = `${BASE_URL}/users/all?name=${parsedQuery}`;
+    const res = await axios.get(url);
+    const resJson = res.data.users;
+    return resJson;
+  } else {
+    return [];
+  }
+};
+

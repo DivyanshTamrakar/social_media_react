@@ -3,8 +3,39 @@ var router = express.Router();
 var { User } = require("../Modals/UserModel");
 var bodyparser = require("body-parser");
 
-router.use(bodyparser.json({ limit: "50mb" }))
+router.use(bodyparser.json({ limit: "50mb" }));
 
+router.route("/all").get(async (req, res) => {
+  let name = req.query.name;
+  const regex = new RegExp(name, "i");
+
+  try {
+    if (name === undefined) {
+      const allUsers = await User.find({});
+      if (allUsers) {
+        return res.json({
+          success: true,
+          message: "all user fetched successfull",
+          users: allUsers,
+        });
+      }
+    } else {
+      const singleUsers = await User.find({ name: { $regex: regex } });
+      return res.json({
+        success: true,
+        message: "all user fetched successfull",
+        users: singleUsers,
+      });
+    }
+  } catch (error) {
+    if (error) {
+      res.status(404).json({
+        message: "Something went wrong with server",
+        error: `${error}`,
+      });
+    }
+  }
+});
 
 router.route("/signup").post(async (req, res) => {
   try {
@@ -50,7 +81,6 @@ router.route("/:email").get(async (req, res) => {
   }
 });
 
-
 router.route("/update/:_id").post(async (req, res) => {
   try {
     const userdata = req.body;
@@ -61,7 +91,6 @@ router.route("/update/:_id").post(async (req, res) => {
           success: false,
           message: err,
         });
-        
       } else {
         console.log("User has been updated");
       }
