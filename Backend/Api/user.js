@@ -37,6 +37,32 @@ router.route("/all").get(async (req, res) => {
   }
 });
 
+router.route("/profile/:_id").get(async (req, res) => {
+  const id = req.params;
+  try {
+    const user = await User.findOne(id);
+    if (user) {
+      res.json({
+        success: true,
+        message: "User Found",
+        user: user,
+      });
+    } else {
+      res.json({
+        success: false,
+        message: "User Not Found",
+      });
+    }
+  } catch (error) {
+    if (error) {
+      res.status(404).json({
+        message: "Something went wrong with server",
+        error: `${error}`,
+      });
+    }
+  }
+});
+
 router.route("/signup").post(async (req, res) => {
   try {
     let { name, email, password, mobile, username, bio } = req.body;

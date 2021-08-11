@@ -11,6 +11,7 @@ import Login from "./Pages/Login";
 import Header from "./Components/Header";
 import { PrivateRoute } from "./Components/PrivateRouter";
 import { useAuth } from "./Context/AuthContext";
+import UsersProfile from "./Pages/UsersProfile";
 
 function App() {
   const { CheckLoginStatus, login } = useAuth();
@@ -28,6 +29,7 @@ function App() {
         <PrivateRoute path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/user/:id" element={<UsersProfile />} />
       </Routes>
     </div>
   );
