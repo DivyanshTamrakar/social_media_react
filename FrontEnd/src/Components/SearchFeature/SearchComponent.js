@@ -34,7 +34,7 @@ function SearchComponent() {
 
       <SearchResult>
         {results.map((result, index) => (
-          <div key={index}>
+          <div onClick={() => setQuery("")} key={index}>
             <ListItem
               id={result._id}
               name={result.name}

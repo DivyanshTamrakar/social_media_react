@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { useParams } from "react-router-dom";
 import "reactjs-popup/dist/index.css";
+import Button from "@material-ui/core/Button";
+import { useProfile } from "../Context/ProfileContext";
 import {
   Details,
   ProfileContainer,
@@ -9,29 +11,32 @@ import {
   FollowDetails,
   Username,
   Bio,
+  FollowButtons,
 } from "../styles/profile.style";
 import { getData } from "../FetchingApi/fetchApi";
 
 function UsersProfile() {
   let { id } = useParams();
 
-  const [userprofile,setuserprofile] = useState({});
+  const [userprofile, setuserprofile] = useState({});
+
+  const { user } = useProfile();
 
   useEffect(() => {
     GetData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const GetData = async () => {
     try {
-        let response = await getData(`/users/profile/${id}`);
-  
-        if (response.success) {
-            setuserprofile(response.user);
-          
-        }
-      } catch (error) {
-        console.log("errorr", error);
+      let response = await getData(`/users/profile/${id}`);
+
+      if (response.success) {
+        setuserprofile(response.user);
       }
+    } catch (error) {
+      console.log("errorr", error);
+    }
   };
 
   return (
@@ -50,6 +55,13 @@ function UsersProfile() {
           <h4>14 Following</h4>
         </FollowDetails>
         <Bio>{userprofile.bio}</Bio>
+        {user._id !== id && (
+          <FollowButtons>
+            <Button variant="contained" color="primary">
+              Follow
+            </Button>
+          </FollowButtons>
+        )}
       </Details>
     </ProfileContainer>
   );

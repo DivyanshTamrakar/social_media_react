@@ -19,10 +19,12 @@ export const ImageAvatar = styled.div`
 
 export const Details = styled.div`
   display: flex;
+  width: max-content;
   margin-top: 15px;
+  margin-bottom: 20px;
   flex-direction: column;
   align-items: flex-start;
-  height: 20rem;
+  height: max-content;
 
   > .MuiButton-root {
     width: 100%;
@@ -49,7 +51,7 @@ export const Username = styled.div`
 `;
 
 export const FollowDetails = styled.div`
-  width: 100%;
+  width: 280px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -104,5 +106,14 @@ export const ProfileImage = styled.div`
       width: 100px;
       cursor: pointer;
     }
+  }
+`;
+export const FollowButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 280px;
+  > .MuiButton-root {
+    margin-top: 15px;
+    font-weight: bolder;
   }
 `;
