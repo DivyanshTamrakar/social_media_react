@@ -3,6 +3,9 @@ import styled from "styled-components";
 export const HeaderContainer = styled.div`
   width: 100%;
   display: flex;
+  position: sticky;
+  z-index: 20;
+  top: 0;
   align-items: center;
   justify-content: space-between;
   padding: 10px 0 5px 0;
