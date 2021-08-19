@@ -7,6 +7,8 @@ import Popup from "reactjs-popup";
 import CancelSharpIcon from "@material-ui/icons/CancelSharp";
 import Button from "@material-ui/core/Button";
 import { useProfile } from "../Context/ProfileContext";
+import { postData } from "../FetchingApi/fetchApi";
+import axios from "axios";
 import {
   AddImage,
   ComposePost,
@@ -19,11 +21,12 @@ import {
 function AddPost() {
   const [open, setOpen] = useState(false);
   const [post, setpost] = useState(placeholder);
+  const [caption, setcaption] = useState("");
   const { user } = useProfile();
 
   const ImageHandler = (e) => {
     const reader = new FileReader();
-    
+
     console.log(reader);
     reader.onloadend = () => {
       if (reader.readyState === 2) {
@@ -32,8 +35,19 @@ function AddPost() {
     };
     reader.readAsDataURL(e.target.files[0]);
   };
-
   const closeModal = () => setOpen(false);
+
+  const PostHandler = async () => {
+    const body = {
+      userid: user._id,
+      post: post,
+      caption: caption,
+      user_profile: user.photo_url,
+      username: user.username,
+    };
+    console.log(body);
+ 
+  };
 
   return (
     <Post>
@@ -63,6 +77,7 @@ function AddPost() {
             <textarea
               type="textarea"
               placeholder={"Whats on your mind " + user.name + "?"}
+              onChange={(e) => setcaption(e.target.value)}
             />
           </Caption>
           <AddImage>
@@ -89,6 +104,7 @@ function AddPost() {
             variant="contained"
             color="primary"
             disabled={post === placeholder ? true : false}
+            onClick={PostHandler}
           >
             Post
           </Button>
