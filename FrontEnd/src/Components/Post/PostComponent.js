@@ -38,15 +38,15 @@ function PostComponent() {
   return (
     <PostContainer>
       <LeftSection>
-        {posts.map((element) => {
+        {posts.map(({ userid, post, caption, likes, user_profile, username ,createdAt}) => {
           return (
             <PostSection>
               <HeadArea>
-                <Avatar alt="Remy Sharp" src={element.user_profile} />
-                <h4>{element.username}</h4>
+                <Avatar alt="Remy Sharp" src={user_profile} />
+                <h4>{username}</h4>
               </HeadArea>
               <img
-                src={element.post}
+                src={post}
                 alt={"divy"}
                 height="400px"
                 width="100%"
@@ -58,11 +58,11 @@ function PostComponent() {
               </ActionArea>
 
               <Caption>
-                <h4>{element.username}</h4>
+                <h4>{username}</h4>
 
-                <span>{element.caption}</span>
+                <span>{caption}</span>
               </Caption>
-              <TimeAgo date={element.createdAt} />
+              <TimeAgo date={createdAt} />
               <Comment>
                 <input
                   type="text"

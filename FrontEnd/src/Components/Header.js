@@ -1,6 +1,6 @@
 import React from "react";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
-import ExploreOutlinedIcon from "@material-ui/icons/ExploreOutlined";
+import NotificationsOutlinedIcon from '@material-ui/icons/NotificationsOutlined';
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import ChatOutlinedIcon from "@material-ui/icons/ChatOutlined";
 import Avatar from "@material-ui/core/Avatar";
@@ -47,14 +47,14 @@ function Header() {
         <Link to="/" style={UnderlineHide}>
           <HomeOutlinedIcon />
         </Link>
-        <Link to="/chats" style={UnderlineHide}>
+        {/* <Link to="/chats" style={UnderlineHide}>
           <ChatOutlinedIcon />
         </Link>
         <Link to="/explore" style={UnderlineHide}>
           <ExploreOutlinedIcon />
-        </Link>
+        </Link> */}
         <Link to="/activity" style={UnderlineHide}>
-          <FavoriteBorderOutlinedIcon />
+          <NotificationsOutlinedIcon />
         </Link>
         <Popup
           contentStyle={{ padding: "0", borderRadius: "8px", border: "none" }}
