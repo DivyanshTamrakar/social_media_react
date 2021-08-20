@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import TimeAgo from "react-timeago";
 import Button from "@material-ui/core/Button";
-import { data } from "../../Data/data";
 import {
   Caption,
   ActionArea,
@@ -16,21 +15,38 @@ import {
   PostSection,
   PostContainer,
 } from "./Post.style";
-
+import { getData } from "../../FetchingApi/fetchApi";
 function PostComponent() {
   const [comment, setcomment] = useState("");
+  const [posts, setposts] = useState([]);
+
+  useEffect(() => {
+    GetPosts();
+  }, [posts]);
+
+  const GetPosts = async () => {
+    try {
+      const response = await getData("/addpost");
+      if (response.success) {
+        setposts(response.posts);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <PostContainer>
       <LeftSection>
-        {data.map((element) => {
+        {posts.map((element) => {
           return (
             <PostSection>
               <HeadArea>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                <Avatar alt="Remy Sharp" src={element.user_profile} />
                 <h4>{element.username}</h4>
               </HeadArea>
               <img
-                src={"https://i.stack.imgur.com/y9DpT.jpg"}
+                src={element.post}
                 alt={"divy"}
                 height="400px"
                 width="100%"
@@ -46,7 +62,7 @@ function PostComponent() {
 
                 <span>{element.caption}</span>
               </Caption>
-              <TimeAgo date={element.created} />
+              <TimeAgo date={element.createdAt} />
               <Comment>
                 <input
                   type="text"

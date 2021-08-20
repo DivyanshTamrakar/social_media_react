@@ -5,6 +5,7 @@ var cors = require('cors');
 var { initializeConnection } = require('./ConnectionDB/connectionDB')
 
 var userApi = require('./Api/user');
+var postApi = require('./Api/Post');
 
 app.use(cors());
 
@@ -16,6 +17,8 @@ initializeConnection();
 // product from DB
 
 app.use('/users',userApi);
+app.use('/addpost',postApi);
+
 
 
 app.get('/',(req,res)=>{

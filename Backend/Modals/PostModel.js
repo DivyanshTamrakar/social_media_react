@@ -4,10 +4,11 @@ const PostSchema = new mongoose.Schema(
   {
     userid: {
       type: String,
-      required: false,
+      required: true,
     },
     post: {
       type: String,
+      required: true,
       default:
         "https://workhound.com/wp-content/uploads/2017/05/placeholder-profile-pic.png",
     },
@@ -16,12 +17,15 @@ const PostSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     user_profile: {
       type: String,
       trim: true,
+      required: true,
     },
     username: {
       type: String,
+      required: true,
     },
   },
   { timestamps: true }
