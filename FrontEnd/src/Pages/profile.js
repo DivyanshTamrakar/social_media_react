@@ -11,6 +11,7 @@ import {
   Bio,
 } from "../styles/profile.style";
 import UpdateProfile from "../Components/update.profile.model";
+import TabComponent from "../Components/TabComponent";
 
 function Profile() {
   const { user } = useProfile();
@@ -34,7 +35,9 @@ function Profile() {
           <UpdateProfile />
         </Details>
       </ProfileContainer>
-      <hr style={{ margin: "0px 20px " }}></hr>
+      <div style={{width:"100%",margin:'auto'}}>
+      <TabComponent userid={user._id}/>
+      </div>
     </div>
   );
 }

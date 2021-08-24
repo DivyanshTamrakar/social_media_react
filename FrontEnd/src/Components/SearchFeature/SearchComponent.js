@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import ListItem from "./ListItem";
 import SearchInput from "./searchinput";
 import { fetchSearchResults } from "../../FetchingApi/fetchApi";
-import { SearchResult } from "../Header.style";
+import { SearchResult } from "../Header/Header.style";
 
 const fetchData = async (query, cb) => {
   const res = await fetchSearchResults(query);

@@ -22,9 +22,40 @@ post(async (req, res) => {
       error: `${e}`,
     });
   }
-}).get(async (req, res) => {
+})
+.get(async (req, res) => {
   try {
     const posts = await Post.find({});
+    if (posts) {
+      res.json({
+        success: true,
+        message: "Posts Found",
+        posts: posts,
+      });
+    } else {
+      res.json({
+        success: false,
+        message: "No Posts Found",
+      });
+    }
+  } catch (error) {
+    if (error) {
+      res.status(404).json({
+        message: "Something went wrong with server",
+        error: `${error}`,
+      });
+    }
+  }
+});
+
+
+router.route("/:userid").
+get(async (req, res) => {
+
+  let userid = req.params;
+
+  try {
+    const posts = await Post.find(userid);
     if (posts) {
       res.json({
         success: true,

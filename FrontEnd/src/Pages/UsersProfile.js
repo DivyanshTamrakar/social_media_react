@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import "reactjs-popup/dist/index.css";
 import Button from "@material-ui/core/Button";
 import { useProfile } from "../Context/ProfileContext";
+import TabComponent from "../Components/TabComponent";
 import {
   Details,
   ProfileContainer,
@@ -40,6 +41,7 @@ function UsersProfile() {
   };
 
   return (
+    <>
     <ProfileContainer>
       <ImageAvatar>
         <Avatar alt={userprofile.name} src={userprofile.photo_url} />
@@ -64,6 +66,10 @@ function UsersProfile() {
         )}
       </Details>
     </ProfileContainer>
+     <div style={{width:"100%",margin:'auto'}}>
+     <TabComponent userid={id}/>
+     </div>
+    </>
   );
 }
 

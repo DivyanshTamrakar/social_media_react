@@ -1,12 +1,11 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
-  /* width: 100%; */
   display: flex;
   position: sticky;
   z-index: 20;
   top: 0;
-  margin: auto;
+  margin: 0 0 0 0 ;
   align-items: center;
   justify-content: space-between;
   padding: 10px 0 5px 0;
@@ -72,7 +71,7 @@ export const UnderlineHide = {
 export const SearchResult = styled.div`
   position: absolute;
   top: 9%;
-  z-index: 5 ;
+  z-index: 5;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;

@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../Context/AuthContext";
+import { useAuth } from "../../Context/AuthContext";
 import { Route, Navigate } from "react-router-dom";
 
 export function PrivateRoute({ path, ...props }) {

@@ -8,8 +8,8 @@ import Explore from "./Pages/explore";
 import Profile from "./Pages/profile";
 import Signup from "./Pages/SignUp";
 import Login from "./Pages/Login";
-import Header from "./Components/Header";
-import { PrivateRoute } from "./Components/PrivateRouter";
+import Header from "./Components/Header/Header";
+import { PrivateRoute } from "./Components/PrivateRouter/PrivateRouter";
 import { useAuth } from "./Context/AuthContext";
 import UsersProfile from "./Pages/UsersProfile";
 

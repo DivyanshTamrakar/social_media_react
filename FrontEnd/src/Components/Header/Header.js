@@ -1,8 +1,6 @@
 import React from "react";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
-import NotificationsOutlinedIcon from '@material-ui/icons/NotificationsOutlined';
-import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
-import ChatOutlinedIcon from "@material-ui/icons/ChatOutlined";
+import NotificationsOutlinedIcon from "@material-ui/icons/NotificationsOutlined";
 import Avatar from "@material-ui/core/Avatar";
 import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import Popup from "reactjs-popup";
@@ -18,9 +16,9 @@ import {
   UnderlineHide,
 } from "./Header.style";
 import { Link } from "react-router-dom";
-import { useAuth } from "../Context/AuthContext";
-import { useProfile } from "../Context/ProfileContext";
-import SearchComponent from "./SearchFeature/SearchComponent";
+import { useAuth } from "../../Context/AuthContext";
+import { useProfile } from "../../Context/ProfileContext";
+import SearchComponent from "../SearchFeature/SearchComponent";
 
 function Header() {
   const { signOut } = useAuth();
@@ -47,12 +45,6 @@ function Header() {
         <Link to="/" style={UnderlineHide}>
           <HomeOutlinedIcon />
         </Link>
-        {/* <Link to="/chats" style={UnderlineHide}>
-          <ChatOutlinedIcon />
-        </Link>
-        <Link to="/explore" style={UnderlineHide}>
-          <ExploreOutlinedIcon />
-        </Link> */}
         <Link to="/activity" style={UnderlineHide}>
           <NotificationsOutlinedIcon />
         </Link>
