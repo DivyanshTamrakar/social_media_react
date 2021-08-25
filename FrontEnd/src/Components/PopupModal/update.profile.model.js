@@ -3,12 +3,12 @@ import Button from "@material-ui/core/Button";
 import Popup from "reactjs-popup";
 import Avatar from "@material-ui/core/Avatar";
 import "reactjs-popup/dist/index.css";
-import { postData } from "../FetchingApi/fetchApi";
+import { postData } from "../../FetchingApi/fetchApi";
 import { TextField } from "@material-ui/core";
-import { PopupContent, ProfileImage } from "../styles/profile.style";
+import { PopupContent, ProfileImage } from "../../styles/profile.style";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useProfile } from "../Context/ProfileContext";
+import { useProfile } from "../../Context/ProfileContext";
 
 function UpdateProfile() {
   const [profile, setprofile] = useState(null);

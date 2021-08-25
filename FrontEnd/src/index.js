@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./Context/AuthContext";
 import { ProfileProvider } from "./Context/ProfileContext";
+import { LoaderProvider } from "./Context/LoaderContext";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,7 +15,9 @@ ReactDOM.render(
       <Router>
         <ProfileProvider>
           <AuthProvider>
-            <App />
+            <LoaderProvider>
+              <App />
+            </LoaderProvider>
           </AuthProvider>
         </ProfileProvider>
       </Router>

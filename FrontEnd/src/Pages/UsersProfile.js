@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import "reactjs-popup/dist/index.css";
 import Button from "@material-ui/core/Button";
 import { useProfile } from "../Context/ProfileContext";
-import TabComponent from "../Components/TabComponent";
+import TabComponent from "../Components/Timeline/TabComponent";
 import {
   Details,
   ProfileContainer,

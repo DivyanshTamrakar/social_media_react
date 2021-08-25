@@ -10,11 +10,13 @@ import {
   Username,
   Bio,
 } from "../styles/profile.style";
-import UpdateProfile from "../Components/update.profile.model";
-import TabComponent from "../Components/TabComponent";
+import UpdateProfile from "../Components/PopupModal/update.profile.model";
+import TabComponent from "../Components/Timeline/TabComponent";
+
 
 function Profile() {
   const { user } = useProfile();
+  
   return (
     <div>
       <ProfileContainer>
@@ -35,8 +37,8 @@ function Profile() {
           <UpdateProfile />
         </Details>
       </ProfileContainer>
-      <div style={{width:"100%",margin:'auto'}}>
-      <TabComponent userid={user._id}/>
+      <div style={{ width: "100%", margin: "auto" }}>
+        <TabComponent userid={user._id} />
       </div>
     </div>
   );

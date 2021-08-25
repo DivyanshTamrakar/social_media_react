@@ -6,8 +6,8 @@ import { useState } from "react";
 import Popup from "reactjs-popup";
 import CancelSharpIcon from "@material-ui/icons/CancelSharp";
 import Button from "@material-ui/core/Button";
-import { useProfile } from "../Context/ProfileContext";
-import { postData } from "../FetchingApi/fetchApi";
+import { useProfile } from "../../Context/ProfileContext";
+import { postData } from "../../FetchingApi/fetchApi";
 import {
   AddImage,
   ComposePost,
@@ -16,7 +16,7 @@ import {
   HeaderArea,
   contentstyle,
   placeholder,
-} from "../styles/addpost.style";
+} from "../../styles/addpost.style";
 function AddPost() {
   const [open, setOpen] = useState(false);
   const [post, setpost] = useState(placeholder);
