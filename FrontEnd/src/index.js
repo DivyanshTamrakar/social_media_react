@@ -8,6 +8,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./Context/AuthContext";
 import { ProfileProvider } from "./Context/ProfileContext";
 import { LoaderProvider } from "./Context/LoaderContext";
+import { PostProvider } from "./Context/PostsContext";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,7 +17,9 @@ ReactDOM.render(
         <ProfileProvider>
           <AuthProvider>
             <LoaderProvider>
-              <App />
+              <PostProvider>
+                <App />
+              </PostProvider>
             </LoaderProvider>
           </AuthProvider>
         </ProfileProvider>

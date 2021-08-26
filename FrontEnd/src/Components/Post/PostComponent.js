@@ -17,31 +17,11 @@ import {
   PostContainer,
 } from "./Post.style";
 import { getData } from "../../FetchingApi/fetchApi";
-import { useLoader } from "../../Context/LoaderContext";
+import { usePost } from "../../Context/PostsContext";
 
 function PostComponent() {
   const [comment, setcomment] = useState("");
-  const [posts, setposts] = useState([]);
-  const {showloader, setshowloader } = useLoader();
-
-  useEffect(() => {
-    GetPosts();
-    // eslint-disable-next-line
-  }, []);
-
-  const GetPosts = async () => {
-    setshowloader(true);
-    try {
-      const response = await getData("/addpost");
-      if (response.success) {
-        setshowloader(false);
-        setposts(response.posts);
-        
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { posts, showloader } = usePost();
 
   return (
     <div>
