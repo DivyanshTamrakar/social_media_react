@@ -19,6 +19,7 @@ export function PostProvider({ children }) {
       if (response.success) {
         setshowloader(false);
         setposts(response.posts);
+
       }
     } catch (error) {
       console.log(error);

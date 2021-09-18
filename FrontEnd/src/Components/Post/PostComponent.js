@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
@@ -16,7 +16,7 @@ import {
   PostSection,
   PostContainer,
 } from "./Post.style";
-import { getData } from "../../FetchingApi/fetchApi";
+
 import { usePost } from "../../Context/PostsContext";
 
 function PostComponent() {
@@ -52,7 +52,7 @@ function PostComponent() {
                       <ChatBubbleOutlineIcon />
                       <BookmarkBorderIcon />
                     </ActionArea>
-
+                    <span>{likes.length} likes</span>
                     <Caption>
                       <h4>{username}</h4>
 

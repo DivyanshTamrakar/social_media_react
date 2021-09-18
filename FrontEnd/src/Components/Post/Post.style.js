@@ -16,6 +16,12 @@ export const PostSection = styled.div`
     font-size: 13px;
     color: grey;
   }
+  > span{
+    text-align: left;
+    padding: 5px 0px 0px 17px;
+    font-weight: bold;
+  }
+  
 `;
 export const RightSection = styled.div`
   flex: 0.5;
@@ -54,7 +60,7 @@ export const ActionArea = styled.div`
 
 export const Caption = styled.div`
   height: max-content;
-  padding: 15px 15px 5px 15px;
+  padding: 5px 15px 5px 15px;
   display: flex;
   align-items: center;
   > span {

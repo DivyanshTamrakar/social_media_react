@@ -1,57 +1,64 @@
 var express = require("express");
+var mongoose = require('mongoose');
 var router = express.Router();
+
 var { Post } = require("../Modals/PostModel");
 var bodyparser = require("body-parser");
 
 router.use(bodyparser.json({ limit: "50mb" }));
 
-router.route("/").
-post(async (req, res) => {
-  try {
-    let { userid, post, caption, likes, user_profile, username } = req.body;
-    const data = new Post({ userid, post, caption, likes, user_profile, username });
-    const result = await data.save();
-    res.status(200).json({
-      success: true,
-      message: "Posted successfully",
-    });
-  } catch (e) {
-    res.json({
-      success: false,
-      message: "Something is wrong while creating user ",
-      error: `${e}`,
-    });
-  }
-})
-.get(async (req, res) => {
-  try {
-    const posts = await Post.find({});
-    if (posts) {
-      res.json({
-        success: true,
-        message: "Posts Found",
-        posts: posts,
+router
+  .route("/")
+  .post(async (req, res) => {
+    try {
+      let { userid, post, caption, likes, user_profile, username } = req.body;
+      const data = new Post({
+        userid,
+        post,
+        caption,
+        likes,
+        user_profile,
+        username,
       });
-    } else {
+      const result = await data.save();
+      res.status(200).json({
+        success: true,
+        message: "Posted successfully",
+      });
+    } catch (e) {
       res.json({
         success: false,
-        message: "No Posts Found",
+        message: "Something is wrong while creating user ",
+        error: `${e}`,
       });
     }
-  } catch (error) {
-    if (error) {
-      res.status(404).json({
-        message: "Something went wrong with server",
-        error: `${error}`,
-      });
+  })
+  .get(async (req, res) => {
+    try {
+      const posts = await Post.find({});
+      if (posts) {
+        res.json({
+          success: true,
+          message: "Posts Found",
+          posts: posts,
+        });
+      } else {
+        res.json({
+          success: false,
+          message: "No Posts Found",
+        });
+      }
+    } catch (error) {
+      if (error) {
+        res.status(404).json({
+          message: "Something went wrong with server",
+          error: `${error}`,
+        });
+      }
     }
-  }
-});
+  });
 
-
-router.route("/:userid").
-get(async (req, res) => {
-
+router.route("/:userid").get(async (req, res) => {
   let userid = req.params;
 
   try {
@@ -78,4 +85,20 @@ get(async (req, res) => {
   }
 });
 
+router.route("/like").post(async (req,res)=>{
+
+  let {postId,userid}  = req.body;
+  const id = mongoose.Types.ObjectId(userid);
+
+  Post.findByIdAndUpdate({_id:postId},{ $push:{likes:id}},{ new:true },function (err, docs) {
+    if (err){
+        res.json({success:false,error:err});
+    }
+    else{
+      res.json({success:true,message:"Data Updated Successfully"});
+    }
+});
+  
+
+}) ;
 module.exports = router;
