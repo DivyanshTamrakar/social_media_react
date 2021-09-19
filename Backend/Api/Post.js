@@ -101,4 +101,21 @@ router.route("/like").post(async (req,res)=>{
   
 
 }) ;
+
+router.route("/dislike").post(async (req,res)=>{
+
+  let {postId,userid}  = req.body;
+  const id = mongoose.Types.ObjectId(userid);
+
+  Post.findByIdAndUpdate({_id:postId},{ $pull:{likes:id}},{ new:true },function (err, docs) {
+    if (err){
+        res.json({success:false,error:err});
+    }
+    else{
+      res.json({success:true,message:"userid successfully removed "});
+    }
+});
+  
+
+}) ;
 module.exports = router;

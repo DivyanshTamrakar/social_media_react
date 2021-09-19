@@ -20,6 +20,8 @@ export function AuthProvider({ children }) {
     try {
       let response = await auth.signInWithEmailAndPassword(email, password);
 
+
+
       if (response.user) {
         localStorage.setItem("login", true);
         localStorage.setItem("email", response.user.email);

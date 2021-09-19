@@ -8,6 +8,8 @@ function initializeConnection() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
+      useFindAndModify: false 
+      
     })
     .then(() => console.log("successfully connected"))
     .catch((error) => console.error("mongoose connection failed", error));

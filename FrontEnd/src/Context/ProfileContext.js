@@ -23,7 +23,7 @@ export function ProfileProvider({ children }) {
   };
 
   return (
-    <ProfileContext.Provider value={{ user, GetuserData ,setuser}}>
+    <ProfileContext.Provider value={{ user, GetuserData, setuser }}>
       {children}
     </ProfileContext.Provider>
   );
