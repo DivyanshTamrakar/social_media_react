@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -64,9 +64,9 @@ function PostCard({
         <img src={post} alt={"post"} height="400px" width="100%" />
         <ActionArea>
           {likes.includes(user._id) ? (
-            <FavoriteIcon onClick={() => DislikeClick(postId)} />
+            <FavoriteIcon color="error" onClick={() => DislikeClick(postId)} />
           ) : (
-            <FavoriteBorderIcon onClick={() => likeClick(postId)} />
+            <FavoriteBorderIcon  onClick={() => likeClick(postId)} />
           )}
           <ChatBubbleOutlineIcon />
           <BookmarkBorderIcon />

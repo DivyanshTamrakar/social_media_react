@@ -1,15 +1,11 @@
 import React from "react";
 import Load from "../../utils/Loader";
 import PostCard from "./PostCard";
-import { LeftSection, RightSection ,PostContainer} from "./Post.style";
+import { LeftSection, RightSection, PostContainer } from "./Post.style";
 import { usePost } from "../../Context/PostsContext";
-import { useProfile } from "../../Context/ProfileContext";
-import { postData } from "../../FetchingApi/fetchApi";
 
 function PostComponent() {
   const { posts, showloader } = usePost();
-  const { user } = useProfile();
-
 
   return (
     <div>
@@ -30,7 +26,7 @@ function PostComponent() {
               }) => {
                 return (
                   <PostCard
-                   key={_id}
+                    key={_id}
                     postId={_id}
                     post={post}
                     caption={caption}
