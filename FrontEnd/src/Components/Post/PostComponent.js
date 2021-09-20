@@ -1,57 +1,15 @@
-import React, { useState } from "react";
-import Avatar from "@material-ui/core/Avatar";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
-import TimeAgo from "react-timeago";
-import Button from "@material-ui/core/Button";
+import React from "react";
 import Load from "../../utils/Loader";
-import {
-  Caption,
-  ActionArea,
-  LeftSection,
-  RightSection,
-  Comment,
-  HeadArea,
-  PostSection,
-  PostContainer,
-} from "./Post.style";
-
+import PostCard from "./PostCard";
+import { LeftSection, RightSection ,PostContainer} from "./Post.style";
 import { usePost } from "../../Context/PostsContext";
 import { useProfile } from "../../Context/ProfileContext";
 import { postData } from "../../FetchingApi/fetchApi";
 
 function PostComponent() {
-  const [comment, setcomment] = useState("");
   const { posts, showloader } = usePost();
   const { user } = useProfile();
 
-  const likeClick = async (id) => {
-    let body = { postId: id, userid: user._id };
-    try {
-      let response = await postData(body, "/addpost/like");
-
-      if (response.success) {
-        console.log(response.message);
-      }
-    } catch (error) {
-      console.log("errorr", error);
-    }
-  };
-
-  const DislikeClick = async (id) => {
-    let body = { postId: id, userid: user._id };
-    try {
-      let response = await postData(body, "/addpost/dislike");
-
-      if (response.success) {
-        console.log(response.message);
-      }
-    } catch (error) {
-      console.log("errorr", error);
-    }
-  };
 
   return (
     <div>
@@ -71,43 +29,16 @@ function PostComponent() {
                 createdAt,
               }) => {
                 return (
-                  <PostSection>
-                    <HeadArea>
-                      <Avatar alt="Remy Sharp" src={user_profile} />
-                      <h4>{username}</h4>
-                    </HeadArea>
-                    <img src={post} alt={"post"} height="400px" width="100%" />
-                    <ActionArea>
-                      {likes.includes(user._id) ? (
-                        <FavoriteIcon onClick={() => DislikeClick(_id)} />
-                      ) : (
-                        <FavoriteBorderIcon onClick={() => likeClick(_id)} />
-                      )}
-
-                      <ChatBubbleOutlineIcon />
-                      <BookmarkBorderIcon />
-                    </ActionArea>
-                    <span>{likes.length} likes</span>
-                    <Caption>
-                      <h4>{username}</h4>
-
-                      <span>{caption}</span>
-                    </Caption>
-                    <TimeAgo date={createdAt} />
-                    <Comment>
-                      <input
-                        type="text"
-                        placeholder="Add comment"
-                        onChange={(e) => setcomment(e.target.value)}
-                      />
-                      <Button
-                        disabled={comment === "" ? true : false}
-                        color="primary"
-                      >
-                        Post
-                      </Button>
-                    </Comment>
-                  </PostSection>
+                  <PostCard
+                   key={_id}
+                    postId={_id}
+                    post={post}
+                    caption={caption}
+                    likes={likes}
+                    user_profile={user_profile}
+                    username={username}
+                    createdAt={createdAt}
+                  />
                 );
               }
             )}

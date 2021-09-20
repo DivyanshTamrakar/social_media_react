@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect} from "react";
 import { getData } from "../FetchingApi/fetchApi";
 import { useLoader } from "./LoaderContext";
 export const PostContext = createContext();
@@ -6,6 +6,7 @@ export const PostContext = createContext();
 export function PostProvider({ children }) {
   const [posts, setposts] = useState([]);
   const { showloader, setshowloader } = useLoader();
+
 
   useEffect(() => {
     GetPosts();
@@ -27,7 +28,7 @@ export function PostProvider({ children }) {
   };
 
   return (
-    <PostContext.Provider value={{ posts, showloader }}>
+    <PostContext.Provider value={{ posts, showloader,}}>
       {children}
     </PostContext.Provider>
   );
