@@ -1,5 +1,5 @@
 var express = require("express");
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var router = express.Router();
 
 var { Post } = require("../Modals/PostModel");
@@ -85,37 +85,47 @@ router.route("/:userid").get(async (req, res) => {
   }
 });
 
-router.route("/like").post(async (req,res)=>{
-
-  let {postId,userid}  = req.body;
+router.route("/like").post(async (req, res) => {
+  let { postId, userid } = req.body;
   const id = mongoose.Types.ObjectId(userid);
 
-  Post.findByIdAndUpdate({_id:postId},{ $push:{likes:id}},{ new:true },function (err, docs) {
-    if (err){
-        res.json({success:false,error:err});
+  Post.findByIdAndUpdate(
+    { _id: postId },
+    { $push: { likes: id } },
+    { new: true },
+    function (err, docs) {
+      if (err) {
+        res.json({ success: false, error: err });
+      } else {
+        res.json({
+          success: true,
+          message: "Data Updated Successfully",
+          result: docs,
+        });
+      }
     }
-    else{
-      res.json({success:true,message:"Data Updated Successfully"});
-    }
+  );
 });
-  
 
-}) ;
-
-router.route("/dislike").post(async (req,res)=>{
-
-  let {postId,userid}  = req.body;
+router.route("/dislike").post(async (req, res) => {
+  let { postId, userid } = req.body;
   const id = mongoose.Types.ObjectId(userid);
 
-  Post.findByIdAndUpdate({_id:postId},{ $pull:{likes:id}},{ new:true },function (err, docs) {
-    if (err){
-        res.json({success:false,error:err});
+  Post.findByIdAndUpdate(
+    { _id: postId },
+    { $pull: { likes: id } },
+    { new: true },
+    function (err, docs) {
+      if (err) {
+        res.json({ success: false, error: err });
+      } else {
+        res.json({
+          success: true,
+          message: "userid successfully removed ",
+          result: docs,
+        });
+      }
     }
-    else{
-      res.json({success:true,message:"userid successfully removed "});
-    }
+  );
 });
-  
-
-}) ;
 module.exports = router;

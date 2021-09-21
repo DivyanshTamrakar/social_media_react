@@ -25,13 +25,17 @@ function PostCard({
   username,
   createdAt,
 }) {
+  const [comment, setcomment] = useState("");
+  const { user } = useProfile();
+  const [likeArray, setlikeArray] = useState(likes);
+
   const likeClick = async (id) => {
     let body = { postId: id, userid: user._id };
     try {
       let response = await postData(body, "/addpost/like");
 
       if (response.success) {
-        console.log(response.message);
+        setlikeArray(response.result.likes);
       }
     } catch (error) {
       console.log("errorr", error);
@@ -44,15 +48,12 @@ function PostCard({
       let response = await postData(body, "/addpost/dislike");
 
       if (response.success) {
-        console.log(response.message);
+        setlikeArray(response.result.likes);
       }
     } catch (error) {
       console.log("errorr", error);
     }
   };
-
-  const [comment, setcomment] = useState("");
-  const { user } = useProfile();
 
   return (
     <div>
@@ -63,15 +64,15 @@ function PostCard({
         </HeadArea>
         <img src={post} alt={"post"} height="400px" width="100%" />
         <ActionArea>
-          {likes.includes(user._id) ? (
+          {likeArray.includes(user._id) ? (
             <FavoriteIcon color="error" onClick={() => DislikeClick(postId)} />
           ) : (
-            <FavoriteBorderIcon  onClick={() => likeClick(postId)} />
+            <FavoriteBorderIcon onClick={() => likeClick(postId)} />
           )}
           <ChatBubbleOutlineIcon />
           <BookmarkBorderIcon />
         </ActionArea>
-        <span>{likes.length} likes</span>
+        <span>{likeArray.length} likes</span>
         <Caption>
           <h4>{username}</h4>
 
