@@ -24,7 +24,6 @@ function AddPost() {
   const [caption, setcaption] = useState("");
   const { user } = useProfile();
   const { GetPosts } = usePost();
-  
 
   const ImageHandler = (e) => {
     const reader = new FileReader();
@@ -47,22 +46,18 @@ function AddPost() {
       user_profile: user.photo_url,
       username: user.username,
     };
+    setOpen(true);
 
     try {
-      
-      const resposne  = await postData(body,'/addpost')
-  
-      if(resposne.success){
-        console.log(resposne);      
+      const resposne = await postData(body, "/addpost");
+
+      if (resposne.success) {
+        closeModal();
         GetPosts();
       }
-
     } catch (error) {
       console.log(error);
-      
     }
-    
- 
   };
 
   return (
@@ -79,7 +74,7 @@ function AddPost() {
       <Popup
         open={open}
         modal={true}
-        closeOnDocumentClick
+        closeOnDocumentClick={false}
         onClose={closeModal}
         contentStyle={contentstyle}
       >
