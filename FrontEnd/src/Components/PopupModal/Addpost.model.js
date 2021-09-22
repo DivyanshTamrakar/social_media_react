@@ -7,6 +7,7 @@ import Popup from "reactjs-popup";
 import CancelSharpIcon from "@material-ui/icons/CancelSharp";
 import Button from "@material-ui/core/Button";
 import { useProfile } from "../../Context/ProfileContext";
+import { usePost } from "../../Context/PostsContext";
 import { postData } from "../../FetchingApi/fetchApi";
 import {
   AddImage,
@@ -22,6 +23,8 @@ function AddPost() {
   const [post, setpost] = useState(placeholder);
   const [caption, setcaption] = useState("");
   const { user } = useProfile();
+  const { GetPosts } = usePost();
+  
 
   const ImageHandler = (e) => {
     const reader = new FileReader();
@@ -48,7 +51,11 @@ function AddPost() {
     try {
       
       const resposne  = await postData(body,'/addpost')
-      console.log(resposne);
+  
+      if(resposne.success){
+        console.log(resposne);      
+        GetPosts();
+      }
 
     } catch (error) {
       console.log(error);

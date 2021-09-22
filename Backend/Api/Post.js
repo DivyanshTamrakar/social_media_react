@@ -21,6 +21,7 @@ router
         username,
       });
       const result = await data.save();
+
       res.status(200).json({
         success: true,
         message: "Posted successfully",

@@ -27,7 +27,7 @@ export const RightSection = styled.div`
   flex: 0.5;
   display: flex;
   height: 10rem;
-  width: 5rem;
+  
   background-color: black;
 `;
 
@@ -90,8 +90,9 @@ export const Comment = styled.div`
 
 
 export const PostContainer = styled.div`
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 50% 50% ;
+  
   padding: 2rem;
 `;
 
