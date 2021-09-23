@@ -13,10 +13,9 @@ import {
 import UpdateProfile from "../Components/PopupModal/update.profile.model";
 import TabComponent from "../Components/Timeline/TabComponent";
 
-
 function Profile() {
-  const { user } = useProfile();
-  
+  const { user, followstatus } = useProfile();
+
   return (
     <div>
       <ProfileContainer>
@@ -30,8 +29,8 @@ function Profile() {
           </Username>
           <FollowDetails>
             <h4>4 posts</h4>
-            <h4>10 Follower</h4>
-            <h4>14 Following</h4>
+            <h4>{followstatus.followers.length} Follower</h4>
+            <h4>{followstatus.following.length} Following</h4>
           </FollowDetails>
           <Bio>{user.bio}</Bio>
           <UpdateProfile />

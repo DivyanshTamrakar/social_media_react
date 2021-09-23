@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const mongoose = require("mongoose");
 var { User } = require("../Modals/UserModel");
 var bodyparser = require("body-parser");
 
@@ -132,6 +133,94 @@ router.route("/update/:_id").post(async (req, res) => {
       error: `${e}`,
     });
   }
+});
+
+router.route("/follow").post(async (req, res) => {
+  let { followerid, followingid } = req.body;
+  const id = mongoose.Types.ObjectId(followingid);
+
+  User.findByIdAndUpdate(
+    { _id: followerid },
+    { $push: { followers: id } },
+    { new: true },
+    function (err, docs) {
+      if (err) {
+        res.json({ success: false, error: err });
+      } else {
+        res.json({
+          success: true,
+          message: "Data Updated Successfully",
+          result: docs,
+        });
+      }
+    }
+  );
+  
+});
+router.route("/unfollow").post(async (req, res) => {
+  let { followerid, followingid } = req.body;
+  const id = mongoose.Types.ObjectId(followingid);
+
+  await User.findByIdAndUpdate(
+    { _id: followerid },
+    { $pull: { followers: id } },
+    { new: true },
+    function (err, docs) {
+      if (err) {
+        res.json({ success: false, error: err });
+      } else {
+        res.json({
+          success: true,
+          message: "Data Updated Successfully",
+          result: docs,
+        });
+      }
+    }
+  );
+});
+
+router.route("/following").post(async (req, res) => {
+  let { followerid, followingid } = req.body;
+  const id = mongoose.Types.ObjectId(followerid);
+
+  User.findByIdAndUpdate(
+    { _id: followingid },
+    { $push: { following: id } },
+    { new: true },
+    function (err, docs) {
+      if (err) {
+        res.json({ success: false, error: err });
+      } else {
+        res.json({
+          success: true,
+          message: "Data Updated Successfully",
+          result: docs,
+        });
+      }
+    }
+  );
+});
+
+router.route("/unfollowing").post(async (req, res) => {
+  let { followerid, followingid } = req.body;
+  const id = mongoose.Types.ObjectId(followerid);
+
+  User.findByIdAndUpdate(
+    { _id: followingid },
+    { $pull: { following: id } },
+    { new: true },
+    function (err, docs) {
+      if (err) {
+        res.json({ success: false, error: err });
+      } else {
+        res.json({
+          success: true,
+          message: "Data Updated Successfully",
+          result: docs,
+        });
+      }
+    }
+  );
 });
 
 module.exports = router;

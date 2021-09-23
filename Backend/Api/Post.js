@@ -112,7 +112,7 @@ router.route("/dislike").post(async (req, res) => {
   let { postId, userid } = req.body;
   const id = mongoose.Types.ObjectId(userid);
 
-  Post.findByIdAndUpdate(
+   Post.findByIdAndUpdate(
     { _id: postId },
     { $pull: { likes: id } },
     { new: true },

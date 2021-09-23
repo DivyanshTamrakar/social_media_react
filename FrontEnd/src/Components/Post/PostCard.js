@@ -36,6 +36,7 @@ function PostCard({
 
       if (response.success) {
         setlikeArray(response.result.likes);
+        console.log(typeof(likeArray.length));
       }
     } catch (error) {
       console.log("errorr", error);
@@ -55,6 +56,8 @@ function PostCard({
     }
   };
 
+
+  
   return (
     <div>
       <PostSection>
