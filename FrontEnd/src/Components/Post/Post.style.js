@@ -92,8 +92,17 @@ export const Comment = styled.div`
 export const PostContainer = styled.div`
   display: grid;
   grid-template-columns: 50% 50% ;
-  
   padding: 2rem;
+
+  
+  @media only screen and (max-width: 600px) {
+    padding: 14px !important;
+    margin:0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    
+  }
 `;
 
 

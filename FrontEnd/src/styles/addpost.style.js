@@ -6,6 +6,13 @@ export const Post = styled.div`
   position: fixed;
   bottom: 2rem;
   right: 2rem;
+  display: block;
+
+  @media only screen and (max-width: 600px) {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+  }
 `;
 
 export const ComposePost = styled.div`
@@ -27,6 +34,19 @@ export const HeaderArea = styled.div`
   > .MuiSvgIcon-root {
     color: grey;
     cursor: pointer;
+  }
+
+  @media only screen and (max-width: 600px) {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-self: flex-end;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    > .MuiSvgIcon-root {
+      color: black;
+      cursor: pointer;
+    }
   }
 `;
 

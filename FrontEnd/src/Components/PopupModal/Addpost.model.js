@@ -75,6 +75,7 @@ function AddPost() {
         open={open}
         modal={true}
         closeOnDocumentClick={false}
+        repositionOnResize={true}
         onClose={closeModal}
         contentStyle={contentstyle}
       >
