@@ -22,10 +22,12 @@ function PostCard({
   caption,
   likes,
   user_profile,
+  comments,
   username,
   createdAt,
 }) {
   const [comment, setcomment] = useState("");
+  const [commentlist, setcommentlist] = useState(comments);
   const { user } = useProfile();
   const [likeArray, setlikeArray] = useState(likes);
 
@@ -36,7 +38,7 @@ function PostCard({
 
       if (response.success) {
         setlikeArray(response.result.likes);
-        console.log(typeof(likeArray.length));
+        console.log(typeof likeArray.length);
       }
     } catch (error) {
       console.log("errorr", error);
@@ -56,8 +58,25 @@ function PostCard({
     }
   };
 
+  async function handler() {
+    const body = {
+      postid: postId,
+      text: comment,
+      postedBy: user._id,
+    };
 
-  
+    try {
+      let response = await postData(body, "/addpost/comment");
+
+      if (response.success) {
+        console.log(response.result.comments);
+        setcommentlist(response.result.comments);
+      }
+    } catch (error) {
+      console.log("errorr", error);
+    }
+  }
+
   return (
     <div>
       <PostSection>
@@ -82,13 +101,36 @@ function PostCard({
           <span>{caption}</span>
         </Caption>
         <TimeAgo date={createdAt} />
+        {commentlist.map(function (item) {
+          return (
+            <div
+              style={{
+                fontWeight: "bold",
+                textAlign: "left",
+                marginLeft: "15px",
+              }}
+            >
+              <span> {item.postedBy.username}</span>
+              <span style={{
+                fontWeight: "500",
+                textAlign: "left",
+                
+              }}> {item.text}</span>
+
+            </div>
+          );
+        })}
         <Comment>
           <input
             type="text"
             placeholder="Add comment"
             onChange={(e) => setcomment(e.target.value)}
           />
-          <Button disabled={comment === "" ? true : false} color="primary">
+          <Button
+            onClick={handler}
+            disabled={comment === "" ? true : false}
+            color="primary"
+          >
             Post
           </Button>
         </Comment>

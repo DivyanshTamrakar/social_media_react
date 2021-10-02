@@ -20,6 +20,7 @@ function PostComponent() {
                 post,
                 caption,
                 likes,
+                comments,
                 user_profile,
                 username,
                 createdAt,
@@ -31,6 +32,7 @@ function PostComponent() {
                     post={post}
                     caption={caption}
                     likes={likes}
+                    comments={comments}
                     user_profile={user_profile}
                     username={username}
                     createdAt={createdAt}

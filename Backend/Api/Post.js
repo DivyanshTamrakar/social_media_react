@@ -112,7 +112,7 @@ router.route("/dislike").post(async (req, res) => {
   let { postId, userid } = req.body;
   const id = mongoose.Types.ObjectId(userid);
 
-   Post.findByIdAndUpdate(
+  Post.findByIdAndUpdate(
     { _id: postId },
     { $pull: { likes: id } },
     { new: true },
@@ -129,4 +129,31 @@ router.route("/dislike").post(async (req, res) => {
     }
   );
 });
+
+router.route("/comment").post(async (req, res) => {
+  const comment = {
+    text: req.body.text,
+    postedBy: req.body.postedBy,
+  };
+
+  Post.findByIdAndUpdate(
+    { _id: req.body.postid },
+    { $push: { comments: comment } },
+    { new: true }
+  ).populate("comments.postedBy","_id username")
+  .populate("postedBy","_id username")
+  .exec((err, result) => {
+    if (err) {
+      return res.status(422).json({ success: false, error: err });
+    } else {
+      res.json({
+        success: true,
+        message: "Data Updated Successfully",
+        result: result,
+        
+      });
+    }
+  });
+});
+
 module.exports = router;
