@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// export const url = "http://localhost:5000";
-export const url = "https://ancient-earth-80509.herokuapp.com";
+export const url = "http://localhost:5000";
+// export const url = "https://ancient-earth-80509.herokuapp.com";
 
 export async function getData(...endpoints) {
   let final_url = `${url}${endpoints}`;
@@ -27,8 +27,8 @@ export async function postData(body, ...endpoints) {
   }
 }
 
-// export const BASE_URL = "http://localhost:5000";
-export const BASE_URL = "https://ancient-earth-80509.herokuapp.com";
+export const BASE_URL = "http://localhost:5000";
+// export const BASE_URL = "https://ancient-earth-80509.herokuapp.com";
 /* This function takes query as a param and returns the array of beer objects.*/
 export const fetchSearchResults = async (query) => {
   if (query && query.length > 0) {

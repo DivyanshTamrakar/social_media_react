@@ -9,64 +9,86 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TextField } from "@material-ui/core";
 import { postData } from "../FetchingApi/fetchApi";
-
-let initialValues = { username: "", email: "", name: "", password: "" };
-let onSubmit = (values) => {
-  console.log("Form Data", values);
-  SignUpWithEmailandPassword({
-    username: values.username,
-    name: values.name,
-    email: values.email,
-    pass: values.password,
-  });
-};
-let validate = (values) => {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line
-  let errors = {};
-
-  if (!values.email) {
-    errors.email = "email is required";
-  } else if (!re.test(values.email)) {
-    errors.email = "Invalid Email Format";
-  }
-  if (!values.name) {
-    errors.name = "name is required";
-  }
-  if (!values.username) {
-    errors.username = "username is required";
-  }
-  if (!values.password) {
-    errors.password = "password is required";
-  }
-
-  return errors;
-};
-
-const SignUpWithEmailandPassword = async ({ username, name, email, pass }) => {
-  try {
-    let response = await auth.createUserWithEmailAndPassword(email, pass);
-
-    if (response.user) {
-      const body = {
-        username: username,
-        name: name,
-        email: response.user.email,
-        password: pass,
-      };
-      postData(body, "/users/signup");
-    }
-  } catch (error) {
-    toast.error(error.message, { position: "bottom-center" });
-  }
-};
+import { useLoader } from "../Context/LoaderContext";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  let initialValues = { username: "", email: "", name: "", password: "" };
+
+  const { showloader, setshowloader } = useLoader();
+  let navigate = useNavigate();
+
+  let validate = (values) => {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line
+    let errors = {};
+
+    if (!values.email) {
+      errors.email = "email is required";
+    } else if (!re.test(values.email)) {
+      errors.email = "Invalid Email Format";
+    }
+    if (!values.name) {
+      errors.name = "name is required";
+    }
+    if (!values.username) {
+      errors.username = "username is required";
+    }
+    if (!values.password) {
+      errors.password = "password is required";
+    }
+
+    return errors;
+  };
+
+  let onSubmit = (values) => {
+    setshowloader(true);
+    console.log("Form Data", values);
+    SignUpWithEmailandPassword({
+      username: values.username,
+      name: values.name,
+      email: values.email,
+      pass: values.password,
+    });
+  };
+
   const formik = useFormik({
     initialValues,
     onSubmit,
     validate,
   });
+
+  const SignUpWithEmailandPassword = async ({
+    username,
+    name,
+    email,
+    pass,
+  }) => {
+    try {
+      let response = await auth.createUserWithEmailAndPassword(email, pass);
+      console.log("response", response);
+      if (response.user) {
+        const body = {
+          username: username,
+          name: name,
+          email: response.user.email,
+          password: pass,
+        };
+        const res = await postData(body, "/users/signup");
+
+        if (res.success) {
+          toast.success("Registration successfull", {
+            position: "bottom-center",
+          });
+          setshowloader(false);
+          navigate("/login", { replace: true });
+        }
+      }
+    } catch (error) {
+      setshowloader(false);
+      toast.error(error.message, { position: "bottom-center" });
+    }
+  };
 
   return (
     <LoginContainer>
@@ -134,11 +156,12 @@ function Signup() {
 
           <Button
             type="submit"
+            disabled={showloader}
             variant="contained"
             color="secondary"
             startIcon={<LockOpenIcon />}
           >
-            SignUp
+            {showloader ? "Loading" : "SignUp"}
           </Button>
         </form>
         <center>
