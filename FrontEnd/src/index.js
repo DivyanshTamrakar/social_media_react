@@ -14,15 +14,15 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
+      <LoaderProvider>
         <ProfileProvider>
-          <AuthProvider>
-            <LoaderProvider>
+            <AuthProvider>
               <PostProvider>
                 <App />
               </PostProvider>
-            </LoaderProvider>
-          </AuthProvider>
+            </AuthProvider>
         </ProfileProvider>
+        </LoaderProvider>
       </Router>
     </Provider>
   </React.StrictMode>,

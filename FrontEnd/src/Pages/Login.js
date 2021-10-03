@@ -8,13 +8,15 @@ import { useFormik } from "formik";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TextField } from "@material-ui/core";
+import { useLoader } from "../Context/LoaderContext";
 
 function Login() {
   const { login, SignInWithEmailandPassword, CheckLoginStatus } = useAuth();
+  const { showloader, setshowloader } = useLoader();
 
   let initialValues = { email: "", password: "" };
   let onSubmit = (values) => {
-    console.log("Form Data", values);
+    setshowloader(true);
     SignInWithEmailandPassword({
       email: values.email,
       password: values.password,
@@ -89,11 +91,12 @@ function Login() {
 
             <Button
               type="submit"
+              disabled={showloader}
               variant="contained"
               color="secondary"
               startIcon={<LockOpenIcon />}
             >
-              Login
+              {showloader ? "Loading..." : "Login"}
             </Button>
           </form>
           <center>
