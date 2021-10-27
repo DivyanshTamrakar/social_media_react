@@ -23,10 +23,11 @@ function App() {
       {login && <Header />}
       <Routes>
         <PrivateRoute path="/" element={<Home />} />
+        <PrivateRoute path="/profile" element={<Profile />} />
         <Route path="/activity" element={<Activity />} />
         <Route path="/chats" element={<Chats />} />
         <Route path="/explore" element={<Explore />} />
-        <PrivateRoute path="/profile" element={<Profile />} />
+
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/user/:id" element={<UsersProfile />} />

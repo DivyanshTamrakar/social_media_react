@@ -101,9 +101,10 @@ function PostCard({
           <span>{caption}</span>
         </Caption>
         <TimeAgo date={createdAt} />
-        {commentlist.map(function (item) {
+        {commentlist.map((item, index) => {
           return (
             <div
+              key={index}
               style={{
                 fontWeight: "bold",
                 textAlign: "left",
@@ -111,12 +112,15 @@ function PostCard({
               }}
             >
               <span> {item.postedBy.username}</span>
-              <span style={{
-                fontWeight: "500",
-                textAlign: "left",
-                
-              }}> {item.text}</span>
-
+              <span
+                style={{
+                  fontWeight: "500",
+                  textAlign: "left",
+                }}
+              >
+                {" "}
+                {item.text}
+              </span>
             </div>
           );
         })}
