@@ -27,8 +27,6 @@ function AddPost() {
 
   const ImageHandler = (e) => {
     const reader = new FileReader();
-
-    console.log(reader);
     reader.onloadend = () => {
       if (reader.readyState === 2) {
         setpost(reader.result);
@@ -50,7 +48,6 @@ function AddPost() {
 
     try {
       const resposne = await postData(body, "/addpost");
-
       if (resposne.success) {
         closeModal();
         GetPosts();

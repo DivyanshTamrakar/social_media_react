@@ -10,7 +10,7 @@ function PostComponent() {
 
   useEffect(() => {
     dispatch(fetchPost());
-  }, [dispatch]);
+  }, [dispatch, postArray]);
 
   return (
     <PostContainer>
