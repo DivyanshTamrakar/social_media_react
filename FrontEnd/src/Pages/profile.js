@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import "reactjs-popup/dist/index.css";
-import { useProfile } from "../Context/ProfileContext";
 import {
   Details,
   ProfileContainer,
@@ -12,9 +11,18 @@ import {
 } from "../styles/profile.style";
 import UpdateProfile from "../Components/PopupModal/update.profile.model";
 import TabComponent from "../Components/Timeline/TabComponent";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUser } from "../features/users/userSlice";
 
 function Profile() {
-  const { user, followstatus } = useProfile();
+  const email = localStorage.getItem("email");
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUser(email));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   return (
     <div>
@@ -29,8 +37,9 @@ function Profile() {
           </Username>
           <FollowDetails>
             <h4>4 posts</h4>
-            <h4>{followstatus.followers.length} Follower</h4>
-            <h4>{followstatus.following.length} Following</h4>
+            {/* <h4>{followstatus.followers.length} Follower</h4> */}
+            <h4>{user?.followers?.length} Follower</h4>
+            <h4>{user?.following?.length} Following</h4>
           </FollowDetails>
           <Bio>{user.bio}</Bio>
           <UpdateProfile />

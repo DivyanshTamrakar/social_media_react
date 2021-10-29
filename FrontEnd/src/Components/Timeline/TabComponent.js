@@ -47,10 +47,10 @@ function TabComponent({ userid }) {
       </Paper>
       <PersonPost>
         {showloader ? (
-          <Load/>
+          <Load />
         ) : (
-          data.map((item) => (
-            <div>
+          data.map((item, index) => (
+            <div key={index}>
               <img src={item.post} alt="timeline-post" />
             </div>
           ))

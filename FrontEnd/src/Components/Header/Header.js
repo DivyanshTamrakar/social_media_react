@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useEffect}from "react";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import NotificationsOutlinedIcon from "@material-ui/icons/NotificationsOutlined";
 import Avatar from "@material-ui/core/Avatar";
@@ -17,12 +17,19 @@ import {
 } from "./Header.style";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
-import { useProfile } from "../../Context/ProfileContext";
 import SearchComponent from "../SearchFeature/SearchComponent";
-
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUser,email} from "../../features/users/userSlice";
 function Header() {
   const { signOut } = useAuth();
-  const { user } = useProfile();
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    dispatch(fetchUser(email))
+    
+  }, [dispatch])
 
   return (
     <HeaderContainer>

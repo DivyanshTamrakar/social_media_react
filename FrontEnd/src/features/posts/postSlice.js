@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { BASE_URL } from "../../utils/Constant";
 
 export const fetchPost = createAsyncThunk("user/post", async () => {
-  const response = await axios.get("http://localhost:5000/addpost");
-
+  const response = await axios.get(`${BASE_URL}/addpost`);
   return response.data;
 });
 
@@ -24,7 +24,5 @@ const postSlice = createSlice({
     },
   },
 });
-
-// Later, dispatch the thunk as needed in the app
 
 export default postSlice.reducer;
