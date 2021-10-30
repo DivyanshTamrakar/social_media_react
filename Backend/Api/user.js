@@ -119,7 +119,6 @@ router.route("/update/:_id").post(async (req, res) => {
           message: err,
         });
       } else {
-        console.log(docs);
         res.json({
           success: true,
           message: "Data Updated successfully ",

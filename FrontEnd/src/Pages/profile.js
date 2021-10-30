@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import "reactjs-popup/dist/index.css";
 import {
@@ -11,20 +11,10 @@ import {
 } from "../styles/profile.style";
 import UpdateProfile from "../Components/PopupModal/update.profile.model";
 import TabComponent from "../Components/Timeline/TabComponent";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchUser } from "../features/users/userSlice";
+import { useSelector } from "react-redux";
 
 function Profile() {
-  const email = localStorage.getItem("email");
   const user = useSelector((state) => state.user.user);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchUser(email));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
-
-
 
   return (
     <div>
