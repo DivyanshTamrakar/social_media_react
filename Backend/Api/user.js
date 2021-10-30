@@ -112,19 +112,20 @@ router.route("/update/:_id").post(async (req, res) => {
   try {
     const userdata = req.body;
     const id = req.params;
-    User.findByIdAndUpdate(id, userdata, function (err, docs) {
+    User.findByIdAndUpdate(id, userdata,{new: true} ,function (err, docs) {
       if (err) {
         return res.status(404).json({
           success: false,
           message: err,
         });
       } else {
-        console.log("User has been updated");
+        console.log(docs);
+        res.json({
+          success: true,
+          message: "Data Updated successfully ",
+          user: docs,
+        });
       }
-    });
-    res.json({
-      success: true,
-      message: "Data Updated successfully ",
     });
   } catch (e) {
     res.json({
@@ -155,7 +156,6 @@ router.route("/follow").post(async (req, res) => {
       }
     }
   );
-  
 });
 router.route("/unfollow").post(async (req, res) => {
   let { followerid, followingid } = req.body;

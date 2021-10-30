@@ -25,7 +25,6 @@ function Header() {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     dispatch(fetchUser(email))
     

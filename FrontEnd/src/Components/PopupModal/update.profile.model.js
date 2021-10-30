@@ -3,19 +3,19 @@ import Button from "@material-ui/core/Button";
 import Popup from "reactjs-popup";
 import Avatar from "@material-ui/core/Avatar";
 import "reactjs-popup/dist/index.css";
-import { postData } from "../../FetchingApi/fetchApi";
 import { TextField } from "@material-ui/core";
 import { PopupContent, ProfileImage } from "../../styles/profile.style";
 import { useFormik } from "formik";
 import { useState } from "react";
-import { useProfile } from "../../Context/ProfileContext";
+import { useSelector, useDispatch } from "react-redux";
+import { UpdateUserData } from "../../features/users/userSlice";
 
 function UpdateProfile() {
   const [profile, setprofile] = useState(null);
-  const { user, GetuserData } = useProfile();
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
   let initialValues = { name: "", username: "", bio: "" };
   let onSubmit = (values) => {
-    console.log("Form Data", values);
     UpdateData({
       name: values.name,
       photo_url: profile,
@@ -46,14 +46,17 @@ function UpdateProfile() {
   });
 
   const UpdateData = async ({ name, photo_url, username, bio }) => {
-    const body = {
-      photo_url: photo_url,
-      name: name,
-      username: username,
-      bio: bio,
-    };
-    postData(body, `/users/update/${user._id}`);
-    GetuserData();
+    dispatch(
+      UpdateUserData({
+        body: {
+          photo_url: photo_url,
+          name: name,
+          username: username,
+          bio: bio,
+        },
+        userid: user._id,
+      })
+    );
   };
 
   const imageHandler = (e) => {
@@ -70,7 +73,7 @@ function UpdateProfile() {
     <Popup
       modal
       repositionOnResize={true}
-      contentStyle={{borderRadius:'20px'}}
+      contentStyle={{ borderRadius: "20px" }}
       trigger={
         <Button variant="outlined" color="secondary">
           Edit Profile
