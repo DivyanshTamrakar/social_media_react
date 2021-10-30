@@ -2,15 +2,12 @@ import { createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { auth } from "../FirebaseConfig/firebase";
 import { useLoader } from "./LoaderContext";
-import { useProfile } from "./ProfileContext";
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [login, setLogin] = useState(false);
 
   const loginStatus = localStorage.getItem("login");
-
-  const { setuser } = useProfile();
   const { setshowloader } = useLoader();
 
   const CheckLoginStatus = () => {
@@ -43,7 +40,6 @@ export function AuthProvider({ children }) {
       .signOut()
       .then(() => {
         localStorage.clear();
-        setuser({});
         setLogin(false);
 
         // window.location.reload(false);
