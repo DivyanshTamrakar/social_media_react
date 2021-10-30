@@ -9,9 +9,6 @@ export function PrivateRoute({ path, ...props }) {
   if (loginStatus) {
     setLogin(true);
   }
-
-  console.log("via private router login");
-  console.log({ path });
   return login || loginStatus ? (
     <Route path={path} {...props} />
   ) : (

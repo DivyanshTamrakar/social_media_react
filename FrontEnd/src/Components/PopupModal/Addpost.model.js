@@ -6,9 +6,6 @@ import { useState } from "react";
 import Popup from "reactjs-popup";
 import CancelSharpIcon from "@material-ui/icons/CancelSharp";
 import Button from "@material-ui/core/Button";
-import { useProfile } from "../../Context/ProfileContext";
-import { usePost } from "../../Context/PostsContext";
-import { postData } from "../../FetchingApi/fetchApi";
 import {
   AddImage,
   ComposePost,
@@ -18,12 +15,16 @@ import {
   contentstyle,
   placeholder,
 } from "../../styles/addpost.style";
+import { UploadPost } from "../../features/posts/postSlice";
+import { useDispatch,useSelector } from "react-redux";
+
 function AddPost() {
   const [open, setOpen] = useState(false);
   const [post, setpost] = useState(placeholder);
   const [caption, setcaption] = useState("");
-  const { user } = useProfile();
-  const { GetPosts } = usePost();
+
+  const user = useSelector(state => state.user.user)
+  const dispatch = useDispatch();
 
   const ImageHandler = (e) => {
     const reader = new FileReader();
@@ -35,27 +36,6 @@ function AddPost() {
     reader.readAsDataURL(e.target.files[0]);
   };
   const closeModal = () => setOpen(false);
-
-  const PostHandler = async () => {
-    const body = {
-      userid: user._id,
-      post: post,
-      caption: caption,
-      user_profile: user.photo_url,
-      username: user.username,
-    };
-    setOpen(true);
-
-    try {
-      const resposne = await postData(body, "/addpost");
-      if (resposne.success) {
-        closeModal();
-        GetPosts();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   return (
     <Post>
@@ -113,7 +93,18 @@ function AddPost() {
             variant="contained"
             color="primary"
             disabled={post === placeholder ? true : false}
-            onClick={PostHandler}
+            onClick={() => {
+              dispatch(
+                UploadPost({
+                  userid: user._id,
+                  post: post,
+                  caption: caption,
+                  user_profile: user.photo_url,
+                  username: user.username,
+                })
+              );
+              closeModal();
+            }}
           >
             Post
           </Button>

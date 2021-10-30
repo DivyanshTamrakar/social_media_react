@@ -21,10 +21,10 @@ router
         username,
       });
       const result = await data.save();
-
       res.status(200).json({
         success: true,
         message: "Posted successfully",
+        post: result,
       });
     } catch (e) {
       res.json({
@@ -140,20 +140,20 @@ router.route("/comment").post(async (req, res) => {
     { _id: req.body.postid },
     { $push: { comments: comment } },
     { new: true }
-  ).populate("comments.postedBy","_id username")
-  .populate("postedBy","_id username")
-  .exec((err, result) => {
-    if (err) {
-      return res.status(422).json({ success: false, error: err });
-    } else {
-      res.json({
-        success: true,
-        message: "Data Updated Successfully",
-        result: result,
-        
-      });
-    }
-  });
+  )
+    .populate("comments.postedBy", "_id username")
+    .populate("postedBy", "_id username")
+    .exec((err, result) => {
+      if (err) {
+        return res.status(422).json({ success: false, error: err });
+      } else {
+        res.json({
+          success: true,
+          message: "Data Updated Successfully",
+          result: result,
+        });
+      }
+    });
 });
 
 module.exports = router;

@@ -8,20 +8,17 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./Context/AuthContext";
 import { ProfileProvider } from "./Context/ProfileContext";
 import { LoaderProvider } from "./Context/LoaderContext";
-import { PostProvider } from "./Context/PostsContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Router>
-      <LoaderProvider>
-        <ProfileProvider>
+        <LoaderProvider>
+          <ProfileProvider>
             <AuthProvider>
-              <PostProvider>
-                <App />
-              </PostProvider>
+              <App />
             </AuthProvider>
-        </ProfileProvider>
+          </ProfileProvider>
         </LoaderProvider>
       </Router>
     </Provider>

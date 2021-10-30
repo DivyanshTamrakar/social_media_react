@@ -5,18 +5,16 @@ import { fetchPost } from "../../features/posts/postSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 function PostComponent() {
-  const postArray = useSelector((state) => state.posts.posts.posts);
+  const postArray = useSelector((state) => state.posts.posts);
   const dispatch = useDispatch();
-
-  console.log(postArray);
 
   useEffect(() => {
     dispatch(fetchPost());
-  }, [dispatch, postArray]);
+  }, [dispatch]);
 
   return (
     <div>
-      {postArray === undefined ? (
+      {postArray.length === 0? (
         "loading..."
       ) : (
         <PostContainer>

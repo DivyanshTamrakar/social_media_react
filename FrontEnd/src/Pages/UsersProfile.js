@@ -25,7 +25,6 @@ function UsersProfile() {
     following: [],
   });
   const { user, followstatus, setfollowstatus } = useProfile();
-  const state = useSelector(state => state.state)
 
   const UnFollowClick = async (id) => {
     let body = { followerid: id, followingid: user._id };
