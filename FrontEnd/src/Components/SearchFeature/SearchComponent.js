@@ -27,9 +27,7 @@ function SearchComponent() {
     <div>
       <SearchInput
         value={query}
-        onChangeText={(e) => {
-          setQuery(e.target.value);
-        }}
+        onChangeText={(e) =>setQuery(e.target.value)}
       />
 
       <SearchResult>

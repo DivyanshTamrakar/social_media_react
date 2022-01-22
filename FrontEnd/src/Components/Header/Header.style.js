@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const HeaderContainer = styled.div`
   display: flex;
   position: sticky;
-  z-index: 5;
+  z-index: 2;
   top: 0;
   right: 0;
   gap: 5px;
@@ -11,6 +11,7 @@ export const HeaderContainer = styled.div`
   align-items: center;
   justify-content: center;
   background-color: #ffae00;
+  position: relative;
 `;
 
 export const HeaderLeft = styled.div`
@@ -62,7 +63,7 @@ export const UnderlineHide = {
 export const SearchResult = styled.div`
   position: absolute;
   top: 9%;
-  z-index: 5;
+  bottom: 0;
+  z-index: 1;
   background-color: white;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;
