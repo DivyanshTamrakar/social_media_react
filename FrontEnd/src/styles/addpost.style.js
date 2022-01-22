@@ -4,21 +4,20 @@ export const placeholder = "https://i.stack.imgur.com/y9DpT.jpg";
 
 export const Post = styled.div`
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
+  bottom: 25px;
+  right: 25px;
   display: block;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 768px) {
     position: fixed;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 15px;
+    right: 15px
   }
 `;
 
 export const ComposePost = styled.div`
   display: flex;
   flex-direction: column;
-
   > .MuiButtonBase-root {
     margin-top: 10px;
   }
@@ -26,9 +25,6 @@ export const ComposePost = styled.div`
 
 export const HeaderArea = styled.div`
   display: flex;
-  width: 25rem;
-  flex-direction: row;
-  align-self: flex-end;
   justify-content: space-between;
   margin-bottom: 10px;
   > .MuiSvgIcon-root {
@@ -36,11 +32,9 @@ export const HeaderArea = styled.div`
     cursor: pointer;
   }
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 768px) {
     display: flex;
     width: 100%;
-    flex-direction: row;
-    align-self: flex-end;
     justify-content: space-between;
     margin-bottom: 10px;
     > .MuiSvgIcon-root {
@@ -83,8 +77,9 @@ export const AddImage = styled.div`
     cursor: pointer;
   }
   > img {
-    border: 1px solid black;
-    height: 22rem;
+    border: 0.5px solid grey;
+    height: 45%;
     margin-bottom: 5px;
   }
+  
 `;
