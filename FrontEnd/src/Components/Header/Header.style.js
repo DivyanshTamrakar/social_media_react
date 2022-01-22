@@ -6,7 +6,8 @@ export const HeaderContainer = styled.div`
   z-index: 5;
   top: 0;
   right: 0;
-  gap: 2px;
+  gap: 5px;
+  padding: 8px;
   align-items: center;
   justify-content: center;
   background-color: #ffae00;
