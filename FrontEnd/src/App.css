@@ -3,15 +3,12 @@
   padding: 0;
 }
 
-.App {
-  text-align: center;
-}
-
 body {
-  margin: auto;
-  width: 100%;
   overflow-x: hidden;
   background-color: rgb(250, 250, 250);
+  margin: 0;
+  padding: 0;
+  
 }
 
 .App-logo {
@@ -53,7 +50,7 @@ body {
 }
 
 /* serach box result design  */
-.context {
+/* .context {
   display: flex;
   width: 230px;
   padding: 10px;
@@ -67,4 +64,4 @@ body {
   height: 50px;
   width: 50px;
   border-radius: 50%;
-}
+} */

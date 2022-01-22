@@ -2,10 +2,13 @@ import styled from "styled-components";
 
 export const SearchContainer = styled.div`
   border: none;
-
   > input {
-    padding: 10px;
     border: none;
-    outline: none;
+    padding: 9px;
+    background-color: white;
+    border-radius: 50px;
+    outline: 0;
+    color: black;
+    font-weight: bold;
   }
 `;

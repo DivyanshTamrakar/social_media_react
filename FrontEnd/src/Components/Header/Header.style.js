@@ -3,50 +3,40 @@ import styled from "styled-components";
 export const HeaderContainer = styled.div`
   display: flex;
   position: sticky;
-  z-index: 20;
+  z-index: 5;
   top: 0;
-  margin: 0 0 0 0 ;
+  right: 0;
+  gap: 2px;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 0 5px 0;
-  border: 0.1px solid grey;
-  background-color: white;
+  justify-content: center;
+  background-color: #ffae00;
 `;
 
 export const HeaderLeft = styled.div`
-  flex: 0.4;
-  align-items: center;
+  flex: 0.3;
+  flex: 1;
+  margin-left: 5px;
+  
   > img {
     cursor: pointer;
   }
 `;
 
 export const HeaderSearch = styled.div`
-  flex: 0.2;
-  display: flex;
-  opacity: 1;
-
-  text-align: center;
-  color: gray;
-  border: 1px solid gray;
-  > input {
-    border: none;
-    background-color: transparent;
-    text-align: center;
-    outline: 0;
-    color: black;
-    min-width: 30vw;
-    padding: 3px 0;
-  }
+  flex: 0.4;
+  flex-grow: 2;
+  opacity: 0.5;
+  background-color: white;
+  border-radius: 5px;
 `;
 
 export const HeaderRight = styled.div`
-  flex: 0.4;
+  flex: 0.3;
   display: flex;
-  flex-direction: row;
+  flex-grow: 1;
   align-items: center;
-  margin: 0 50px;
-  justify-content: space-evenly;
+  justify-content: center;
+  gap: 5%;
 `;
 
 export const PopupContent = styled.div`

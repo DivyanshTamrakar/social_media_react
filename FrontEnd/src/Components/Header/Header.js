@@ -55,10 +55,9 @@ function Header() {
           <NotificationsOutlinedIcon />
         </Link>
         <Popup
-          contentStyle={{ padding: "0", borderRadius: "8px", border: "none" }}
           trigger={
             <Avatar
-              style={{ cursor: "pointer", border: "2px solid black" }}
+              style={{ cursor: "pointer", border: "1px solid black" }}
               alt={user.name}
               src={user.photo_url}
             />

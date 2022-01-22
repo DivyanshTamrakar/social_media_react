@@ -4,10 +4,10 @@ export const url = "http://localhost:5000";
 // export const url = "https://ancient-earth-80509.herokuapp.com";
 
 export async function getData(...endpoints) {
-  let final_url = `${url}${endpoints}`;
+  const final_url = `${url}${endpoints}`;
 
   try {
-    let response = await axios.get(final_url);
+    const response = await axios.get(final_url);
     const resultData = response.data;
     return resultData;
   } catch (e) {
@@ -16,10 +16,10 @@ export async function getData(...endpoints) {
 }
 
 export async function postData(body, ...endpoints) {
-  let final_url = `${url}${endpoints}`;
+  const final_url = `${url}${endpoints}`;
   console.log("finalurl", final_url);
   try {
-    let response = await axios.post(final_url, body);
+    const response = await axios.post(final_url, body);
     const resultData = response.data;
     return resultData;
   } catch (e) {
