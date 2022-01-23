@@ -105,12 +105,3 @@ export const PostContainer = styled.div`
   }
 `;
 
-export const Suggestion = styled.div`
-  width: max-content;
-  display: flex;
-  justify-content: space-between;
-  gap: 5px;
-  margin: 10px 10px 0px 10px
-
-`;
-

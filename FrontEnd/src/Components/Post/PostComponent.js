@@ -4,12 +4,9 @@ import {
   LeftSection,
   RightSection,
   PostContainer,
-  Suggestion,
 } from "./Post.style";
 import { fetchPost } from "../../features/posts/postSlice";
 import { useSelector, useDispatch } from "react-redux";
-import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
-import Button from "@material-ui/core/Button";
 
 function PostComponent() {
   const postArray = useSelector((state) => state.posts.posts);
