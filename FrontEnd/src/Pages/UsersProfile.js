@@ -13,6 +13,7 @@ import {
   Username,
   Bio,
   FollowButtons,
+  ShowTab
 } from "../styles/profile.style";
 import { getData, postData } from "../FetchingApi/fetchApi";
 
@@ -148,9 +149,9 @@ function UsersProfile() {
           )}
         </Details>
       </ProfileContainer>
-      <div style={{ width: "100%", margin: "auto" }}>
+      <ShowTab>
         <TabComponent userid={id} />
-      </div>
+      </ShowTab>
     </>
   );
 }

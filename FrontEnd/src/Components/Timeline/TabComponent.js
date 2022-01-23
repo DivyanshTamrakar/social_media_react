@@ -4,9 +4,9 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import styled from "styled-components";
 import { getData } from "../../FetchingApi/fetchApi";
-
 import Load from "../../utils/Loader";
 import { useLoader } from "../../Context/LoaderContext";
+
 function TabComponent({ userid }) {
   const [value, setValue] = useState(0);
   const [data, setdata] = useState([]);
@@ -19,7 +19,7 @@ function TabComponent({ userid }) {
 
   const GetPersonPost = async () => {
     setshowloader(true);
-    let response = await getData(`/addpost/${userid}`);
+    const response = await getData(`/addpost/${userid}`);
     if (response.success) {
       setshowloader(false);
       setdata(response.posts);
@@ -49,11 +49,13 @@ function TabComponent({ userid }) {
         {showloader ? (
           <Load />
         ) : (
-          data.map((item, index) => (
-            <div key={index}>
-              <img src={item.post} alt="timeline-post" />
-            </div>
-          ))
+          data.map((item, index) => {
+            return (
+              <div key={index}>
+                <img src={item.post} alt="timeline-post" width='300px'  height='200px' />
+              </div>
+            );
+          })
         )}
       </PersonPost>
     </div>
@@ -65,5 +67,8 @@ export default TabComponent;
 const PersonPost = styled.div`
   margin: 10px;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+  grid-auto-columns: minmax(50px, auto);
 `;

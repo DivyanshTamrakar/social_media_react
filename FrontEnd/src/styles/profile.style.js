@@ -137,3 +137,6 @@ export const FollowButtons = styled.div`
     font-weight: bolder;
   }
 `;
+export const ShowTab = styled.div`
+margin: 0 20px;
+`;

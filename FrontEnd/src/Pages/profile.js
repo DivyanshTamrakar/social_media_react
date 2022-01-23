@@ -8,6 +8,7 @@ import {
   FollowDetails,
   Username,
   Bio,
+  ShowTab
 } from "../styles/profile.style";
 import UpdateProfile from "../Components/PopupModal/update.profile.model";
 import TabComponent from "../Components/Timeline/TabComponent";
@@ -36,9 +37,9 @@ function Profile() {
           <UpdateProfile />
         </Details>
       </ProfileContainer>
-      {/* <div style={{ width: "100%", margin: "auto" }}> */}
-        {/* <TabComponent userid={user._id} /> */}
-      {/* </div> */}
+      <ShowTab>
+        <TabComponent userid={user._id} />
+      </ShowTab>
     </div>
   );
 }
