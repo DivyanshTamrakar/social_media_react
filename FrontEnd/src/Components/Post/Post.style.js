@@ -2,7 +2,7 @@ import styled from "styled-components";
 export const LeftSection = styled.div``;
 
 export const PostSection = styled.div`
-  flex: 0.5;
+  flex: 0.7;
   display: flex;
   flex-direction: column;
   height: max-content;
@@ -25,10 +25,14 @@ export const PostSection = styled.div`
 `;
 export const RightSection = styled.div`
   flex: 0.5;
+  max-width: 40%;
   display: flex;
-  height: 10rem;
-  
-  background-color: black;
+  flex-direction: column;
+  height: max-content;
+  margin-left: 200px;
+  /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: white;
+  padding: 10px; */
 `;
 
 export const HeadArea = styled.div`
@@ -91,11 +95,10 @@ export const Comment = styled.div`
 
 export const PostContainer = styled.div`
   display: grid;
-  grid-template-columns: 50% 50% ;
+  grid-template-columns: 40% 60% ;
   padding: 2rem;
-
   
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 768px) {
     padding: 14px !important;
     margin:0;
     display: flex;
@@ -105,4 +108,12 @@ export const PostContainer = styled.div`
   }
 `;
 
+export const Suggestion = styled.div`
+  width: max-content;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  margin: 10px 10px 0px 10px
+
+`;
 
