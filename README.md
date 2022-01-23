@@ -1,6 +1,6 @@
 # Social Media App Web Application.
 
-It is an Social Media App with the features included :
+It is a Social Media App with the features included :
 * **Authentication.**
 * **User can create post and share it with others, so that everyone can see the post**
 * **User can like dislike the post**
