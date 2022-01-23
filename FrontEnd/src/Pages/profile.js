@@ -29,7 +29,6 @@ function Profile() {
           </Username>
           <FollowDetails>
             <h4>4 posts</h4>
-            {/* <h4>{followstatus.followers.length} Follower</h4> */}
             <h4>{user?.followers?.length} Follower</h4>
             <h4>{user?.following?.length} Following</h4>
           </FollowDetails>
@@ -37,9 +36,9 @@ function Profile() {
           <UpdateProfile />
         </Details>
       </ProfileContainer>
-      <div style={{ width: "100%", margin: "auto" }}>
-        <TabComponent userid={user._id} />
-      </div>
+      {/* <div style={{ width: "100%", margin: "auto" }}> */}
+        {/* <TabComponent userid={user._id} /> */}
+      {/* </div> */}
     </div>
   );
 }

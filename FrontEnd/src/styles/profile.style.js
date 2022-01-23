@@ -2,8 +2,6 @@ import styled from "styled-components";
 
 export const ProfileContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  
 `;
 
 export const ImageAvatar = styled.div`
@@ -16,15 +14,26 @@ export const ImageAvatar = styled.div`
     height: 150px;
     width: 150px;
     margin-right: 40px;
+    @media only screen and (max-width: 768px) {
+      margin-right: 15px;
+   
+  }
+
+
+  }
+  @media only screen and (max-width: 768px) {
+      margin-left: 10px;
+   
   }
 `;
 
 export const Details = styled.div`
+   
   display: flex;
+  flex-direction: column;
   width: max-content;
   margin-top: 15px;
   margin-bottom: 20px;
-  flex-direction: column;
   align-items: flex-start;
   height: max-content;
 
@@ -35,19 +44,26 @@ export const Details = styled.div`
     border-color: black;
     text-transform: none;
     margin: 20px 0 0 0;
+    @media only screen and (max-width: 768px) {
+      width: 150px;
+  }
   }
 `;
 
 export const Username = styled.div`
   text-align: left;
-
   > h3 {
-    font-weight: 200;
+    font-weight: 700;
     font-size: 45px;
     margin: 0 0 5px 0;
+    @media only screen and (max-width: 768px) {
+      font-weight: 700;
+       font-size: 30px;
+
+  }
   }
   > h4 {
-    font-weight: 700;
+    font-weight: 500;
     margin: 0 0 10px 0;
   }
 `;
@@ -55,19 +71,22 @@ export const Username = styled.div`
 export const FollowDetails = styled.div`
   width: 280px;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
 
   > h4 {
-    font-weight: 400;
+    font-weight: 600;
   }
+  @media only screen and (max-width: 768px) {
+    width: 200px;
+    
+}
 `;
 
 export const Bio = styled.div`
   text-align: left;
-  font-size: 18px;
-  font-weight: 300;
+  font-size: 20px;
+  font-weight: 400;
   max-width: 55%;
   margin: 10px 0 0 0;
 `;
@@ -91,7 +110,6 @@ export const PopupContent = styled.div`
 
 export const ProfileImage = styled.div`
   position: relative;
-
   > .MuiSvgIcons-root {
     position: absolute;
     top: 0;
