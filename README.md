@@ -2,8 +2,8 @@
 
 It is an Social Media App with the features included :
 * **Authentication.**
-* **User can create post and share it with others, so that everyone can see the post. **
-* **User can like dislike the post **
+* **User can create post and share it with others, so that everyone can see the post**
+* **User can like dislike the post**
 * **User can comment on desired posts**
 * **User Can Update Profile.**
 * **Search new users and connect with them**
