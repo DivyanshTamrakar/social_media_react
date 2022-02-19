@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const url = "http://localhost:5000";
-// export const url = "https://ancient-earth-80509.herokuapp.com";
+// export const url = "http://localhost:5000";
+export const url = "https://ancient-earth-80509.herokuapp.com";
 
 export async function getData(...endpoints) {
   const final_url = `${url}${endpoints}`;
