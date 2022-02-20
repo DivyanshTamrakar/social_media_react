@@ -92,8 +92,9 @@ export const Comment = styled.div`
 
 export const PostContainer = styled.div`
   display: grid;
-  grid-template-columns: 40% 60% ;
+  grid-template-columns: 70% ;
   padding: 2rem;
+  
   
   @media only screen and (max-width: 768px) {
     padding: 14px !important;

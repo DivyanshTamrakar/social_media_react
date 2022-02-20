@@ -3,7 +3,6 @@ import Avatar from "@material-ui/core/Avatar";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import TimeAgo from "react-timeago";
 import Button from "@material-ui/core/Button";
 import { useProfile } from "../../Context/ProfileContext";
@@ -92,7 +91,6 @@ function PostCard({
             <FavoriteBorderIcon onClick={() => likeClick(postId)} />
           )}
           <ChatBubbleOutlineIcon />
-          <BookmarkBorderIcon />
         </ActionArea>
         <span>{likeArray.length} likes</span>
         <Caption>

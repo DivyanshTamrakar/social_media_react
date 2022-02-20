@@ -1,6 +1,5 @@
-import React ,{useEffect}from "react";
+import React, { useEffect } from "react";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
-import NotificationsOutlinedIcon from "@material-ui/icons/NotificationsOutlined";
 import Avatar from "@material-ui/core/Avatar";
 import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import Popup from "reactjs-popup";
@@ -19,16 +18,15 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../Context/AuthContext";
 import SearchComponent from "../SearchFeature/SearchComponent";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUser,email} from "../../features/users/userSlice";
+import { fetchUser, email } from "../../features/users/userSlice";
 function Header() {
   const { signOut } = useAuth();
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchUser(email))
-    
-  }, [dispatch])
+    dispatch(fetchUser(email));
+  }, [dispatch]);
 
   return (
     <HeaderContainer>
@@ -51,9 +49,9 @@ function Header() {
         <Link to="/" style={UnderlineHide}>
           <HomeOutlinedIcon />
         </Link>
-        <Link to="/activity" style={UnderlineHide}>
+        {/* <Link to="/activity" style={UnderlineHide}>
           <NotificationsOutlinedIcon />
-        </Link>
+        </Link> */}
         <Popup
           trigger={
             <Avatar

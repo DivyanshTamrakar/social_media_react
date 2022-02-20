@@ -39,6 +39,7 @@ function UsersProfile() {
           followers: response.result.followers,
           following: response.result.following,
         });
+        window.location.reload();
       }
     } catch (error) {
       console.log("errorr", error);
@@ -71,6 +72,7 @@ function UsersProfile() {
           followers: response.result.followers,
           following: response.result.following,
         });
+        window.location.reload();
       }
     } catch (error) {
       console.log("errorr", error);
@@ -90,6 +92,21 @@ function UsersProfile() {
       console.log("errorr", error);
     }
   };
+
+  const [length, setlength] = useState(0);
+
+  useEffect(() => {
+    GetPersonPost();
+    // eslint-disable-next-line
+  }, [length]);
+
+  const GetPersonPost = async () => {
+    const response = await getData(`/addpost/${id}`);
+    if (response.success) {
+      setlength(response.posts.length);
+    }
+  };
+
 
   useEffect(() => {
     GetData();
@@ -125,7 +142,7 @@ function UsersProfile() {
             <h4>{userprofile.name}</h4>
           </Username>
           <FollowDetails>
-            <h4>4 posts</h4>
+            <h4>{length} posts</h4>
             <h4>{userfollowstatus.followers.length} Follower</h4>
             <h4>{userfollowstatus.following.length} Following</h4>
           </FollowDetails>
