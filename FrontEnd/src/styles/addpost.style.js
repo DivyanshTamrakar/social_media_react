@@ -78,7 +78,7 @@ export const AddImage = styled.div`
   }
   > img {
     border: 0.5px solid grey;
-    height: 45%;
+    height: 20rem;
     margin-bottom: 5px;
   }
   
