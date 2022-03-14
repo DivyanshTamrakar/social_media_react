@@ -9,20 +9,23 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TextField } from "@material-ui/core";
 import { useLoader } from "../Context/LoaderContext";
+import Load from "../utils/Loader";
 
 function Login() {
   const { login, SignInWithEmailandPassword, CheckLoginStatus } = useAuth();
   const { showloader, setshowloader } = useLoader();
 
-  let initialValues = { email: "", password: "" };
-  let onSubmit = (values) => {
+  const initialValues = { email: "", password: "" };
+
+  const onSubmit = (values) => {
     setshowloader(true);
     SignInWithEmailandPassword({
       email: values.email,
       password: values.password,
     });
   };
-  let validate = (values) => {
+
+  const validate = (values) => {
     const re =
       /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/; // eslint-disable-line
     let errors = {};
@@ -38,89 +41,109 @@ function Login() {
 
     return errors;
   };
+
   const formik = useFormik({
     initialValues,
     onSubmit,
     validate,
   });
+
+  const TestLogin = () => {
+    setshowloader(true);
+    SignInWithEmailandPassword({
+      email: "test@gmail.com",
+      password: "test@123",
+    });
+  };
+
   CheckLoginStatus();
   return (
-    <LoginContainer>
-      {login ? (
-        <Button variant="contained" color="primary">
-          Logout
-        </Button>
+    <div>
+      {showloader ? (
+        <Load />
       ) : (
-        <LoginForm>
-          <center>
-            <h2 style={{ fontWeight: "900" }}>SignIn</h2>
-          </center>
-
-          <form onSubmit={formik.handleSubmit}>
-            <TextField
-              style={{ margin: "0.5rem" }}
-              required
-              type="text"
-              name="email"
-              placeholder="Enter Email"
-              onChange={formik.handleChange}
-              value={formik.values.email}
-              id="outlined-basic"
-              label="Email"
-              variant="outlined"
-            />
-
-            <small>{formik.errors.email && `${formik.errors.email}`}</small>
-
-            <TextField
-              required
-              style={{ margin: "0.5rem" }}
-              type="password"
-              name="password"
-              placeholder="Enter Password"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-              id="outlined-basic"
-              label="Password"
-              variant="outlined"
-            />
-
-            <small>
-              {formik.errors.password && `${formik.errors.password}`}
-            </small>
-
-            <Button
-              type="submit"
-              disabled={showloader}
-              variant="contained"
-              color="secondary"
-              startIcon={<LockOpenIcon />}
-            >
-              {showloader ? "Loading..." : "Login"}
+        <LoginContainer>
+          {login ? (
+            <Button variant="contained" color="primary">
+              Logout
             </Button>
-          </form>
-          <center>
-            <h2 style={{ fontWeight: "900" }}>OR</h2>
-          </center>
+          ) : (
+            <LoginForm>
+              <center>
+                <h2 style={{ fontWeight: "900" }}>SignIn</h2>
+              </center>
 
-          <Link
-            to="/signup"
-            style={{
-              textDecoration: "none",
-              color: "royalblue",
-              fontSize: "20px",
-              fontWeight: "800",
-            }}
-          >
-            <small style={{ textDecoration: "none" }}>
-              Not having an Account ? SignUp
-            </small>
-          </Link>
-        </LoginForm>
+              <form onSubmit={formik.handleSubmit}>
+                <TextField
+                  style={{ margin: "0.5rem" }}
+                  required
+                  type="text"
+                  name="email"
+                  placeholder="Enter Email"
+                  onChange={formik.handleChange}
+                  value={formik.values.email}
+                  id="outlined-basic"
+                  label="Email"
+                  variant="outlined"
+                />
+
+                <small>{formik.errors.email && `${formik.errors.email}`}</small>
+
+                <TextField
+                  required
+                  style={{ margin: "0.5rem" }}
+                  type="password"
+                  name="password"
+                  placeholder="Enter Password"
+                  onChange={formik.handleChange}
+                  value={formik.values.password}
+                  id="outlined-basic"
+                  label="Password"
+                  variant="outlined"
+                />
+
+                <small>
+                  {formik.errors.password && `${formik.errors.password}`}
+                </small>
+
+                <Button
+                  type="submit"
+                  disabled={showloader}
+                  variant="contained"
+                  color="secondary"
+                  startIcon={<LockOpenIcon />}
+                >
+                  {showloader ? "Loading..." : "Login"}
+                </Button>
+              </form>
+              <center>
+                <h2 style={{ fontWeight: "900" }}>OR</h2>
+              </center>
+
+              <Link
+                to="/signup"
+                style={{
+                  textDecoration: "none",
+                  color: "royalblue",
+                  fontSize: "20px",
+                  fontWeight: "800",
+                }}
+              >
+                <small style={{ textDecoration: "none" }}>
+                  Not having an Account ? SignUp
+                </small>
+              </Link>
+
+              <Button variant="outlined" onClick={TestLogin}>
+                Login as test user
+              </Button>
+            </LoginForm>
+          )}
+
+          <ToastContainer />
+        </LoginContainer>
       )}
-
-      <ToastContainer />
-    </LoginContainer>
+    </div>
   );
 }
 

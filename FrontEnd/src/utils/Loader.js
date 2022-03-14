@@ -6,7 +6,7 @@ import React from "react";
 function Load() {
   return (
     <LoaderContainer>
-      <Loader type="Oval" color="#00BFFF" height={50} width={80} />
+      <Loader type="ThreeDots" color="#FFAE00" height={50} width={80} />
     </LoaderContainer>
   );
 }
