@@ -1,37 +1,26 @@
-const express = require('express');
+const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 5000;
-var cors = require('cors');
-var { initializeConnection } = require('./ConnectionDB/connectionDB')
+const cors = require("cors");
+const { initializeConnection } = require("./ConnectionDB/connectionDB");
 
-var userApi = require('./Api/user');
-var postApi = require('./Api/Post');
+const userApi = require("./routes/user.route");
+const postApi = require("./routes/post.route");
 
 app.use(cors());
-
-
 
 // connect with mongodb via mongooose
 initializeConnection();
 
 // product from DB
 
-app.use('/users',userApi);
-app.use('/addpost',postApi);
+app.use("/users", userApi);
+app.use("/addpost", postApi);
 
-
-
-app.get('/',(req,res)=>{
-  res.status(200).json({message:"Hello World "})})
-
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Hello World " });
+});
 
 app.listen(process.env.PORT || PORT, () => {
   console.log(`server started at Port : ${PORT}`);
 });
-
-
-
-
-
-
-

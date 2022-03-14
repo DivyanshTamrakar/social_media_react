@@ -1,12 +1,7 @@
-var express = require("express");
-var router = express.Router();
 const mongoose = require("mongoose");
-var { User } = require("../Modals/UserModel");
-var bodyparser = require("body-parser");
+const { User } = require("../modals/user.modal");
 
-router.use(bodyparser.json({ limit: "50mb" }));
-
-router.route("/all").get(async (req, res) => {
+const getAllUser = async (req, res) => {
   let name = req.query.name;
   const regex = new RegExp(name, "i");
 
@@ -36,9 +31,9 @@ router.route("/all").get(async (req, res) => {
       });
     }
   }
-});
+};
 
-router.route("/profile/:_id").get(async (req, res) => {
+const getProfile = async (req, res) => {
   const id = req.params;
   try {
     const user = await User.findOne(id);
@@ -62,9 +57,9 @@ router.route("/profile/:_id").get(async (req, res) => {
       });
     }
   }
-});
+};
 
-router.route("/signup").post(async (req, res) => {
+const userSignup = async (req, res) => {
   try {
     let { name, email, password, mobile, username, bio } = req.body;
     const data = new User({ name, email, password, mobile, username, bio });
@@ -80,9 +75,9 @@ router.route("/signup").post(async (req, res) => {
       error: `${e}`,
     });
   }
-});
+};
 
-router.route("/:email").get(async (req, res) => {
+const findByEmail = async (req, res) => {
   const email = req.params;
   try {
     const user = await User.findOne(email);
@@ -106,13 +101,13 @@ router.route("/:email").get(async (req, res) => {
       });
     }
   }
-});
+};
 
-router.route("/update/:_id").post(async (req, res) => {
+const updateProfile = async (req, res) => {
   try {
     const userdata = req.body;
     const id = req.params;
-    User.findByIdAndUpdate(id, userdata,{new: true} ,function (err, docs) {
+    User.findByIdAndUpdate(id, userdata, { new: true }, function (err, docs) {
       if (err) {
         return res.status(404).json({
           success: false,
@@ -133,9 +128,9 @@ router.route("/update/:_id").post(async (req, res) => {
       error: `${e}`,
     });
   }
-});
+};
 
-router.route("/follow").post(async (req, res) => {
+const follow = async (req, res) => {
   let { followerid, followingid } = req.body;
   const id = mongoose.Types.ObjectId(followingid);
 
@@ -155,8 +150,9 @@ router.route("/follow").post(async (req, res) => {
       }
     }
   );
-});
-router.route("/unfollow").post(async (req, res) => {
+};
+
+const unfollow = async (req, res) => {
   let { followerid, followingid } = req.body;
   const id = mongoose.Types.ObjectId(followingid);
 
@@ -176,9 +172,9 @@ router.route("/unfollow").post(async (req, res) => {
       }
     }
   );
-});
+};
 
-router.route("/following").post(async (req, res) => {
+const following = async (req, res) => {
   let { followerid, followingid } = req.body;
   const id = mongoose.Types.ObjectId(followerid);
 
@@ -198,9 +194,9 @@ router.route("/following").post(async (req, res) => {
       }
     }
   );
-});
+};
 
-router.route("/unfollowing").post(async (req, res) => {
+const unfollowing = async (req, res) => {
   let { followerid, followingid } = req.body;
   const id = mongoose.Types.ObjectId(followerid);
 
@@ -220,6 +216,16 @@ router.route("/unfollowing").post(async (req, res) => {
       }
     }
   );
-});
+};
 
-module.exports = router;
+module.exports = {
+  getAllUser,
+  getProfile,
+  userSignup,
+  findByEmail,
+  updateProfile,
+  follow,
+  unfollow,
+  following,
+  unfollowing,
+};
