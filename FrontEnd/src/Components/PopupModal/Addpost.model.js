@@ -17,13 +17,11 @@ import {
 } from "../../styles/addpost.style";
 import { UploadPost } from "../../features/posts/postSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useLoader } from "../../Context/LoaderContext";
 
 function AddPost() {
   const [open, setOpen] = useState(false);
   const [post, setpost] = useState(placeholder);
   const [caption, setcaption] = useState("");
-  
 
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();

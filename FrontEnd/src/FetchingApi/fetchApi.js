@@ -1,10 +1,8 @@
 import axios from "axios";
-
-// export const url = "http://localhost:5000";
-export const url = "https://ancient-earth-80509.herokuapp.com";
+import { BASE_URL } from "../utils/Constant";
 
 export async function getData(...endpoints) {
-  const final_url = `${url}${endpoints}`;
+  const final_url = `${BASE_URL}${endpoints}`;
 
   try {
     const response = await axios.get(final_url);
@@ -16,7 +14,7 @@ export async function getData(...endpoints) {
 }
 
 export async function postData(body, ...endpoints) {
-  const final_url = `${url}${endpoints}`;
+  const final_url = `${BASE_URL}${endpoints}`;
   console.log("finalurl", final_url);
   try {
     const response = await axios.post(final_url, body);
@@ -27,8 +25,6 @@ export async function postData(body, ...endpoints) {
   }
 }
 
-// export const BASE_URL = "http://localhost:5000";
-export const BASE_URL = "https://ancient-earth-80509.herokuapp.com";
 /* This function takes query as a param and returns the array of beer objects.*/
 export const fetchSearchResults = async (query) => {
   if (query && query.length > 0) {
