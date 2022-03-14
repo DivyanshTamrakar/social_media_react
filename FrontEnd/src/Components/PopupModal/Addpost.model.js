@@ -16,14 +16,16 @@ import {
   placeholder,
 } from "../../styles/addpost.style";
 import { UploadPost } from "../../features/posts/postSlice";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useLoader } from "../../Context/LoaderContext";
 
 function AddPost() {
   const [open, setOpen] = useState(false);
   const [post, setpost] = useState(placeholder);
   const [caption, setcaption] = useState("");
+  
 
-  const user = useSelector(state => state.user.user)
+  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
   const ImageHandler = (e) => {
@@ -36,6 +38,19 @@ function AddPost() {
     reader.readAsDataURL(e.target.files[0]);
   };
   const closeModal = () => setOpen(false);
+
+  const uploadPost = () => {
+    dispatch(
+      UploadPost({
+        userid: user._id,
+        post: post,
+        caption: caption,
+        user_profile: user.photo_url,
+        username: user.username,
+      })
+    );
+    closeModal();
+  };
 
   return (
     <Post>
@@ -93,18 +108,7 @@ function AddPost() {
             variant="contained"
             color="primary"
             disabled={post === placeholder ? true : false}
-            onClick={() => {
-              dispatch(
-                UploadPost({
-                  userid: user._id,
-                  post: post,
-                  caption: caption,
-                  user_profile: user.photo_url,
-                  username: user.username,
-                })
-              );
-              closeModal();
-            }}
+            onClick={uploadPost}
           >
             Post
           </Button>
