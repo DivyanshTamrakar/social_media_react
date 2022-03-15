@@ -16,7 +16,7 @@ function Signup() {
   let initialValues = { username: "", email: "", name: "", password: "" };
 
   const { showloader, setshowloader } = useLoader();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   let validate = (values) => {
     const re =

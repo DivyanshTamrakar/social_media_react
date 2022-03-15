@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
+import HomeIcon from '@mui/icons-material/Home';
 import Avatar from "@material-ui/core/Avatar";
 import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import Popup from "reactjs-popup";
@@ -31,14 +31,7 @@ function Header() {
   return (
     <HeaderContainer>
       <HeaderLeft>
-        <Link to="/">
-          <img
-            src={
-              "https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
-            }
-            alt="logoicon"
-          />
-        </Link>
+        ShareGram
       </HeaderLeft>
 
       <HeaderSearch>
@@ -47,11 +40,8 @@ function Header() {
 
       <HeaderRight>
         <Link to="/" style={UnderlineHide}>
-          <HomeOutlinedIcon />
+          <HomeIcon  />
         </Link>
-        {/* <Link to="/activity" style={UnderlineHide}>
-          <NotificationsOutlinedIcon />
-        </Link> */}
         <Popup
           trigger={
             <Avatar

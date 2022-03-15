@@ -12,15 +12,43 @@ export const HeaderContainer = styled.div`
   justify-content: center;
   background-color: #ffae00;
   position: relative;
+
+  @media (max-width: 768px) {
+    display: flex;
+    position: sticky;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    gap: 5px;
+    padding: 2px;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffae00;
+    position: relative;
+  }
 `;
 
 export const HeaderLeft = styled.div`
   flex: 0.3;
   flex: 1;
   margin-left: 5px;
-  
+  font-weight: 800;
+  font-size: 30px;
+  color: white;
+  text-shadow: 2px 2px 5px gray;
+
   > img {
     cursor: pointer;
+  }
+
+  @media (max-width: 768px) {
+    flex: 0.3;
+    flex: 0;
+    margin: 0;
+    font-weight: 800;
+    font-size: 15px;
+    color: white;
+    text-shadow: 2px 2px 5px gray;
   }
 `;
 
@@ -30,15 +58,27 @@ export const HeaderSearch = styled.div`
   opacity: 0.5;
   background-color: white;
   border-radius: 5px;
+
+  @media (max-width: 768px) {
+    flex: 0.5;
+    flex-grow: 0;
+    opacity: 0.5;
+    background-color: white;
+    border-radius: 5px;
+  }
 `;
 
 export const HeaderRight = styled.div`
   flex: 0.3;
   display: flex;
   flex-grow: 1;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
+  justify-content: flex-end;
   gap: 5%;
+  .MuiSvgIcon-root {
+    font-size: 35px;
+
+  }
 `;
 
 export const PopupContent = styled.div`
