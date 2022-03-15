@@ -57,7 +57,8 @@ function PostCard({
     }
   };
 
-  async function handler() {
+  async function postComment() {
+    setcomment("");
     const body = {
       postid: postId,
       text: comment,
@@ -65,10 +66,9 @@ function PostCard({
     };
 
     try {
-      let response = await postData(body, "/addpost/comment");
+      const response = await postData(body, "/addpost/comment");
 
       if (response.success) {
-        console.log(response.result.comments);
         setcommentlist(response.result.comments);
       }
     } catch (error) {
@@ -126,11 +126,12 @@ function PostCard({
           <input
             type="text"
             placeholder="Add comment"
+            value={comment}
             onChange={(e) => setcomment(e.target.value)}
           />
           <Button
-            onClick={handler}
-            disabled={comment === "" ? true : false}
+            onClick={postComment}
+            disabled={!comment ? true : false}
             color="primary"
           >
             Post

@@ -53,12 +53,7 @@ function PostComponent() {
                   }
                 )}
               </LeftSection>
-              <RightSection>
-                {/* <Suggestion>
-              <AccountCircleRoundedIcon />
-              <div style={{ fontWeight: "700" }}> Username </div>
-            </Suggestion> */}
-              </RightSection>
+              <RightSection></RightSection>
             </PostContainer>
           ) : (
             <Load />

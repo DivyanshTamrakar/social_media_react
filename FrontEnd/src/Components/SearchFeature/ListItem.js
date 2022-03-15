@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { ListContainer } from "./Listitem.style";
 
 const ListItem = ({ id, name, photo, username }) => {
   return (
-    <ListContainer>
+    <div>
       <Link
         to={`/user/${id}`}
         style={{ textDecoration: "none", color: "black" }}
@@ -18,7 +17,7 @@ const ListItem = ({ id, name, photo, username }) => {
           <h3>&#8250;</h3>
         </div>
       </Link>
-    </ListContainer>
+    </div>
   );
 };
 export default ListItem;

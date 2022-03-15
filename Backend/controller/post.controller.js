@@ -29,7 +29,8 @@ const addPost = async (req, res) => {
 
 const getAllPost = async (req, res) => {
   try {
-    const posts = await Post.find({});
+    const posts = await Post.find({}).populate("comments.postedBy", "_id username")
+    .populate("postedBy", "_id username");
     if (posts) {
       res.json({
         success: true,

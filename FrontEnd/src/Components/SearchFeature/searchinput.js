@@ -3,7 +3,7 @@ import { SearchContainer } from "./searchinput.style";
 
 const SearchInput = ({ value, onChangeText }) => {
   useEffect(() => {
-    let input = document.querySelector("input");
+    const input = document.querySelector("input");
     input.addEventListener("input", onChangeText);
 
     return input.removeEventListener("input", onChangeText);

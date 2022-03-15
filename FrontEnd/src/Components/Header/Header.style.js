@@ -102,8 +102,7 @@ export const UnderlineHide = {
 
 export const SearchResult = styled.div`
   position: absolute;
-  top: 9%;
-  bottom: 0;
-  z-index: 1;
+  top: 50px;
   background-color: white;
+  opacity: 1;
 `;
