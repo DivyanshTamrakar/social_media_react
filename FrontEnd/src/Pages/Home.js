@@ -3,11 +3,10 @@ import styled from "styled-components";
 import AddPost from "../Components/PopupModal/Addpost.model";
 import PostComponent from "../Components/Post/PostComponent";
 
-
 function Home() {
   return (
     <HomeContainer>
-      <PostComponent/>
+      <PostComponent />
       <AddPost />
     </HomeContainer>
   );
@@ -15,6 +14,4 @@ function Home() {
 
 export default Home;
 
-const HomeContainer = styled.div`
-  
-`;
+const HomeContainer = styled.div``;

@@ -2,7 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../../utils/Constant";
 
-const initialState = { status: "idle", error: null, posts: [] };
+const initialState = {isLoading:false, status: "idle", error: null, posts: [] };
+
+
 export const fetchPost = createAsyncThunk("user/post", async () => {
   const response = await axios.get(`${BASE_URL}/addpost`);
   return response.data;
@@ -19,23 +21,29 @@ const postSlice = createSlice({
   reducers: {},
   extraReducers: {
     [fetchPost.fulfilled]: (state, action) => {
+      state.isLoading = false;
       state.status = "success";
-      state.posts = action.payload.posts;
+      state.posts = action.payload.posts.reverse();
     },
     [fetchPost.pending]: (state, action) => {
+      state.isLoading = true;
       state.status = "pending";
     },
     [fetchPost.rejected]: (state, action) => {
+      state.isLoading = false;
       state.status = "rejected";
     },
     [UploadPost.fulfilled]: (state, action) => {
+      state.isLoading = false;
       state.status = "success";
       state.posts = [action.payload.post,...state.posts ];
     },
     [UploadPost.pending]: (state, action) => {
+      state.isLoading = true;
       state.status = "pending";
     },
     [UploadPost.rejected]: (state, action) => {
+      state.isLoading = false;
       state.status = "rejected";
     },
   },

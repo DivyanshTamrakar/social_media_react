@@ -14,9 +14,11 @@ import UpdateProfile from "../Components/PopupModal/update.profile.model";
 import TabComponent from "../Components/Timeline/TabComponent";
 import { useSelector } from "react-redux";
 import { getData } from "../FetchingApi/fetchApi";
+import Load from "../utils/Loader";
 
 function Profile() {
   const user = useSelector((state) => state.user.user);
+  const loadstate = useSelector((state) => state.user.isLoading);
   const [length, setlength] = useState(0);
 
   useEffect(() => {
@@ -33,27 +35,33 @@ function Profile() {
 
   return (
     <div>
-      <ProfileContainer>
-        <ImageAvatar>
-          <Avatar alt={user.name} src={user.photo_url} />
-        </ImageAvatar>
-        <Details>
-          <Username>
-            <h3>{user.username}</h3>
-            <h4>{user.name}</h4>
-          </Username>
-          <FollowDetails>
-            <h4>{length} posts</h4>
-            <h4>{user?.followers?.length} Follower</h4>
-            <h4>{user?.following?.length} Following</h4>
-          </FollowDetails>
-          <Bio>{user.bio}</Bio>
-          <UpdateProfile />
-        </Details>
-      </ProfileContainer>
-      <ShowTab>
-        <TabComponent userid={user._id} />
-      </ShowTab>
+      {loadstate ? (
+        <Load />
+      ) : (
+        <div>
+          <ProfileContainer>
+            <ImageAvatar>
+              <Avatar alt={user.name} src={user.photo_url} />
+            </ImageAvatar>
+            <Details>
+              <Username>
+                <h3>{user.username}</h3>
+                <h4>{user.name}</h4>
+              </Username>
+              <FollowDetails>
+                <h4>{length} posts</h4>
+                <h4>{user?.followers?.length} Follower</h4>
+                <h4>{user?.following?.length} Following</h4>
+              </FollowDetails>
+              <Bio>{user.bio}</Bio>
+              <UpdateProfile />
+            </Details>
+          </ProfileContainer>
+          <ShowTab>
+            <TabComponent userid={user._id} />
+          </ShowTab>
+        </div>
+      )}
     </div>
   );
 }

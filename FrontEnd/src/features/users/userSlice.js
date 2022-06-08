@@ -2,7 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../../utils/Constant";
 
-const initialState = { status: "idle", error: null, user: {} };
+const initialState = {
+  isLoading: false,
+  status: "idle",
+  error: null,
+  user: {},
+};
 export const email = localStorage.getItem("email");
 
 export const fetchUser = createAsyncThunk("user/user", async (email) => {
@@ -37,13 +42,16 @@ const userSlice = createSlice({
       state.status = "rejected";
     },
     [UpdateUserData.fulfilled]: (state, action) => {
+      state.isLoading = false;
       state.status = "success";
       state.user = action.payload.user;
     },
     [UpdateUserData.pending]: (state, action) => {
+      state.isLoading = true;
       state.status = "pending";
     },
     [UpdateUserData.rejected]: (state, action) => {
+      state.isLoading = false;
       state.status = "rejected";
     },
   },

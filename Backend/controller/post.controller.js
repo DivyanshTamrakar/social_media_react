@@ -1,65 +1,59 @@
-var express = require("express");
-var mongoose = require("mongoose");
-var router = express.Router();
+const mongoose = require("mongoose");
+const { Post } = require("../modals/post.modal");
 
-var { Post } = require("../Modals/PostModel");
-var bodyparser = require("body-parser");
+const addPost = async (req, res) => {
+  try {
+    let { userid, post, caption, likes, user_profile, username } = req.body;
+    const data = new Post({
+      userid,
+      post,
+      caption,
+      likes,
+      user_profile,
+      username,
+    });
+    const result = await data.save();
+    res.status(200).json({
+      success: true,
+      message: "Posted successfully",
+      post: result,
+    });
+  } catch (e) {
+    res.json({
+      success: false,
+      message: "Something is wrong while creating user ",
+      error: `${e}`,
+    });
+  }
+};
 
-router.use(bodyparser.json({ limit: "50mb" }));
-
-router
-  .route("/")
-  .post(async (req, res) => {
-    try {
-      let { userid, post, caption, likes, user_profile, username } = req.body;
-      const data = new Post({
-        userid,
-        post,
-        caption,
-        likes,
-        user_profile,
-        username,
-      });
-      const result = await data.save();
-      res.status(200).json({
+const getAllPost = async (req, res) => {
+  try {
+    const posts = await Post.find({}).populate("comments.postedBy", "_id username")
+    .populate("postedBy", "_id username");
+    if (posts) {
+      res.json({
         success: true,
-        message: "Posted successfully",
-        post: result,
+        message: "Posts Found",
+        posts: posts,
       });
-    } catch (e) {
+    } else {
       res.json({
         success: false,
-        message: "Something is wrong while creating user ",
-        error: `${e}`,
+        message: "No Posts Found",
       });
     }
-  })
-  .get(async (req, res) => {
-    try {
-      const posts = await Post.find({});
-      if (posts) {
-        res.json({
-          success: true,
-          message: "Posts Found",
-          posts: posts,
-        });
-      } else {
-        res.json({
-          success: false,
-          message: "No Posts Found",
-        });
-      }
-    } catch (error) {
-      if (error) {
-        res.status(404).json({
-          message: "Something went wrong with server",
-          error: `${error}`,
-        });
-      }
+  } catch (error) {
+    if (error) {
+      res.status(404).json({
+        message: "Something went wrong with server",
+        error: `${error}`,
+      });
     }
-  });
+  }
+};
 
-router.route("/:userid").get(async (req, res) => {
+const getIndividualPost = async (req, res) => {
   let userid = req.params;
 
   try {
@@ -84,9 +78,9 @@ router.route("/:userid").get(async (req, res) => {
       });
     }
   }
-});
+};
 
-router.route("/like").post(async (req, res) => {
+const likePost = async (req, res) => {
   let { postId, userid } = req.body;
   const id = mongoose.Types.ObjectId(userid);
 
@@ -106,9 +100,9 @@ router.route("/like").post(async (req, res) => {
       }
     }
   );
-});
+};
 
-router.route("/dislike").post(async (req, res) => {
+const dislikePost = async (req, res) => {
   let { postId, userid } = req.body;
   const id = mongoose.Types.ObjectId(userid);
 
@@ -128,9 +122,9 @@ router.route("/dislike").post(async (req, res) => {
       }
     }
   );
-});
+};
 
-router.route("/comment").post(async (req, res) => {
+const commentPost = async (req, res) => {
   const comment = {
     text: req.body.text,
     postedBy: req.body.postedBy,
@@ -154,6 +148,13 @@ router.route("/comment").post(async (req, res) => {
         });
       }
     });
-});
+};
 
-module.exports = router;
+module.exports = {
+  addPost,
+  getAllPost,
+  getIndividualPost,
+  likePost,
+  dislikePost,
+  commentPost,
+};

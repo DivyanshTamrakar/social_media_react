@@ -52,7 +52,12 @@ function TabComponent({ userid }) {
           data.map((item, index) => {
             return (
               <div key={index}>
-                <img src={item.post} alt="timeline-post" width='300px'  height='200px' />
+                <img
+                  src={item.post}
+                  alt="timeline-post"
+                  width="300px"
+                  height="200px"
+                />
               </div>
             );
           })
