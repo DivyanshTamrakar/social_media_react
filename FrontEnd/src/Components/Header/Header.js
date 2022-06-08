@@ -31,7 +31,9 @@ function Header() {
   return (
     <HeaderContainer>
       <HeaderLeft>
-        ShareGram
+      <Link to="/" style={UnderlineHide}>
+          ShareGram
+        </Link>
       </HeaderLeft>
 
       <HeaderSearch>
@@ -40,7 +42,7 @@ function Header() {
 
       <HeaderRight>
         <Link to="/" style={UnderlineHide}>
-          <HomeIcon  />
+          <HomeIcon style={{ color: 'white' }} />
         </Link>
         <Popup
           trigger={
