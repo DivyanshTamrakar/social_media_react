@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -13,6 +13,7 @@ import {
   Comment,
   HeadArea,
   PostSection,
+  ImageArea
 } from "./Post.style";
 
 function PostCard({
@@ -29,6 +30,7 @@ function PostCard({
   const [commentlist, setcommentlist] = useState(comments);
   const { user } = useProfile();
   const [likeArray, setlikeArray] = useState(likes);
+  const commentRef = useRef(0)
 
   const likeClick = async (id) => {
     let body = { postId: id, userid: user._id };
@@ -76,26 +78,28 @@ function PostCard({
     }
   }
 
+ 
+
   return (
-    <div>
       <PostSection>
         <HeadArea>
           <Avatar alt="Remy Sharp" src={user_profile} />
           <h4>{username}</h4>
         </HeadArea>
-        <img src={post} alt={"post"} height="400px" width="100%" />
+        <ImageArea >
+        <img src={post} alt={"post"}/>
+        </ImageArea>
         <ActionArea>
           {likeArray.includes(user._id) ? (
             <FavoriteIcon color="error" onClick={() => DislikeClick(postId)} />
           ) : (
             <FavoriteBorderIcon onClick={() => likeClick(postId)} />
           )}
-          <ChatBubbleOutlineIcon />
+          <ChatBubbleOutlineIcon onClick={()=>commentRef.current.focus()} />
         </ActionArea>
         <span>{likeArray.length} likes</span>
         <Caption>
           <h4>{username}</h4>
-
           <span>{caption}</span>
         </Caption>
         <TimeAgo date={createdAt} />
@@ -124,6 +128,7 @@ function PostCard({
         })}
         <Comment>
           <input
+          ref={commentRef}
             type="text"
             placeholder="Add comment"
             value={comment}
@@ -138,7 +143,6 @@ function PostCard({
           </Button>
         </Comment>
       </PostSection>
-    </div>
   );
 }
 

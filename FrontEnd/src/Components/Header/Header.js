@@ -30,11 +30,13 @@ function Header() {
 
   return (
     <HeaderContainer>
-      <HeaderLeft>
+
       <Link to="/" style={UnderlineHide}>
+        <HeaderLeft>
           ShareGram
-        </Link>
-      </HeaderLeft>
+        </HeaderLeft>
+      </Link>
+
 
       <HeaderSearch>
         <SearchComponent />
