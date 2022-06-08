@@ -6,7 +6,7 @@ export const HeaderContainer = styled.div`
   z-index: 2;
   top: 0;
   right: 0;
-  gap: 5px;
+  gap: 15px;
   padding: 8px;
   align-items: center;
   justify-content: center;
@@ -29,9 +29,8 @@ export const HeaderContainer = styled.div`
 `;
 
 export const HeaderLeft = styled.div`
-  flex: 0.3;
-  flex: 1;
-  margin-left: 5px;
+  flex:0.5;
+  margin: 0px 25px 0 5px;
   font-weight: 800;
   font-size: 30px;
   color: white;
@@ -42,7 +41,6 @@ export const HeaderLeft = styled.div`
   }
 
   @media (max-width: 768px) {
-    flex: 0.3;
     flex: 0;
     margin: 0;
     font-weight: 800;
@@ -53,11 +51,13 @@ export const HeaderLeft = styled.div`
 `;
 
 export const HeaderSearch = styled.div`
-  flex: 0.4;
+  flex: 1;
   flex-grow: 2;
   opacity: 0.5;
   background-color: white;
   border-radius: 5px;
+  align-self: center;
+  margin-left: 20px;
 
   @media (max-width: 768px) {
     flex: 0.5;
@@ -106,3 +106,4 @@ export const SearchResult = styled.div`
   background-color: white;
   opacity: 1;
 `;
+
