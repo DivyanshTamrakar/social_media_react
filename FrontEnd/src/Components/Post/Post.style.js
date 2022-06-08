@@ -2,9 +2,10 @@ import styled from "styled-components";
 export const LeftSection = styled.div``;
 
 export const PostSection = styled.div`
-  flex: 0.7;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 600px;
   height: max-content;
   border-radius: 15px;
   margin-bottom: 30px;
@@ -105,4 +106,14 @@ export const PostContainer = styled.div`
     
   }
 `;
+
+export const ImageArea = styled.div`
+>img{
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+  width:600px;
+  height: 400px;
+}
+`
 

@@ -13,6 +13,7 @@ import {
   Comment,
   HeadArea,
   PostSection,
+  ImageArea
 } from "./Post.style";
 
 function PostCard({
@@ -77,13 +78,14 @@ function PostCard({
   }
 
   return (
-    <div>
       <PostSection>
         <HeadArea>
           <Avatar alt="Remy Sharp" src={user_profile} />
           <h4>{username}</h4>
         </HeadArea>
-        <img src={post} alt={"post"} height="400px" width="100%" />
+        <ImageArea >
+        <img src={post} alt={"post"}/>
+        </ImageArea>
         <ActionArea>
           {likeArray.includes(user._id) ? (
             <FavoriteIcon color="error" onClick={() => DislikeClick(postId)} />
@@ -138,7 +140,6 @@ function PostCard({
           </Button>
         </Comment>
       </PostSection>
-    </div>
   );
 }
 
