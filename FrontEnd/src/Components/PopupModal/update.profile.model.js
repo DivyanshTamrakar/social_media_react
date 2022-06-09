@@ -14,8 +14,12 @@ function UpdateProfile() {
   const [profile, setprofile] = useState(null);
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-  let initialValues = { name: "", username: "", bio: "" };
+  
+  
+  const [initialValues, setinitialValues] = useState({ name: user.name, username: user.username, bio: user.bio })
+
   let onSubmit = (values) => {
+
     UpdateData({
       name: values.name,
       photo_url: profile,
