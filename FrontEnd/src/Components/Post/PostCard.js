@@ -21,10 +21,9 @@ function PostCard({
   post,
   caption,
   likes,
-  user_profile,
   comments,
-  username,
   createdAt,
+  posted_user_data
 }) {
   const [comment, setcomment] = useState("");
   const [commentlist, setcommentlist] = useState(comments);
@@ -32,9 +31,10 @@ function PostCard({
   const [likeArray, setlikeArray] = useState(likes);
   const commentRef = useRef(0)
 
-  const likeClick = async (id) => {
-    let body = { postId: id, userid: user._id };
+  const likeClick = async () => {
     try {
+      let body = { postId, userid: user._id };
+
       let response = await postData(body, "/addpost/like");
 
       if (response.success) {
@@ -46,8 +46,8 @@ function PostCard({
     }
   };
 
-  const DislikeClick = async (id) => {
-    let body = { postId: id, userid: user._id };
+  const dislikeClick = async () => {
+    let body = { postId, userid: user._id };
     try {
       let response = await postData(body, "/addpost/dislike");
 
@@ -59,17 +59,16 @@ function PostCard({
     }
   };
 
-  async function postComment() {
+  const postComment = async () => {
     setcomment("");
-    const body = {
-      postid: postId,
-      text: comment,
-      postedBy: user._id,
-    };
-
     try {
-      const response = await postData(body, "/addpost/comment");
+      const body = {
+        postid: postId,
+        text: comment,
+        postedBy: user._id,
+      };
 
+      const response = await postData(body, "/addpost/comment");
       if (response.success) {
         setcommentlist(response.result.comments);
       }
@@ -78,71 +77,72 @@ function PostCard({
     }
   }
 
- 
+
 
   return (
-      <PostSection>
-        <HeadArea>
-          <Avatar alt="Remy Sharp" src={user_profile} />
-          <h4>{username}</h4>
-        </HeadArea>
-        <ImageArea >
-        <img src={post} alt={"post"}/>
-        </ImageArea>
-        <ActionArea>
-          {likeArray.includes(user._id) ? (
-            <FavoriteIcon color="error" onClick={() => DislikeClick(postId)} />
-          ) : (
-            <FavoriteBorderIcon onClick={() => likeClick(postId)} />
-          )}
-          <ChatBubbleOutlineIcon onClick={()=>commentRef.current.focus()} />
-        </ActionArea>
-        <span>{likeArray.length} likes</span>
-        <Caption>
-          <h4>{username}</h4>
-          <span>{caption}</span>
-        </Caption>
-        <TimeAgo date={createdAt} />
-        {commentlist.map((item, index) => {
-          return (
-            <div
-              key={index}
+    <PostSection>
+      <HeadArea>
+        <Avatar alt="Remy Sharp" src={posted_user_data[0].photo_url} />
+        <h4>{posted_user_data[0].username}</h4>
+      </HeadArea>
+      <ImageArea >
+        <img src={post} alt={"post"} />
+      </ImageArea>
+      <ActionArea>
+
+        {likeArray.includes(user._id) ? (
+          <FavoriteIcon color="error" onClick={dislikeClick} />
+        ) : (
+          <FavoriteBorderIcon onClick={likeClick} />
+        )}
+        <ChatBubbleOutlineIcon onClick={() => commentRef.current.focus()} />
+      </ActionArea>
+      <span>{likeArray.length} likes</span>
+      <Caption>
+        <h4>{posted_user_data[0].username}</h4>
+        <span>{caption}</span>
+      </Caption>
+      <TimeAgo date={createdAt} />
+      {commentlist.map((item, index) => {
+        return (
+          <div
+            key={index}
+            style={{
+              fontWeight: "bold",
+              textAlign: "left",
+              marginLeft: "15px",
+            }}
+          >
+            <span> {item.postedBy.username}</span>
+            <span
               style={{
-                fontWeight: "bold",
+                fontWeight: "500",
                 textAlign: "left",
-                marginLeft: "15px",
               }}
             >
-              <span> {item.postedBy.username}</span>
-              <span
-                style={{
-                  fontWeight: "500",
-                  textAlign: "left",
-                }}
-              >
-                {" "}
-                {item.text}
-              </span>
-            </div>
-          );
-        })}
-        <Comment>
-          <input
+              {" "}
+              {item.text}
+            </span>
+          </div>
+        );
+      })}
+      <Comment>
+        <input
           ref={commentRef}
-            type="text"
-            placeholder="Add comment"
-            value={comment}
-            onChange={(e) => setcomment(e.target.value)}
-          />
-          <Button
-            onClick={postComment}
-            disabled={!comment ? true : false}
-            color="primary"
-          >
-            Post
-          </Button>
-        </Comment>
-      </PostSection>
+          type="text"
+          placeholder="Add comment"
+          value={comment}
+          onChange={(e) => setcomment(e.target.value)}
+        />
+        <Button
+          onClick={postComment}
+          disabled={!comment ? true : false}
+          color="primary"
+        >
+          Post
+        </Button>
+      </Comment>
+    </PostSection>
   );
 }
 

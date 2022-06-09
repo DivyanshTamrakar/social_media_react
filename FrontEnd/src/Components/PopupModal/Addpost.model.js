@@ -43,8 +43,6 @@ function AddPost() {
         userid: user._id,
         post: post,
         caption: caption,
-        user_profile: user.photo_url,
-        username: user.username,
       })
     );
     closeModal();

@@ -2,6 +2,8 @@ import styled from "styled-components";
 export const LeftSection = styled.div``;
 
 export const PostSection = styled.div`
+  background-color: transparent;
+  color: black;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -39,6 +41,7 @@ export const HeadArea = styled.div`
   align-items: center;
   border-radius: 15px 15px 0px 0px;
   padding: 5px;
+  
   > .MuiAvatar-root {
     margin-left: 15px;
   }
