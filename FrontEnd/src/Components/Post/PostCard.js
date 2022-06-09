@@ -21,10 +21,9 @@ function PostCard({
   post,
   caption,
   likes,
-  user_profile,
   comments,
-  username,
   createdAt,
+  posted_user_data
 }) {
   const [comment, setcomment] = useState("");
   const [commentlist, setcommentlist] = useState(comments);
@@ -83,8 +82,8 @@ function PostCard({
   return (
     <PostSection>
       <HeadArea>
-        <Avatar alt="Remy Sharp" src={user_profile} />
-        <h4>{username}</h4>
+        <Avatar alt="Remy Sharp" src={posted_user_data[0].photo_url} />
+        <h4>{posted_user_data[0].username}</h4>
       </HeadArea>
       <ImageArea >
         <img src={post} alt={"post"} />
@@ -100,7 +99,7 @@ function PostCard({
       </ActionArea>
       <span>{likeArray.length} likes</span>
       <Caption>
-        <h4>{username}</h4>
+        <h4>{posted_user_data[0].username}</h4>
         <span>{caption}</span>
       </Caption>
       <TimeAgo date={createdAt} />

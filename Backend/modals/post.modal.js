@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 
 const PostSchema = new mongoose.Schema(
   {
-    userid: {
-      type: String,
-      required: true,
-    },
     post: {
       type: String,
       required: true,
@@ -18,21 +14,13 @@ const PostSchema = new mongoose.Schema(
       required: true,
     },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    posted_user_data: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     comments: [
       {
-        text: String ,
+        text: String,
         postedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
       },
     ],
-    user_profile: {
-      type: String,
-      trim: true,
-      required: true,
-    },
-    username: {
-      type: String,
-      required: true,
-    },
   },
   { timestamps: true }
 );

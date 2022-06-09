@@ -30,9 +30,8 @@ function PostComponent() {
                       post,
                       caption,
                       likes,
+                      posted_user_data,
                       comments,
-                      user_profile,
-                      username,
                       createdAt,
                     },
                     index
@@ -44,9 +43,8 @@ function PostComponent() {
                         post={post}
                         caption={caption}
                         likes={likes}
+                        posted_user_data={posted_user_data}
                         comments={comments}
-                        user_profile={user_profile}
-                        username={username}
                         createdAt={createdAt}
                       />
                     );

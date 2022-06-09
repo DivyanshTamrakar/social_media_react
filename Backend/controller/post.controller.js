@@ -3,15 +3,15 @@ const { Post } = require("../modals/post.modal");
 
 const addPost = async (req, res) => {
   try {
-    let { userid, post, caption, likes, user_profile, username } = req.body;
+    let { userid, post, caption, likes } = req.body;
+
     const data = new Post({
-      userid,
       post,
       caption,
       likes,
-      user_profile,
-      username,
-    });
+      posted_user_data: userid
+    },
+    );
     const result = await data.save();
     res.status(200).json({
       success: true,
@@ -21,7 +21,7 @@ const addPost = async (req, res) => {
   } catch (e) {
     res.json({
       success: false,
-      message: "Something is wrong while creating user ",
+      message: "Something is wrong while posting  ",
       error: `${e}`,
     });
   }
@@ -29,8 +29,8 @@ const addPost = async (req, res) => {
 
 const getAllPost = async (req, res) => {
   try {
-    const posts = await Post.find({}).populate("comments.postedBy", "_id username")
-    .populate("postedBy", "_id username");
+    const posts = await Post.find({}).populate('posted_user_data', "_id username photo_url").populate("comments.postedBy", "_id username")
+      .populate("postedBy", "_id username");
     if (posts) {
       res.json({
         success: true,
