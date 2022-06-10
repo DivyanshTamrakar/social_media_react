@@ -54,10 +54,11 @@ const getAllPost = async (req, res) => {
 };
 
 const getIndividualPost = async (req, res) => {
-  let userid = req.params;
+  const { userid } = req.params;
+
 
   try {
-    const posts = await Post.find(userid);
+    const posts = await Post.find({posted_user_data:userid});
     if (posts) {
       res.json({
         success: true,

@@ -4,27 +4,24 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import styled from "styled-components";
 import { getData } from "../../FetchingApi/fetchApi";
-import Load from "../../utils/Loader";
-import { useLoader } from "../../Context/LoaderContext";
+
 
 function TabComponent({ userid }) {
   const [value, setValue] = useState(0);
   const [data, setdata] = useState([]);
-  const { showloader, setshowloader } = useLoader();
+  
 
   useEffect(() => {
+    const GetPersonPost = async () => {
+      const response = await getData(`/addpost/${userid}`);
+      if (response.success) {
+        setdata(response.posts);
+      }
+    };
     GetPersonPost();
-    // eslint-disable-next-line
-  }, []);
+  }, [userid]);
 
-  const GetPersonPost = async () => {
-    setshowloader(true);
-    const response = await getData(`/addpost/${userid}`);
-    if (response.success) {
-      setshowloader(false);
-      setdata(response.posts);
-    }
-  };
+ 
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -46,9 +43,7 @@ function TabComponent({ userid }) {
         </Tabs>
       </Paper>
       <PersonPost>
-        {showloader ? (
-          <Load />
-        ) : (
+        {(
           data.map((item, index) => {
             return (
               <div key={index}>
