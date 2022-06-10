@@ -96,7 +96,6 @@ function UsersProfile() {
   const [length, setlength] = useState(0);
 
   useEffect(() => {
-
     const GetPersonPost = async () => {
       const response = await getData(`/addpost/${id}`);
       if (response.success) {
@@ -123,6 +122,7 @@ function UsersProfile() {
       }
     };
     GetData();
+  // eslint-disable-next-line
   }, []);
 
  

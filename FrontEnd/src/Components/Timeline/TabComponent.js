@@ -9,7 +9,7 @@ import { getData } from "../../FetchingApi/fetchApi";
 function TabComponent({ userid }) {
   const [value, setValue] = useState(0);
   const [data, setdata] = useState([]);
-  
+
 
   useEffect(() => {
     const GetPersonPost = async () => {
@@ -21,7 +21,7 @@ function TabComponent({ userid }) {
     GetPersonPost();
   }, [userid]);
 
- 
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

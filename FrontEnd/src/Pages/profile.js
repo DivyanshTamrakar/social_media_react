@@ -22,16 +22,17 @@ function Profile() {
   const [length, setlength] = useState(0);
 
   useEffect(() => {
-    GetPersonPost();
-    // eslint-disable-next-line
-  }, [length]);
+    const GetPersonPost = async () => {
+      const response = await getData(`/addpost/${user._id}`);
+      if (response.success) {
+        setlength(response.posts.length);
+      }
+    };
 
-  const GetPersonPost = async () => {
-    const response = await getData(`/addpost/${user._id}`);
-    if (response.success) {
-      setlength(response.posts.length);
-    }
-  };
+    GetPersonPost();
+
+  }, [user._id]);
+
 
   return (
     <div>
