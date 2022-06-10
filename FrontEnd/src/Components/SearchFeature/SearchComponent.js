@@ -5,19 +5,21 @@ import SearchInput from "./searchinput";
 import { fetchSearchResults } from "../../FetchingApi/fetchApi";
 import { SearchResult } from "../Header/Header.style";
 
-const fetchData = async (query, cb) => {
-  const res = await fetchSearchResults(query);
-  cb(res);
-};
-const debouncedFetchData = debounce((query, cb) => {
-  fetchData(query, cb);
-}, 500);
+
+
 
 function SearchComponent() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
 
   useEffect(() => {
+    const fetchData = async (query, cb) => {
+      const res = await fetchSearchResults(query);
+      cb(res);
+    };
+    const debouncedFetchData = debounce((query, cb) => {
+      fetchData(query, cb);
+    }, 500);
     debouncedFetchData(query, (res) => {
       setResults(res);
     });
@@ -27,7 +29,7 @@ function SearchComponent() {
     <div>
       <SearchInput
         value={query}
-        onChangeText={(e) =>setQuery(e.target.value)}
+        onChangeText={(e) => setQuery(e.target.value)}
       />
 
       <SearchResult>
