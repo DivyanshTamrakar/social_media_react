@@ -96,40 +96,36 @@ function UsersProfile() {
   const [length, setlength] = useState(0);
 
   useEffect(() => {
+
+    const GetPersonPost = async () => {
+      const response = await getData(`/addpost/${id}`);
+      if (response.success) {
+        setlength(response.posts.length);
+      }
+    };
     GetPersonPost();
-    // eslint-disable-next-line
-  }, [length]);
-
-  const GetPersonPost = async () => {
-    const response = await getData(`/addpost/${id}`);
-    if (response.success) {
-      setlength(response.posts.length);
-    }
-  };
-
-
-  useEffect(() => {
-    GetData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  const GetData = async () => {
-    try {
-      let response = await getData(`/users/profile/${id}`);
-
-      if (response.success) {
-        setuserprofile(response.user);
-        setuserfollowstatus({
-          ...userfollowstatus,
-          followers: response.user.followers,
-          following: response.user.following,
-        });
+  useEffect(() => {
+    const GetData = async () => {
+      try {
+        const response = await getData(`/users/profile/${id}`);
+        if (response.success) {
+          setuserprofile(response.user);
+          setuserfollowstatus({
+            ...userfollowstatus,
+            followers: response.user.followers,
+            following: response.user.following,
+          });
+        }
+      } catch (error) {
+        console.log("error", error);
       }
-    } catch (error) {
-      console.log("errorr", error);
-    }
-  };
+    };
+    GetData();
+  }, []);
 
+ 
   return (
     <>
       <ProfileContainer>
