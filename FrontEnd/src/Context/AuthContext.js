@@ -42,8 +42,6 @@ export function AuthProvider({ children }) {
       .then(() => {
         localStorage.clear();
         setLogin(false);
-
-        // window.location.reload(false);
       })
       .catch((error) => {
         console.log(error);

@@ -5,8 +5,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import TimeAgo from "react-timeago";
 import Button from "@material-ui/core/Button";
-import { useProfile } from "../../Context/ProfileContext";
 import { postData } from "../../FetchingApi/fetchApi";
+import { useSelector } from "react-redux";
+
 import {
   Caption,
   ActionArea,
@@ -27,9 +28,9 @@ function PostCard({
 }) {
   const [comment, setcomment] = useState("");
   const [commentlist, setcommentlist] = useState(comments);
-  const { user } = useProfile();
   const [likeArray, setlikeArray] = useState(likes);
   const commentRef = useRef(0)
+  const user = useSelector((state) => state.user.user);
 
   const likeClick = async () => {
     try {

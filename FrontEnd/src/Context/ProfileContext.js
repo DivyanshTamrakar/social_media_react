@@ -35,7 +35,7 @@ export function ProfileProvider({ children }) {
 
   return (
     <ProfileContext.Provider
-      value={{ user, setuser, followstatus, setfollowstatus }}
+      value={{ user, followstatus, setfollowstatus }}
     >
       {children}
     </ProfileContext.Provider>

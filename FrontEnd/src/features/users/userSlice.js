@@ -26,6 +26,8 @@ export const UpdateUserData = createAsyncThunk(
   }
 );
 
+
+
 const userSlice = createSlice({
   name: "user",
   initialState: initialState,
