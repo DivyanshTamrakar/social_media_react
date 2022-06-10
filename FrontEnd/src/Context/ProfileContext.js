@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { getData } from "../FetchingApi/fetchApi";
 export const ProfileContext = createContext();
 
@@ -14,7 +14,8 @@ export function ProfileProvider({ children }) {
     GetuserData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const GetuserData = async () => {
+
+  const GetuserData = useCallback(async () => {
     try {
       let response = await getData(`/users/${email}`);
 
@@ -29,7 +30,7 @@ export function ProfileProvider({ children }) {
     } catch (error) {
       console.log("errorr", error);
     }
-  };
+  }, [email, followstatus])
 
   return (
     <ProfileContext.Provider

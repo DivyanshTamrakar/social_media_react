@@ -16,7 +16,7 @@ function UpdateProfile() {
   const dispatch = useDispatch();
   
   
-  const [initialValues, setinitialValues] = useState({ name: user.name, username: user.username, bio: user.bio })
+  const [initialValues] = useState({ name: user.name, username: user.username, bio: user.bio })
 
   let onSubmit = (values) => {
 
