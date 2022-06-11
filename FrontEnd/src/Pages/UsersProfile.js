@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect,  useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { useParams } from "react-router-dom";
 import "reactjs-popup/dist/index.css";
-import Button from "@material-ui/core/Button";
-import { useProfile } from "../Context/ProfileContext";
 import TabComponent from "../Components/Timeline/TabComponent";
 import {
   Details,
@@ -12,94 +10,22 @@ import {
   FollowDetails,
   Username,
   Bio,
-  FollowButtons,
   ShowTab
 } from "../styles/profile.style";
-import { getData, postData } from "../FetchingApi/fetchApi";
+import { getData } from "../FetchingApi/fetchApi";
 
 function UsersProfile() {
   let { id } = useParams();
 
   const [userprofile, setuserprofile] = useState({});
-  const [userfollowstatus, setuserfollowstatus] = useState({
-    followers: [],
-    following: [],
-  });
-  const { user, followstatus, setfollowstatus } = useProfile();
 
-  const UnFollowClick = async (id) => {
-    let body = { followerid: id, followingid: user._id };
-
-    try {
-      let response = await postData(body, "/users/unfollow");
-
-      if (response.success) {
-        setuserfollowstatus({
-          ...userfollowstatus,
-          followers: response.result.followers,
-          following: response.result.following,
-        });
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log("errorr", error);
-    }
-
-    try {
-      let response = await postData(body, "/users/unfollowing");
-
-      if (response.success) {
-        setfollowstatus({
-          ...followstatus,
-          followers: response.result.followers,
-          following: response.result.following,
-        });
-      }
-    } catch (error) {
-      console.log("errorr", error);
-    }
-  };
-
-  const FollowClick = async (id) => {
-    let body = { followerid: id, followingid: user._id };
-
-    try {
-      let response = await postData(body, "/users/follow");
-
-      if (response.success) {
-        setuserfollowstatus({
-          ...userfollowstatus,
-          followers: response.result.followers,
-          following: response.result.following,
-        });
-        window.location.reload();
-      }
-    } catch (error) {
-      console.log("errorr", error);
-    }
-
-    try {
-      let response = await postData(body, "/users/following");
-
-      if (response.success) {
-        setfollowstatus({
-          ...followstatus,
-          followers: response.result.followers,
-          following: response.result.following,
-        });
-      }
-    } catch (error) {
-      console.log("errorr", error);
-    }
-  };
-
-  const [length, setlength] = useState(0);
+  const [length,setlength] = useState(0);
 
   useEffect(() => {
     const GetPersonPost = async () => {
       const response = await getData(`/addpost/${id}`);
       if (response.success) {
-        setlength(response.posts.length);
+         setlength(response.posts.length)
       }
     };
     GetPersonPost();
@@ -111,21 +37,16 @@ function UsersProfile() {
         const response = await getData(`/users/profile/${id}`);
         if (response.success) {
           setuserprofile(response.user);
-          setuserfollowstatus({
-            ...userfollowstatus,
-            followers: response.user.followers,
-            following: response.user.following,
-          });
         }
       } catch (error) {
         console.log("error", error);
       }
     };
     GetData();
-  // eslint-disable-next-line
+    // eslint-disable-next-line
   }, []);
 
- 
+
   return (
     <>
       <ProfileContainer>
@@ -139,27 +60,10 @@ function UsersProfile() {
           </Username>
           <FollowDetails>
             <h4>{length} posts</h4>
-            <h4>{userfollowstatus.followers.length} Follower</h4>
-            <h4>{userfollowstatus.following.length} Following</h4>
+            <h4>0 Follower</h4>
+            <h4>0 Following</h4>
           </FollowDetails>
           <Bio>{userprofile.bio}</Bio>
-          {user._id !== id && (
-            <FollowButtons>
-              <Button
-                onClick={() => {
-                  userfollowstatus.followers.includes(user._id)
-                    ? UnFollowClick(id)
-                    : FollowClick(id);
-                }}
-                variant="contained"
-                color="primary"
-              >
-                {userfollowstatus.followers.includes(user._id)
-                  ? "Unfollow"
-                  : "Follow"}
-              </Button>
-            </FollowButtons>
-          )}
         </Details>
       </ProfileContainer>
       <ShowTab>
