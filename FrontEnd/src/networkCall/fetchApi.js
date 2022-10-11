@@ -15,7 +15,7 @@ export async function getData(...endpoints) {
 
 export async function postData(body, ...endpoints) {
   const final_url = `${BASE_URL}${endpoints}`;
-  console.log("finalurl", final_url);
+
   try {
     const response = await axios.post(final_url, body);
     const resultData = response.data;

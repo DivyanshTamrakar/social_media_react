@@ -3,13 +3,11 @@ import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import styled from "styled-components";
-import { getData } from "../../FetchingApi/fetchApi";
-
+import { getData } from "../../networkCall/fetchApi";
 
 function TabComponent({ userid }) {
   const [value, setValue] = useState(0);
   const [data, setdata] = useState([]);
-
 
   useEffect(() => {
     const GetPersonPost = async () => {
@@ -20,8 +18,6 @@ function TabComponent({ userid }) {
     };
     GetPersonPost();
   }, [userid]);
-
-
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -43,20 +39,18 @@ function TabComponent({ userid }) {
         </Tabs>
       </Paper>
       <PersonPost>
-        {(
-          data.map((item, index) => {
-            return (
-              <div key={index}>
-                <img
-                  src={item.post}
-                  alt="timeline-post"
-                  width="300px"
-                  height="200px"
-                />
-              </div>
-            );
-          })
-        )}
+        {data.map((item, index) => {
+          return (
+            <div key={index}>
+              <img
+                src={item.post}
+                alt="timeline-post"
+                width="300px"
+                height="200px"
+              />
+            </div>
+          );
+        })}
       </PersonPost>
     </div>
   );

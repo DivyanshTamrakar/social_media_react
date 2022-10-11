@@ -23,7 +23,7 @@ function AddPost() {
   const [post, setpost] = useState(placeholder);
   const [caption, setcaption] = useState("");
 
-  const user = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const ImageHandler = (e) => {
@@ -37,7 +37,7 @@ function AddPost() {
   };
   const closeModal = () => setOpen(false);
 
-  const uploadPost = () => {
+  const uploadPost = async () => {
     dispatch(
       UploadPost({
         userid: user._id,
@@ -45,6 +45,7 @@ function AddPost() {
         caption: caption,
       })
     );
+
     closeModal();
   };
 

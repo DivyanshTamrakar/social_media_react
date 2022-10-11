@@ -5,20 +5,14 @@ import App from "./App";
 import { store } from "./app/store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import { AuthProvider } from "./Context/AuthContext";
-import { LoaderProvider } from "./Context/LoaderContext";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
+    <React.StrictMode>
       <Router>
-        <LoaderProvider>
-          <AuthProvider>
-            <App />
-          </AuthProvider>
-        </LoaderProvider>
+        <App />
       </Router>
-    </Provider>
-  </React.StrictMode>,
+    </React.StrictMode>
+  </Provider>,
   document.getElementById("root")
 );

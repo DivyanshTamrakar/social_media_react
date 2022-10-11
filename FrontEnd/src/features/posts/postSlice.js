@@ -2,8 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../../utils/Constant";
 
-const initialState = {isLoading:false, status: "idle", error: null, posts: [] };
-
+const initialState = {
+  isLoading: false,
+  status: "idle",
+  error: null,
+  posts: [],
+};
 
 export const fetchPost = createAsyncThunk("user/post", async () => {
   const response = await axios.get(`${BASE_URL}/addpost`);
@@ -36,7 +40,7 @@ const postSlice = createSlice({
     [UploadPost.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.status = "success";
-      state.posts = [action.payload.post,...state.posts ];
+      state.posts = [action.payload.post, ...state.posts];
     },
     [UploadPost.pending]: (state, action) => {
       state.isLoading = true;

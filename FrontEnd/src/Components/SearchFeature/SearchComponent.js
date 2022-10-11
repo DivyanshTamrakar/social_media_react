@@ -2,11 +2,8 @@ import debounce from "lodash.debounce";
 import React, { useState, useEffect } from "react";
 import ListItem from "./ListItem";
 import SearchInput from "./searchinput";
-import { fetchSearchResults } from "../../FetchingApi/fetchApi";
+import { fetchSearchResults } from "../../networkCall/fetchApi";
 import { SearchResult } from "../Header/Header.style";
-
-
-
 
 function SearchComponent() {
   const [query, setQuery] = useState("");

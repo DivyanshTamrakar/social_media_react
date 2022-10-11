@@ -5,7 +5,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 import TimeAgo from "react-timeago";
 import Button from "@material-ui/core/Button";
-import { postData } from "../../FetchingApi/fetchApi";
+import { postData } from "../../networkCall/fetchApi";
 import { useSelector } from "react-redux";
 
 import {
@@ -14,7 +14,7 @@ import {
   Comment,
   HeadArea,
   PostSection,
-  ImageArea
+  ImageArea,
 } from "./Post.style";
 
 function PostCard({
@@ -24,13 +24,13 @@ function PostCard({
   likes,
   comments,
   createdAt,
-  posted_user_data
+  posted_user_data,
 }) {
   const [comment, setcomment] = useState("");
   const [commentlist, setcommentlist] = useState(comments);
   const [likeArray, setlikeArray] = useState(likes);
-  const commentRef = useRef(0)
-  const user = useSelector((state) => state.user.user);
+  const commentRef = useRef(0);
+  const { user } = useSelector((state) => state.user);
 
   const likeClick = async () => {
     try {
@@ -40,7 +40,6 @@ function PostCard({
 
       if (response.success) {
         setlikeArray(response.result.likes);
-        console.log(typeof likeArray.length);
       }
     } catch (error) {
       console.log("errorr", error);
@@ -76,9 +75,7 @@ function PostCard({
     } catch (error) {
       console.log("errorr", error);
     }
-  }
-
-
+  };
 
   return (
     <PostSection>
@@ -86,11 +83,10 @@ function PostCard({
         <Avatar alt="Remy Sharp" src={posted_user_data[0].photo_url} />
         <h4>{posted_user_data[0].username}</h4>
       </HeadArea>
-      <ImageArea >
+      <ImageArea>
         <img src={post} alt={"post"} />
       </ImageArea>
       <ActionArea>
-
         {likeArray.includes(user._id) ? (
           <FavoriteIcon color="error" onClick={dislikeClick} />
         ) : (

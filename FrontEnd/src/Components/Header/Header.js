@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from "@mui/icons-material/Home";
 import Avatar from "@material-ui/core/Avatar";
 import AccountCircleRoundedIcon from "@material-ui/icons/AccountCircleRounded";
 import Popup from "reactjs-popup";
@@ -15,28 +15,18 @@ import {
   UnderlineHide,
 } from "./Header.style";
 import { Link } from "react-router-dom";
-import { useAuth } from "../../Context/AuthContext";
 import SearchComponent from "../SearchFeature/SearchComponent";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUser, email } from "../../features/users/userSlice";
+import { signOut } from "../../features/auth/authSlice";
 function Header() {
-  const { signOut } = useAuth();
-  const user = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchUser(email));
-  }, [dispatch]);
 
   return (
     <HeaderContainer>
-
       <Link to="/" style={UnderlineHide}>
-        <HeaderLeft>
-          ShareGram
-        </HeaderLeft>
+        <HeaderLeft>ShareGram</HeaderLeft>
       </Link>
-
 
       <HeaderSearch>
         <SearchComponent />
@@ -44,14 +34,14 @@ function Header() {
 
       <HeaderRight>
         <Link to="/" style={UnderlineHide}>
-          <HomeIcon style={{ color: 'white' }} />
+          <HomeIcon style={{ color: "white" }} />
         </Link>
         <Popup
           trigger={
             <Avatar
               style={{ cursor: "pointer", border: "1px solid black" }}
-              alt={user.name}
-              src={user.photo_url}
+              alt={user?.name}
+              src={user?.photo_url}
             />
           }
           position="bottom right"
@@ -64,7 +54,7 @@ function Header() {
               </ProfileDetails>
             </Link>
             <hr></hr>
-            <ProfileDetails onClick={signOut}>
+            <ProfileDetails onClick={() => dispatch(signOut())}>
               <ExitToAppIcon />
               <h3>Logout</h3>
             </ProfileDetails>

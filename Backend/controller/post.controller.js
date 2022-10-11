@@ -5,18 +5,23 @@ const addPost = async (req, res) => {
   try {
     let { userid, post, caption, likes } = req.body;
 
+    const id = mongoose.Types.ObjectId(userid);
     const data = new Post({
       post,
       caption,
       likes,
-      posted_user_data: userid
-    },
-    );
+      posted_user_data: id,
+    });
     const result = await data.save();
+
+    const savedPost = await Post.findOne({ _id: result._id }).populate(
+      "posted_user_data",
+      "_id username photo_url"
+    );
     res.status(200).json({
       success: true,
       message: "Posted successfully",
-      post: result,
+      post: savedPost,
     });
   } catch (e) {
     res.json({
@@ -29,8 +34,9 @@ const addPost = async (req, res) => {
 
 const getAllPost = async (req, res) => {
   try {
-    const posts = await Post.find({}).populate('posted_user_data', "_id username photo_url").populate("comments.postedBy", "_id username")
-      .populate("postedBy", "_id username");
+    const posts = await Post.find({})
+      .populate("posted_user_data", "_id username photo_url")
+      .populate("comments.postedBy", "_id username");
     if (posts) {
       res.json({
         success: true,
@@ -56,9 +62,8 @@ const getAllPost = async (req, res) => {
 const getIndividualPost = async (req, res) => {
   const { userid } = req.params;
 
-
   try {
-    const posts = await Post.find({posted_user_data:userid});
+    const posts = await Post.find({ posted_user_data: userid });
     if (posts) {
       res.json({
         success: true,

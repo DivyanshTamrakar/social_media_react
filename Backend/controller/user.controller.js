@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { User } = require("../modals/user.modal");
+const bcrypt = require("bcrypt");
 
 const getAllUser = async (req, res) => {
   let name = req.query.name;
@@ -62,8 +63,26 @@ const getProfile = async (req, res) => {
 const userSignup = async (req, res) => {
   try {
     let { name, email, password, mobile, username, bio } = req.body;
-    const data = new User({ name, email, password, mobile, username, bio });
-    const result = await data.save(); //
+    const resultedUser = await User.findOne({ email });
+
+    if (resultedUser) {
+      return res
+        .status(422)
+        .json({ success: false, message: "User already exist" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const data = new User({
+      name,
+      email,
+      password: hashedPassword,
+      mobile,
+      username,
+      bio,
+    });
+    const result = await data.save();
     res.status(200).json({
       success: true,
       message: "You have registered successfully",
@@ -79,6 +98,7 @@ const userSignup = async (req, res) => {
 
 const findByEmail = async (req, res) => {
   const email = req.params;
+
   try {
     const user = await User.findOne(email);
     if (user) {

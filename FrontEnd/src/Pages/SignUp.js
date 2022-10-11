@@ -4,18 +4,16 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import { Link } from "react-router-dom";
 import { LoginContainer, LoginForm } from "../styles/Login.style";
 import { useFormik } from "formik";
-import { auth } from "../FirebaseConfig/firebase";
+import { auth } from "../firebaseConfig/firebase";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TextField } from "@material-ui/core";
-import { postData } from "../FetchingApi/fetchApi";
-import { useLoader } from "../Context/LoaderContext";
+import { postData } from "../networkCall/fetchApi";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
   let initialValues = { username: "", email: "", name: "", password: "" };
 
-  const { showloader, setshowloader } = useLoader();
   const navigate = useNavigate();
 
   let validate = (values) => {
@@ -42,8 +40,6 @@ function Signup() {
   };
 
   let onSubmit = (values) => {
-    setshowloader(true);
-    console.log("Form Data", values);
     SignUpWithEmailandPassword({
       username: values.username,
       name: values.name,
@@ -66,7 +62,6 @@ function Signup() {
   }) => {
     try {
       let response = await auth.createUserWithEmailAndPassword(email, pass);
-      console.log("response", response);
       if (response.user) {
         const body = {
           username: username,
@@ -75,17 +70,15 @@ function Signup() {
           password: pass,
         };
         const res = await postData(body, "/users/signup");
-
         if (res.success) {
           toast.success("Registration successfull", {
             position: "bottom-center",
           });
-          setshowloader(false);
+
           navigate("/login", { replace: true });
         }
       }
     } catch (error) {
-      setshowloader(false);
       toast.error(error.message, { position: "bottom-center" });
     }
   };
@@ -156,13 +149,10 @@ function Signup() {
 
           <Button
             type="submit"
-            disabled={showloader}
             variant="contained"
             color="secondary"
             startIcon={<LockOpenIcon />}
-          >
-            {showloader ? "Loading" : "SignUp"}
-          </Button>
+          ></Button>
         </form>
         <center>
           <h2 style={{ fontWeight: "900" }}>OR</h2>

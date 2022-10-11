@@ -12,14 +12,16 @@ import { UpdateUserData } from "../../features/users/userSlice";
 
 function UpdateProfile() {
   const [profile, setprofile] = useState(null);
-  const user = useSelector((state) => state.user.user);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  
-  
-  const [initialValues] = useState({ name: user.name, username: user.username, bio: user.bio })
+
+  const [initialValues] = useState({
+    name: user.name,
+    username: user.username,
+    bio: user.bio,
+  });
 
   let onSubmit = (values) => {
-
     UpdateData({
       name: values.name,
       photo_url: profile,

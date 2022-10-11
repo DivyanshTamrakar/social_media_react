@@ -1,44 +1,34 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PostCard from "./PostCard";
 import { LeftSection, RightSection, PostContainer } from "./Post.style";
-import { fetchPost } from "../../features/posts/postSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Load from "../../utils/Loader";
 
 function PostComponent() {
-  const postArray = useSelector((state) => state.posts.posts);
-  const loadstate = useSelector((state) => state.posts.isLoading);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchPost());
-  }, [dispatch]);
+  const { posts, isLoading } = useSelector((state) => state.posts);
 
   return (
     <div>
-      {loadstate ? (
+      {isLoading ? (
         <Load />
       ) : (
         <div>
-          {postArray.length > 0 ? (
+          {posts.length > 0 ? (
             <PostContainer>
               <LeftSection>
-                {postArray?.map(
-                  (
-                    {
-                      _id,
-                      post,
-                      caption,
-                      likes,
-                      posted_user_data,
-                      comments,
-                      createdAt,
-                    },
-                    index
-                  ) => {
+                {posts?.map(
+                  ({
+                    _id,
+                    post,
+                    caption,
+                    likes,
+                    posted_user_data,
+                    comments,
+                    createdAt,
+                  }) => {
                     return (
                       <PostCard
-                        key={index}
+                        key={_id}
                         postId={_id}
                         post={post}
                         caption={caption}

@@ -1,8 +1,8 @@
-import React, { useEffect,  useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import { useParams } from "react-router-dom";
 import "reactjs-popup/dist/index.css";
-import TabComponent from "../Components/Timeline/TabComponent";
+import TabComponent from "../components/Timeline/TabComponent";
 import {
   Details,
   ProfileContainer,
@@ -10,22 +10,22 @@ import {
   FollowDetails,
   Username,
   Bio,
-  ShowTab
+  ShowTab,
 } from "../styles/profile.style";
-import { getData } from "../FetchingApi/fetchApi";
+import { getData } from "../networkCall/fetchApi";
 
 function UsersProfile() {
   let { id } = useParams();
 
   const [userprofile, setuserprofile] = useState({});
 
-  const [length,setlength] = useState(0);
+  const [length, setlength] = useState(0);
 
   useEffect(() => {
     const GetPersonPost = async () => {
       const response = await getData(`/addpost/${id}`);
       if (response.success) {
-         setlength(response.posts.length)
+        setlength(response.posts.length);
       }
     };
     GetPersonPost();
@@ -45,7 +45,6 @@ function UsersProfile() {
     GetData();
     // eslint-disable-next-line
   }, []);
-
 
   return (
     <>

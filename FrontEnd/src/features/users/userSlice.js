@@ -8,9 +8,9 @@ const initialState = {
   error: null,
   user: {},
 };
-export const email = localStorage.getItem("email");
 
-export const fetchUser = createAsyncThunk("user/user", async (email) => {
+export const fetchUser = createAsyncThunk("user/user", async () => {
+  const email = localStorage.getItem("email");
   const response = await axios.get(`${BASE_URL}/users/${email}`);
   return response.data;
 });
@@ -26,8 +26,6 @@ export const UpdateUserData = createAsyncThunk(
   }
 );
 
-
-
 const userSlice = createSlice({
   name: "user",
   initialState: initialState,
@@ -35,12 +33,15 @@ const userSlice = createSlice({
   extraReducers: {
     [fetchUser.fulfilled]: (state, action) => {
       state.status = "success";
+      state.isLoading = false;
       state.user = action.payload.user;
     },
     [fetchUser.pending]: (state, action) => {
+      state.isLoading = true;
       state.status = "pending";
     },
     [fetchUser.rejected]: (state, action) => {
+      state.isLoading = false;
       state.status = "rejected";
     },
     [UpdateUserData.fulfilled]: (state, action) => {

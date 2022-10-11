@@ -10,33 +10,36 @@ import {
   Bio,
   ShowTab,
 } from "../styles/profile.style";
-import UpdateProfile from "../Components/PopupModal/update.profile.model";
-import TabComponent from "../Components/Timeline/TabComponent";
+import UpdateProfile from "../components/PopupModal/update.profile.model";
+import TabComponent from "../components/Timeline/TabComponent";
 import { useSelector } from "react-redux";
-import { getData } from "../FetchingApi/fetchApi";
+import { getData } from "../networkCall/fetchApi";
 import Load from "../utils/Loader";
+import { useDispatch } from "react-redux";
+import { fetchUser } from "../features/users/userSlice";
 
 function Profile() {
-  const user = useSelector((state) => state.user.user);
-  const loadstate = useSelector((state) => state.user.isLoading);
+  const dispatch = useDispatch();
+
+  const { user, isLoading } = useSelector((state) => state.user);
   const [length, setlength] = useState(0);
 
   useEffect(() => {
-    const GetPersonPost = async () => {
-      const response = await getData(`/addpost/${user._id}`);
-      if (response.success) {
+    const getPersonPost = async () => {
+      const resp = await dispatch(fetchUser());
+      console.log(resp);
+      if (resp.payload.success) {
+        const response = await getData(`/addpost/${resp.payload.user?._id}`);
         setlength(response.posts.length);
       }
     };
 
-    GetPersonPost();
-
+    getPersonPost();
   }, [user._id]);
-
 
   return (
     <div>
-      {loadstate ? (
+      {isLoading ? (
         <Load />
       ) : (
         <div>
@@ -58,9 +61,9 @@ function Profile() {
               <UpdateProfile />
             </Details>
           </ProfileContainer>
-          <ShowTab>
-            <TabComponent userid={user._id} />
-          </ShowTab>
+          {/* <ShowTab>
+            <TabComponent userid={user?._id} />
+          </ShowTab> */}
         </div>
       )}
     </div>
